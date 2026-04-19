@@ -1,0 +1,159 @@
+{
+  "document": {
+    "document_id": "doc_20260418_112144",
+    "title": "README",
+    "type": "md",
+    "language": "en",
+    "ingested_at": "2026-04-18T11:21:44.130219",
+    "source_metadata": {}
+  },
+  "audience": {
+    "platform": "instagram",
+    "locale": "en-GB",
+    "region": "UK",
+    "english_variant": "UK",
+    "tone": "direct",
+    "reading_level": "grade_6_to_8",
+    "target_persona": "UK women with suspected/diagnosed endometriosis",
+    "pillars_allowed": [
+      "recognition",
+      "validation",
+      "access_or_decision"
+    ],
+    "pillars_priority": {
+      "recognition": 1.0,
+      "validation": 0.9,
+      "access_or_decision": 1.0
+    },
+    "constraints": {}
+  },
+  "chunks": [
+    {
+      "chunk_id": "c001",
+      "text": "## documents/\n\nPlace **source documents** here (uploads, transcripts, notes) that you want to convert into carousels.\n\nRecommended patterns:\n- Keep originals unchanged (treat as source-of-truth).\n- Use clear filenames: `2026-04-15_sleep_podcast_transcript.vtt`\n- Prefer plain text when possible (`.txt`, `.md`, `.vtt`, `.srt`).\n\nExample run:\n\n```bash\npython -m carousel_agents --input \"documents\\\\your_doc.txt\" --out \"data\\\\run.json\"\n```",
+      "source_location": {
+        "page": null,
+        "line_start": 1,
+        "line_end": 14,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [
+        "documents/"
+      ],
+      "char_start": 0,
+      "char_end": 437
+    }
+  ],
+  "candidates": [
+    {
+      "idea_id": "i001",
+      "content_pillar": "habits",
+      "topic": "A 2-minute reset you can do between tasks",
+      "angle": "micro-habit + friction removal",
+      "core_claim": "Small reset rituals can reduce task-switching drag.",
+      "audience_pain": "I feel scattered all day.",
+      "promise": "A simple reset to feel focused again.",
+      "format_suggestion": "steps",
+      "source_citations": [
+        {
+          "chunk_id": "c001",
+          "excerpt": "TODO: replace with real excerpt",
+          "note": "placeholder"
+        },
+        {
+          "chunk_id": "c001",
+          "excerpt": "TODO: replace with real excerpt",
+          "note": "placeholder"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "clarity": 3,
+        "save_share": 3,
+        "strategic_fit": 3,
+        "source_support": 1,
+        "total_weighted": 255.0
+      },
+      "rank": 1,
+      "selected": true,
+      "selection_reason": "Selected by weighted rank (deterministic).",
+      "hooks": [
+        {
+          "hook_id": "h001",
+          "text": "Steal this 2-minute reset between tasks",
+          "style": "how_to",
+          "score": null,
+          "rationale": "Direct + actionable."
+        }
+      ],
+      "best_hook_id": "h001",
+      "cta_options": [
+        "Mock CTA one",
+        "Mock CTA two"
+      ],
+      "best_cta": "Mock CTA one",
+      "outline": [
+        {
+          "slide": 1,
+          "purpose": "cover",
+          "key_point": "2-minute reset",
+          "citations": [
+            "c001"
+          ]
+        }
+      ],
+      "carousel_draft": {
+        "slides": [
+          {
+            "slide_number": 1,
+            "main_text": "The 2-minute reset",
+            "subtext": "Use this between tasks.",
+            "citations": [
+              "c001"
+            ],
+            "design_note": null
+          }
+        ],
+        "cta": "Save this for later.",
+        "disclaimer": null
+      },
+      "qa": {
+        "issues": [],
+        "passed": true
+      },
+      "judge_vetoed": false,
+      "judge_veto_reason": null,
+      "judge_carousel_review": {
+        "idea_id": "i001",
+        "decision": {
+          "status": "approve",
+          "reason": "mock",
+          "directives": []
+        },
+        "issues": [],
+        "one_sentence_good": null,
+        "one_sentence_fix": null
+      },
+      "hook_policy_flags": [],
+      "hook_rewrite_rounds_used": 0
+    }
+  ],
+  "shortlist": {
+    "selected_idea_ids": [
+      "i001"
+    ],
+    "selection_frozen_at": "2026-04-18T11:21:44.130811Z",
+    "rubric_version": "v1",
+    "notes": "Deterministic shortlist: top 1 by weighted score among rank 1–1 (no selection LLM)."
+  },
+  "outputs": {
+    "final_selected_idea_id": null,
+    "final_carousel": null
+  },
+  "ideation_mode": "unified",
+  "ideation_extract_model": "openai/gpt-4.1-mini",
+  "ideation_score_model": "openai/gpt-4.1-mini",
+  "audience_preset": null
+}

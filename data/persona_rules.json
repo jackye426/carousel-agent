@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "default_persona_id": "unclassified",
+  "rules": [
+    {
+      "pillar": "recognition",
+      "hook_style": "myth_bust",
+      "persona_id": "long_road_diagnosis"
+    },
+    {
+      "pillar": "access_or_decision",
+      "hook_style": "how_to",
+      "persona_id": "navigating_care"
+    }
+  ]
+}

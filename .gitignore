@@ -1,0 +1,39 @@
+# Environment & secrets
+.env
+.env.local
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+Desktop.ini
+
+# Large / generated exports (adjust if you want these versioned)
+outputs/
+exports/
+
+# Stray root-level media drops (prefer exports/instagram/…)
+/*.jpg
+/*.jpeg
+/*.png
+
+# Keep example env
+!.env.example

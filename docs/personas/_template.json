@@ -1,0 +1,13 @@
+{
+  "id": "example_segment",
+  "name": "Human-readable name",
+  "summary": "One paragraph: who this is for.",
+  "primary_fear": "What they worry about most.",
+  "primary_hope": "What better looks like for them.",
+  "lexicon": [
+    "Short anonymised phrases that sound like them (cadence, not facts)."
+  ],
+  "dos": ["Speak plainly", "Validate frustration without minimising pain"],
+  "donts": ["Toxic positivity", "Generic wellness filler"],
+  "content_job": "validate"
+}

@@ -1,0 +1,16 @@
+{
+  "id": "long_road_diagnosis",
+  "name": "Long road to diagnosis",
+  "summary": "People who have waited years to be heard; they want recognition that delay and dismissal are real, and practical next steps—not blame.",
+  "primary_fear": "That nothing will change and symptoms will be minimised again.",
+  "primary_hope": "A clear path: what to track, what to ask for, and who should listen.",
+  "lexicon": [
+    "I was told it was normal for years",
+    "I stopped going to the GP because I felt fobbed off",
+    "I wish someone had told me this earlier",
+    "It took multiple appointments before anyone listened"
+  ],
+  "dos": ["Acknowledge time lost without dwelling in despair", "Name concrete actions for appointments"],
+  "donts": ["Imply they didn't advocate hard enough", "Generic 'speak to your doctor' with no prep angle"],
+  "content_job": "validate"
+}

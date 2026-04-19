@@ -1,0 +1,16 @@
+{
+  "id": "navigating_care",
+  "name": "Navigating care and next steps",
+  "summary": "People trying to move from suspicion or diagnosis to referrals, waits, and realistic options—they want clarity and scripts, not overwhelm.",
+  "primary_fear": "Getting lost between GP, specialist, and NHS waits with no plan.",
+  "primary_hope": "A short checklist: what to ask, what to track, what to expect next.",
+  "lexicon": [
+    "How do I get referred",
+    "What should I take to the appointment",
+    "I'm on a waiting list and don't know what to do meanwhile",
+    "What's reasonable to ask for at this stage"
+  ],
+  "dos": ["Use step-by-step framing", "UK-context navigation where relevant"],
+  "donts": ["Promise timelines or outcomes", "Replace clinical judgement"],
+  "content_job": "next_step"
+}

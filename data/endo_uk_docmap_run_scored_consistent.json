@@ -1,0 +1,2206 @@
+{
+  "document": {
+    "document_id": "doc_20260415_183907",
+    "title": "anets-studio-n4lie_liz-aneta-apr-15-2026-003",
+    "type": "txt",
+    "language": "en",
+    "ingested_at": "2026-04-15T18:39:07.027016",
+    "source_metadata": {}
+  },
+  "audience": {
+    "platform": "instagram",
+    "locale": "en-GB",
+    "region": "UK",
+    "english_variant": "UK",
+    "tone": "direct",
+    "reading_level": "grade_6_to_8",
+    "target_persona": "UK women with suspected/diagnosed endometriosis",
+    "pillars_allowed": [
+      "recognition",
+      "validation",
+      "access_or_decision"
+    ],
+    "pillars_priority": {
+      "recognition": 1.0,
+      "validation": 0.9,
+      "access_or_decision": 1.0
+    },
+    "constraints": {}
+  },
+  "chunks": [
+    {
+      "chunk_id": "c001",
+      "text": "Aneta (00:00)\ndoesn't matter but we have to start somewhere so random random star ⁓ so yeah whenever you're ready so\n\nLiz (00:07)\nSo, okay,\n\nso to answer your question, the first endo-nurses started probably about 24 years ago. I came into post 20 years ago, at that time there was about three of us. I was the only one in Wales for many, many years. I think for time we had somebody for about a year, but then she left. So predominantly until 2021, there was only me from 2006.\n\nAnd then we developed nurses. So it's slightly different in England and Wales. In England, there have been endo-nurses in gynaecology with gynaecologists who specialize in endometriosis. And then in 2012, the British Society of Gynaecology and Endoscopy developed endometriosis centers. the criteria, one of the main criteria is to be a member was you had to have consultants who could do the surgery, but you had to have an endometriosis nurse. And this resulted in a multiple",
+      "source_location": {
+        "page": null,
+        "line_start": 1,
+        "line_end": 9,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 0,
+      "char_end": 957
+    },
+    {
+      "chunk_id": "c002",
+      "text": "s to be a member was you had to have consultants who could do the surgery, but you had to have an endometriosis nurse. And this resulted in a multiple\n\n⁓ employment of and development of endometriosis nurses, predominantly within England and Scotland. Within Wales we only had one centre and we already had one, me, so we didn't need to develop anybody. But in England there was a rapid development and then in Wales in 2018 I was asked with a couple of my consultant colleagues to lead on a task and finish group for the government and as there is two\n\nAneta (01:13)\nOkay.\n\nLiz (01:28)\nreview the, because we've been going on for years about the service, access to service, service provision, the total support from beginning to end was negligent and difficult to access and varied depending on where you lived in Wales. I know mainly about Wales, I know some about England but I mainly about Wales and as a result of that we recommended that every health board have an endometriosis nurse.",
+      "source_location": {
+        "page": null,
+        "line_start": 9,
+        "line_end": 17,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 807,
+      "char_end": 1798
+    },
+    {
+      "chunk_id": "c003",
+      "text": "Wales, I know some about England but I mainly about Wales and as a result of that we recommended that every health board have an endometriosis nurse.\n\nlinked to secondary care, but to develop a bridge to primary care. My ultimate goal, and I present yearly or twice a year, biannually in the primary care nursing, which is in England, predominantly conferences. And my aim, the reason I go there is what I want is I want a primary care nurse who, like a diabetic nurse, like an asthma nurse, is based in primary care and therefore totally accessible to people close to home.\n\nrather than waiting for a referral to gynaecology. Yeah. And then that's often a core, we call it core gynae and they will not have an endo nurse. So what we developed in Wales is this nurse who should be available. Unfortunately, the government seemed to think that one person can cover every health board and that's not sustainable. We thought it was the beginning and it's kind of, ooh, there. They're now accepting that we need more, but we're five years down the line. We've lost three.",
+      "source_location": {
+        "page": null,
+        "line_start": 17,
+        "line_end": 21,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 1648,
+      "char_end": 2716
+    },
+    {
+      "chunk_id": "c004",
+      "text": "ught it was the beginning and it's kind of, ooh, there. They're now accepting that we need more, but we're five years down the line. We've lost three.\n\nfour due to stress, one due to promotion, but most due to stress because it's a stressful job. You know, it is very demanding, bringing in changes, extremely difficult with no resources. So that's how nurses became. So an endo nurse is somebody who may have a Gani background. I didn't actually have a Gani background. I had a theatre background, but somebody who's interested in developing services.\n\nAneta (03:07)\nYes.\n\nLiz (03:18)\nAnd the unfortunate thing is, I think my way is the best way, of course. And I think services that are developed have got to be patient driven, patient accessible. And this is a chronic condition. It's not a condition which go, oh yes, you've got endometriosis, take this, this will sort it out. Unfortunately, it's not like that. With some people, would say at least 55%, it has a long-term life impact on various things. It'll affect their quality of life. It'll affect their ability to have relationships. It'll affect their ability to have sex.\n\nAneta (03:22)\nYes.",
+      "source_location": {
+        "page": null,
+        "line_start": 21,
+        "line_end": 32,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 2566,
+      "char_end": 3720
+    },
+    {
+      "chunk_id": "c005",
+      "text": "ngs. It'll affect their quality of life. It'll affect their ability to have relationships. It'll affect their ability to have sex.\n\nAneta (03:22)\nYes.\n\nLiz (03:47)\nthe ability to be educated, the ability to socialise. I've got this very young girl recently, it's a story, 18 year old diagnosed endometriosis, hadn't had appropriate surgery, then spent the next nine years in her bedroom until we operated on her. Yeah, nine years. And that girl, I she's had to have major surgery, but she is now living a life. She's back, she's going to college, she's\n\nAneta (04:06)\nNo.\n\nLiz (04:16)\ngoing out with friends, she's living a life again. We have to do amazing stuff, but that's a very tragic story. Nine whole years, can imagine that between age 18 and 27? You're only friends with your mum and dad.\n\nAneta (04:27)\nNo. No.\n\nIt's insane.\n\nLiz (04:33)\nYeah,",
+      "source_location": {
+        "page": null,
+        "line_start": 29,
+        "line_end": 49,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 3570,
+      "char_end": 4423
+    },
+    {
+      "chunk_id": "c006",
+      "text": "hole years, can imagine that between age 18 and 27? You're only friends with your mum and dad.\n\nAneta (04:27)\nNo. No.\n\nIt's insane.\n\nLiz (04:33)\nYeah,\n\nand that's not, she's not unique, you know, in that, unfortunately. ⁓ So an endo nurse is somebody who has to be able to listen, is somebody who is ⁓ prepared to analyse your symptoms, who's prepared to give advice, but need to recognise that a lot of our role, I feel our role is very much is giving information, giving education, but we can't be there at four o'clock in the morning or when that period is really, really bad. So we give people options and then they make choices from that.\n\nAnd choice always gives strength. And that's what we're here for, is to give strength, ultimately.\n\nAneta (05:09)\nThat's amazing. So what inspired you to become an Endonurse?",
+      "source_location": {
+        "page": null,
+        "line_start": 41,
+        "line_end": 56,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 4273,
+      "char_end": 5092
+    },
+    {
+      "chunk_id": "c007",
+      "text": "strength. And that's what we're here for, is to give strength, ultimately.\n\nAneta (05:09)\nThat's amazing. So what inspired you to become an Endonurse?\n\nLiz (05:16)\nBasically, it was twofold. was a theatre clinical lead. I had two theatres, a team of 10, but I wanted to develop. I've always been one those people that just, know, I'm not an innovator, but I'm the next person down. So people get these wonderful ideas and I'm the person that goes, give me that idea. And then I set it up and then I get someone else to finish it off. Yeah. So that's me. Yeah.\n\nAneta (05:40)\nNice.\n\nYeah.\n\nLiz (05:41)\nAnd that's the way I am and I recognize it. It's got its strengths and weaknesses, and I know what they are and it's fine. I've had to learn to live with that.\n\nBut ⁓ basically, was as a leader to leader, I brought in pre-op, we call pre-op visiting. And it suddenly dawned on me that we were getting these girls coming in all the time and they were always very distressed. And I couldn't quite work out what was going on. And they were always very distressed and they were always very young.",
+      "source_location": {
+        "page": null,
+        "line_start": 53,
+        "line_end": 69,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 4942,
+      "char_end": 6035
+    },
+    {
+      "chunk_id": "c008",
+      "text": "ey were always very distressed. And I couldn't quite work out what was going on. And they were always very distressed and they were always very young.\n\nyou know, like under 25, may have had previous surgeries, many of them had multiple surgeries. And then I was working with a guy called Richard Penkett, who I still work with. And he's like been the god of Endoan Wales. You know, he's the leading person for Endoan Wales. He's retired now, unfortunately, from the NHS. Sadly missed. But he, I could see that he worked really hard and he would have, and nobody wanted to scrub with him because he operated for so long.\n\nHe'd operate for six hours. So I kind of inherited him because I didn't mind. It didn't bother me. And then he and I became friends. And then he paid for me and three of my team to go to San Francisco. And we went to the AAGL, the American Association of Gynecology and Leproscopists Conference in San Francisco. was fantastic. It was in 2004. And I got on the simulators and he was standing there, what do you mean? went.\n\nAneta (06:41)\nto.",
+      "source_location": {
+        "page": null,
+        "line_start": 69,
+        "line_end": 76,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 5885,
+      "char_end": 6947
+    },
+    {
+      "chunk_id": "c009",
+      "text": "nce in San Francisco. was fantastic. It was in 2004. And I got on the simulators and he was standing there, what do you mean? went.\n\nAneta (06:41)\nto.\n\nLiz (07:08)\nGod, Liz, he said, you've got an eye for this. He said, have you ever thought of it? And I said, well, do you know, I'm kind of thinking, where do I want to go next? And, you know, I'm either going to go into management or I need to do something more clinical. said, but I don't want to stay a theatre leader. I said, it doesn't give me, you know, I don't mind sorting people out for a while, you know, calling people's annual leave and their sickness and their gripes with this person, that person, you know, and it's all right for a while. But...\n\nAneta (07:11)\nYou\n\nLiz (07:36)\nSo he and then he had two major ⁓ incidents in operating and it went to investigation and the investigation basically said that this guy was being thrown to the wolves because one week he was doing the worst cases in Wales but one week he would have somebody who knew what they were doing and one week he wouldn't have somebody but he'd still do the same case.",
+      "source_location": {
+        "page": null,
+        "line_start": 73,
+        "line_end": 85,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 6797,
+      "char_end": 7902
+    },
+    {
+      "chunk_id": "c010",
+      "text": "ses in Wales but one week he would have somebody who knew what they were doing and one week he wouldn't have somebody but he'd still do the same case.\n\nSo what happened as a result of that was is that they developed a, and also concurrent with that was we were having a big increase in the number of girls or a noticeable increase in number of girls who are being admitted cyclically for pain management, but nothing being done for it. And then coming back in the next month and being labeled as drug addicts, but they were getting cyclical symptoms. So how can you be, and they weren't using drugs in between time.\n\nAneta (08:29)\nYeah.\n\nLiz (08:30)\nSo they were labeled like pathogen heads or morphine heads, you know, and ⁓ that's not nice. So I was employed to develop as an endometriosis nurse to predominantly address that main issue because it was a big issue. We were getting like 30 admissions a month, which is a lot into the ward, to address that issue and to develop a service with Richard.",
+      "source_location": {
+        "page": null,
+        "line_start": 85,
+        "line_end": 93,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 7752,
+      "char_end": 8753
+    },
+    {
+      "chunk_id": "c011",
+      "text": "as a big issue. We were getting like 30 admissions a month, which is a lot into the ward, to address that issue and to develop a service with Richard.\n\nAnd then we also employed another consultant called Tony Griffiths and we actually started on the same day. And Tony Griffiths is famous in Wales now. He's very, very popular in Wales. And the three of us then developed an endometriosis team. And as part of that, it was very quick to me that people needed to talk. And in clinic, you don't have much time. We developed an endoclinic to give us longer periods of time so that we could scan and have a longer conversation with people. But even that wasn't long enough.",
+      "source_location": {
+        "page": null,
+        "line_start": 93,
+        "line_end": 95,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 8603,
+      "char_end": 9272
+    },
+    {
+      "chunk_id": "c012",
+      "text": "ed an endoclinic to give us longer periods of time so that we could scan and have a longer conversation with people. But even that wasn't long enough.\n\nAnd some people, particularly those who were being admitted, needed longer. So I developed a clinic. First of all, I thought it was going to be like a coffee shop. Yeah. So they'd all come together and chat. And that was just Bedlam. So then it was, then I sort of gave people 20 minute appointments and they just come and chat. And that was Bedlam too, because I'd be there, I'd have like eight people waiting and I'd still be with the second person. You know, so that Bedlam. So then we moved it to an hour appointment each. And that kind of works out well.\n\nAneta (09:33)\n⁓\n\nYou",
+      "source_location": {
+        "page": null,
+        "line_start": 95,
+        "line_end": 102,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 9122,
+      "char_end": 9855
+    },
+    {
+      "chunk_id": "c013",
+      "text": "h the second person. You know, so that Bedlam. So then we moved it to an hour appointment each. And that kind of works out well.\n\nAneta (09:33)\n⁓\n\nYou\n\nLiz (09:55)\nAnd so they have an hour and we still, I don't do the endo in the NHS anymore. My colleague Helen does it, but she's maintained my clinic, which was very nice of her. And we do it virtually now since COVID and each patient gets an hour appointment for their first appointment. And they can either be diagnosed with endometriosis or have issues which have meant that they've gone to their GP again and again. They've had A &E, mean, 25 % have more than five A &E admissions a year.\n\nthroughout the UK, know, so it's crazy numbers. So they can self-refer to Helen here, but that service is not available anywhere else in Wales. And as far as I'm aware, it's not available anywhere else in England either. So that's basically, and it's basically what I now offer in a private so that people can access me. And that's why I've named it the Endometriosis Advisory Service, because I'm here to give advice about endometriosis and adenomyosis.\n\nAneta (10:39)\nThank you.",
+      "source_location": {
+        "page": null,
+        "line_start": 97,
+        "line_end": 110,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 9705,
+      "char_end": 10831
+    },
+    {
+      "chunk_id": "c014",
+      "text": "s why I've named it the Endometriosis Advisory Service, because I'm here to give advice about endometriosis and adenomyosis.\n\nAneta (10:39)\nThank you.\n\nLiz (10:52)\nMaybe I should have added endoantidinomyosis because they're so linked to it. Might change the title. But yeah, so I digress. But that's yes. Yes. You always have to pull me back because I just go off. ⁓ Yeah. So basically, yeah. So that's how I came into post. And then I developed ⁓ surgical skills and then I developed counselling skills. I went on pain management courses.\n\nAneta (10:55)\nYeah.\n\nNo, no, no, it's fine, don't worry, don't worry.\n\nLiz (11:19)\nI developed ⁓ a big interest in pain management. did that clinic and then I did lots of teaching. I got primary care, teaching locally, nationally and internationally about sort of how my role developed and then resulted in developing all these other girls who are in the different health boards within Wales, which was seven health boards. We've got two in North Wales and then one in every other health board.",
+      "source_location": {
+        "page": null,
+        "line_start": 107,
+        "line_end": 121,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 10681,
+      "char_end": 11717
+    },
+    {
+      "chunk_id": "c015",
+      "text": "are in the different health boards within Wales, which was seven health boards. We've got two in North Wales and then one in every other health board.\n\nSo, but they don't, everyone, my ⁓ slight disappointment is not everybody provides the same service, but a lot of that is, you know, every health board are different and you're dealing with different personalities and they're not getting the, an endometriosis nurse is not just somebody who can sit on their own. She needs to, he or she needs to have support. They need to have secretarial support. They need to have a coordinator for doing a clinic. They need somebody to get their nose. You know, that's not their job. You don't pay somebody.\n\na band seven to do that and then to go and get the notes because it's not their job. So they need support and unfortunately I just assumed that they were, when I wrote the job performer, in the job performer I said that they would need access to all these but unfortunately quite a few of them didn't get it. It's a gripe I have constantly with the government but you know I can't do anything but they can't, you can't function if you haven't got friends. Yeah.\n\nAneta (12:44)\nYeah, for sure.",
+      "source_location": {
+        "page": null,
+        "line_start": 121,
+        "line_end": 128,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 11567,
+      "char_end": 12757
+    },
+    {
+      "chunk_id": "c016",
+      "text": "th the government but you know I can't do anything but they can't, you can't function if you haven't got friends. Yeah.\n\nAneta (12:44)\nYeah, for sure.\n\nLiz (12:45)\nIt's just, you know, that's life, you know. And it's the same when you're\n\ntrying to develop a role, particularly one to be sort of openly accessible to people. And that's the problem that a lot of them have hit is that they haven't got enough time because they haven't got enough support to provide that access, which is clearly needed, but we need a lot more people doing it. But we need them in primary care. We don't need them predominantly in secondary care. They actually like a diabetic nurse. I mean, you're a lot younger than I am.\n\nHow many people do you see with amputations due to diabetes? No. And do know why? Because there's much better access closer to home for diabetes management. The research is better. The medicines are better. But getting to help is quick. And that's the difference. That's the difference. And that's what Endel needs.\n\nAneta (13:16)\nI'm not money.\n\nYeah.\n\nYeah, even\n\nEven-\n\nEven the public is more aware of diabetes than endometriosis. Yeah. And asthma, yeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 125,
+        "line_end": 146,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 12607,
+      "char_end": 13771
+    },
+    {
+      "chunk_id": "c017",
+      "text": "needs.\n\nAneta (13:16)\nI'm not money.\n\nYeah.\n\nYeah, even\n\nEven-\n\nEven the public is more aware of diabetes than endometriosis. Yeah. And asthma, yeah.\n\nLiz (13:40)\nYeah. Oh, yeah. An asthma. Yeah. Yeah, they are. Yeah. Yeah.\n\nThose are the two diabetes and asthma are two to get huge investment. And of course, they need huge investments. Yeah. But the number of people affected by those are the same as the number of people affected by endometriosis. You know, and for the but the financial input is not the same. The resources are not the same. The research is not I mean, I have to say that the research now is phenomenal.\n\nAneta (13:56)\nThe death. ⁓\n\nNo.\n\nLiz (14:09)\nknow, compared to what it was 10 years ago, it's phenomenal. Particularly over here, I mean, we've got in Scotland, there's great research going on in Scotland, there's great research going on in Cambridge and Oxford. There's some really good stuff going on.\n\nAneta (14:19)\nMm-hmm.\n\nCan you compare when you started and when we are now, how far the endometriosis has What has changed? What are the improvements? Are there any positives you can say that yes, we are here?\n\nLiz (14:35)\nThere are, I think people are lot,",
+      "source_location": {
+        "page": null,
+        "line_start": 135,
+        "line_end": 167,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 13621,
+      "char_end": 14811
+    },
+    {
+      "chunk_id": "c018",
+      "text": "hat has changed? What are the improvements? Are there any positives you can say that yes, we are here?\n\nLiz (14:35)\nThere are, I think people are lot,\n\nI think people are more aware, it's definitely more political, particularly since your man in 2020 did the APGG, the All Party Parliamentary Group, that was brilliant, that was a real, you know, that put it right up there and has kept it up there. That was a brilliant thing that poor man did. That was a poor man who got murdered, the MP that got murdered, yeah. So that was phenomenal what he did, you know, what he led on, and I think that was phenomenal, and that made a huge difference. So.\n\nAneta (14:54)\nyes, yeah yeah yeah.\n\nLiz (15:08)\nI think service provision for women has not improved greatly. Even, you know, the RCOG now have got two new papers out saying, come on, pull your finger out, we need to something for women. It's just not fair anymore. We do matter. Women do matter. And that's the first time RCOG have ever done that. last, 25 and again in 26 now, the two papers came out quite quickly saying, come on.",
+      "source_location": {
+        "page": null,
+        "line_start": 164,
+        "line_end": 175,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 14661,
+      "char_end": 15743
+    },
+    {
+      "chunk_id": "c019",
+      "text": "en do matter. And that's the first time RCOG have ever done that. last, 25 and again in 26 now, the two papers came out quite quickly saying, come on.\n\nYou know, there needs to be investment because women are suffering and it's not fair. I think I would like to think that locally we've made a difference. Not everybody would agree because we can't always make people better and we can't. are not a 24 hour, seven days a week service. Unfortunately, our access to theatre has been drastically reduced. Initial impact from Covid was horrific. We didn't operate for a year and a half.\n\n18 months, no operating. But now they cut, I mean, in Cardiff, they cut our theatre access significantly. But we're trying. We've now got three BSG centres in Wales, which is good. So people don't have to necessarily come all the way to Cardiff to have their surgery. So that's good. So there are good things happening, but it's not enough and it's not quick enough because girls are still suffering and still diagnosing women in their forties who've had problems since they were 12.\n\nAneta (16:28)\nYeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 175,
+        "line_end": 182,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 15593,
+      "char_end": 16681
+    },
+    {
+      "chunk_id": "c020",
+      "text": "uick enough because girls are still suffering and still diagnosing women in their forties who've had problems since they were 12.\n\nAneta (16:28)\nYeah.\n\nLiz (16:35)\nAnd that's not a great story. When you're talking to these people, breaks my heart every time, breaks my heart and it just exacerbates me. But also women will put up with stuff and they won't talk about it. Pain with intercourse, people don't talk about it because they think they're doing something wrong. So it's all these things we need to address. There's not one solution. There's many little solutions and the support groups are fantastic now.\n\nAneta (16:38)\nNo.\n\nYeah.\n\nYeah.\n\nYeah.\n\nLiz (17:05)\nIn Wales we've got fair treatment for women in Wales and they don't just cover end or they cover everything. If it's female, they're in there. They're very politically driven, they're very motivated, they're a great group, they're very diverse but ⁓ very extremely motivated. We've got Menstrual Project, again a Welsh group but this is open to everybody and they particularly have done fantastic work in schools. We've got Bloody Matters.\n\nAneta (17:12)\nHehehehe",
+      "source_location": {
+        "page": null,
+        "line_start": 179,
+        "line_end": 200,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 16531,
+      "char_end": 17661
+    },
+    {
+      "chunk_id": "c021",
+      "text": "Welsh group but this is open to everybody and they particularly have done fantastic work in schools. We've got Bloody Matters.\n\nAneta (17:12)\nHehehehe\n\nLiz (17:32)\nwhich is a government-driven thing in Wales, and they've got a similar where we go into schools and we talk about periods. Because that's where it's going to start. The periods is the conversation. that's talking about periods and saying, do you know what, if your classmate is collapsing on day one of her period, it ain't normal and she's not making it up. Yeah. And it's getting that sort of that level of recognition for, know, Joe was sitting next to me and he notices that I keep having to to the toilet.\n\nAneta (17:51)\nYeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 197,
+        "line_end": 206,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 17511,
+      "char_end": 18206
+    },
+    {
+      "chunk_id": "c022",
+      "text": "that sort of that level of recognition for, know, Joe was sitting next to me and he notices that I keep having to to the toilet.\n\nAneta (17:51)\nYeah.\n\nLiz (18:02)\ncertain time every month or I go really grey a certain time every month, you know, and then points out to the teacher and the teacher goes, that's happening every month. I know what that might be. But these things take time, but they are happening. So there are really good things happening. There's really good research. We get new drugs all the time. Re-echo being available is great. Diana desk. I think although I was a bit skeptical to begin with, I do think it is very good. And to think for women who\n\nparticularly those with endometrioma, I think it's a nicer option to hormones such as Prostap or Reco, which put you into medically induced menopause. So I think for the younger girl, I think it's quite a nice option, the Dianagest. Particularly those who've got endometrioma, which are the chocolate cysts on the ovaries, there's evidence that it will reduce it. I mean, not massive amounts, but will reduce it by two to three centimetres, from seven centimetres to four centimetres.\n\nAneta (18:39)\nMm-hmm.\n\nwow.",
+      "source_location": {
+        "page": null,
+        "line_start": 203,
+        "line_end": 216,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 18056,
+      "char_end": 19242
+    },
+    {
+      "chunk_id": "c023",
+      "text": "I mean, not massive amounts, but will reduce it by two to three centimetres, from seven centimetres to four centimetres.\n\nAneta (18:39)\nMm-hmm.\n\nwow.\n\nLiz (18:59)\non an ovary, that's good. Yeah, so, know, and we're looking at things like, you know, we're considering nutrition. mean, unfortunately, nutritionists are very lax in getting involved unless it's private. And even then, you know, I don't know, there's none I really know that focus on endo, but there's definite benefits to things, you know, like looking at your diet gluten free.\n\nAneta (19:01)\nVery well done, yes.\n\nLiz (19:26)\nanti-inflammatory, looking at all these things, but there's no evidence really. There's one paper just come out recently from, again, from Aberdeen, which does say, look, you know, we do think that their diet will have an impact, but that's coming in. Pelvic physiotherapy, fantastic. Now the nice guidelines has always said that we should be using pelvic physio, but the resources have not been there, but people are becoming interested now.",
+      "source_location": {
+        "page": null,
+        "line_start": 211,
+        "line_end": 225,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 19092,
+      "char_end": 20127
+    },
+    {
+      "chunk_id": "c024",
+      "text": "nice guidelines has always said that we should be using pelvic physio, but the resources have not been there, but people are becoming interested now.\n\nI'm working now privately with a fantastic pelvic physiotherapist and she's amazing and she's making women's lives and girls lives so much better. So yes, there are good things. The shit things are still there. The access to services can be really shitty. The multiple referrals. So one of the studies recently said that at 70 % the GP would say on first appointment, that's endo.\n\nand they still have another 10 to 20 appointments before anything was actually done. So it's education, it's time, it's resources, it's finance, it's education, it's time, it's resources, it's finance, it's increased accessibility. It's that circle that we have to still address. But we are addressing it, like here now, I'm involved with, my friend just got the job to develop the health education in Wales.\n\nAneta (20:33)\nAnd then we go.\n\nYeah.\n\nYeah, yeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 225,
+        "line_end": 236,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 19977,
+      "char_end": 20970
+    },
+    {
+      "chunk_id": "c025",
+      "text": "e here now, I'm involved with, my friend just got the job to develop the health education in Wales.\n\nAneta (20:33)\nAnd then we go.\n\nYeah.\n\nYeah, yeah.\n\nLiz (20:47)\nendometriosis and I've got a meeting with her this afternoon and we're putting together programs, online programs for clinical colleagues to access, whether they be nurses, doctors, physios, anybody to access and learn about endometriosis and what's the impact, how to manage it and what are the options. So it's coming.\n\nAneta (21:05)\nThat's amazing.\n\nLiz (21:07)\nAnd the same is happening in\n\nAneta (21:07)\nIt's coming, yes.\n\nLiz (21:09)\nEngland. The endometriosis nurses throughout the UK are all members of the BSG and they all attend regular education things. So everybody's being developed, but we just need to get there. It's just frustrating for me because I've been banging my head against the wall for 20 years now. some of the same problems are same.\n\nAneta (21:28)\nYeah, I can imagine. Yeah. at least things are happening.\n\nYeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 229,
+        "line_end": 256,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 20820,
+      "char_end": 21825
+    },
+    {
+      "chunk_id": "c026",
+      "text": "against the wall for 20 years now. some of the same problems are same.\n\nAneta (21:28)\nYeah, I can imagine. Yeah. at least things are happening.\n\nYeah.\n\nLiz (21:36)\nBut there are becoming solutions. They are coming. I don't want everyone to think, oh, it's not, nothing's ever going to get better. It is going to get better. But I really don't believe it's going to get better. And I don't want to just say it's only nurses you need because it's not. But until we get a solid base in primary care that looks at gynaecology, not necessarily endometriosis, but all things gynaecology, because most gynaecology conditions are resolvable.\n\nAneta (21:39)\nThat's good.\n\nBeep beep.\n\nLiz (22:03)\nyou know, with with, you know, most of them are resolvable. Endometriosis, adenomyosis, PCOS are not necessarily resolvable. Fibroids can lead long term management. So, you know, these things and they have a huge impact on people's qualities. It's not just endo, but, you know, a gyneinose, particularly interesting endo would be great.\n\nBut, but, but, Guiny Nurse first, you know, that's what we need.",
+      "source_location": {
+        "page": null,
+        "line_start": 251,
+        "line_end": 269,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 21675,
+      "char_end": 22764
+    },
+    {
+      "chunk_id": "c027",
+      "text": "just endo, but, you know, a gyneinose, particularly interesting endo would be great.\n\nBut, but, but, Guiny Nurse first, you know, that's what we need.\n\nAneta (22:31)\nI'm gonna circle a little bit back to what's your like day-to-day job. yeah, how does your role look like? What's the day-to-day?\n\nLiz (22:42)\nOkay, so I'm heading in an elderly age, so I have semi-retired from work. I had a quite significant illness about two years ago. And just prior to that, we'd employed another end-on-earth for planning, know, for progression planning. Unfortunately, she had to sort of step up quite quickly. So when I came back to work, we decided that I wasn't going to do the end-on-earth role anymore.\n\n⁓ I was going to carry on doing the surgical assistant role in the NHS and then just be advisory there. So I'm still there for Helen if she needs any help. She's there to come and chat to me, but I don't actually see patients in the NHS anymore. But I do all the advanced laparoscopic procedures for endometriosis with the consultants. I work as either first assistant, so I stand next to the consultant or I manipulate the uterus.",
+      "source_location": {
+        "page": null,
+        "line_start": 267,
+        "line_end": 277,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 22614,
+      "char_end": 23743
+    },
+    {
+      "chunk_id": "c028",
+      "text": "pic procedures for endometriosis with the consultants. I work as either first assistant, so I stand next to the consultant or I manipulate the uterus.\n\ndoing the surgery to enable the other two to actually do the operating. I can step into wherever they want me to. And then I see the patients for theater before and afterwards and have good chats with them. And then in private, I work again as a surgical assistant, but we have an endometriosis, we have the only ⁓ private endometriosis center, which is based in Spire Hospital in Penton in Cardiff. Our service is good. We have a great team there. We've got colorectal urologists, psychologists.\n\nAneta (23:42)\nand\n\nLiz (24:06)\npain specialists and we have me because you have to have an endometriosis nurse. So I have my own clinic there which I do virtually two sessions a week and then ⁓ operate two to three times a week there with Mr. Griffiths and Mr. Penketh which are two consultants who both are fantastic endometriosis surgeons. I would recommend them. ⁓",
+      "source_location": {
+        "page": null,
+        "line_start": 277,
+        "line_end": 285,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 23593,
+      "char_end": 24610
+    },
+    {
+      "chunk_id": "c029",
+      "text": "mes a week there with Mr. Griffiths and Mr. Penketh which are two consultants who both are fantastic endometriosis surgeons. I would recommend them. ⁓\n\nThey are brilliant. I've worked both of them for so many years. We work well together. So that's basically my day. I'm also a nurse at Roskampest. So that means that I'm able to do scopes into, predominantly in our patients. So I can put a scope into somebody, into the vagina and insert it through the cervical canal up into the woman and have a look. I predominantly care for people who've got postmenopausal bleeding. And I'm also a nurse sonographer, which means that I can scan the uterus. It's always very handy for endometriosis.\n\nBut in private healthcare, unfortunately, you don't recognize nurses to do things like that. So we have a sonographer who actually was a professor at the NHS, who actually trained me, is now who I refer all my patients to for a scan. So ⁓ I don't scan in private, but I do still scan in NHS.\n\nAneta (25:27)\nRight. So before that, before ⁓ you had your condition or before you had to stop, ⁓ or to anyone who doesn't really know what Endonurse does, what do you actually do? what... ⁓",
+      "source_location": {
+        "page": null,
+        "line_start": 285,
+        "line_end": 292,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 24460,
+      "char_end": 25633
+    },
+    {
+      "chunk_id": "c030",
+      "text": "ore ⁓ you had your condition or before you had to stop, ⁓ or to anyone who doesn't really know what Endonurse does, what do you actually do? what... ⁓\n\nLiz (25:42)\nOkay, so you go to clinic.\n\nSo I used to go to clinic. I used to do clinic where we'd have the consultants and me and then they'd see any of us. So people would come in and if they were new patients, I would take their history, do vaginal examination and do a transvaginal scan. So this is an internal scan with a long probe. ⁓ Abdominal scan, anyone listening to this, please don't have an abdominal scan unless you are never been sexually active or really don't want something.\n\ninserted into your vagina because it gives you a far more accurate assessment of your responses. So we're looking at how is the uterus lying? How are the ovaries lying? Is there a movement between the uterus, the ovaries? Is there a movement between the bladder, the ovaries? Is the bowel stuck up? Are the ovaries closer to the uterus than they should be, which is a classic sign of endometriosis. We're looking to see are the uterus sacral ligaments, which are the ligaments on the side of the uterus.",
+      "source_location": {
+        "page": null,
+        "line_start": 292,
+        "line_end": 299,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 25483,
+      "char_end": 26631
+    },
+    {
+      "chunk_id": "c031",
+      "text": "be, which is a classic sign of endometriosis. We're looking to see are the uterus sacral ligaments, which are the ligaments on the side of the uterus.\n\nAre they thickened, which you often get, and that's often why you get pain on intercourse? Are there cysts? What type of cyst is it? And then we're looking to see is how is the person reacting when I manipulate the probe? Because the probe is not stagnant. So the probe will move left to right, up and down. So how is that? And then we're looking to see, is there any rectal involvement? Do we need to be concerned? So endometriosis quite happily grows on top of the rectum, in the pouch, it still grows on top of the rectum.\n\nbut often it will grow through the rectum. And if that is the case, then you need to do a different type of surgery. So you need to know that and it depends how safe it is for you to remove. the endometriosis, if you're looking at the rectum, the rectum is like a tube like that, yeah. And then you've got space like that. So when you get the endometriosis, it'll either sit on top there or it will come in here or it'll come all the way through. Okay.",
+      "source_location": {
+        "page": null,
+        "line_start": 299,
+        "line_end": 303,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 26481,
+      "char_end": 27612
+    },
+    {
+      "chunk_id": "c032",
+      "text": "got space like that. So when you get the endometriosis, it'll either sit on top there or it will come in here or it'll come all the way through. Okay.\n\nSo you need to know which is which. If you're operating without a colorectal surgeon, you can do that one, you can do that one, and you can do up to there. But if it's through here, you can't do, so you have to have a margin. So that's why it's important to know that. You can assess that also by doing what we call a rectal endo anal ultrasound scan, which is a specialty which not many hospitals have, but we do. It's a very effective way of assessing the rectum. Or you can do MRI. Most people do MRI.\n\nThe benefits of MRI depends on who's reading it. If you've got it, if the radiologist needs to have an interest in, if you're having an MRI, it must be with the radiologist who has an understanding of endometriosis and knows what they're looking for. Otherwise they'll miss it. The same when it comes to surgery. If you have a laparoscopy of somebody who doesn't know what they're looking for, they'll miss it.\n\nAneta (28:21)\nWell.\n\nI see. That's why so many times they're like, I've had the surgery. They didn't find.",
+      "source_location": {
+        "page": null,
+        "line_start": 303,
+        "line_end": 312,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 27462,
+      "char_end": 28638
+    },
+    {
+      "chunk_id": "c033",
+      "text": "what they're looking for, they'll miss it.\n\nAneta (28:21)\nWell.\n\nI see. That's why so many times they're like, I've had the surgery. They didn't find.\n\nLiz (28:31)\nThere are many diagnostic laparoscopies\n\nwhich are you need to do what we call a 360 degree assessment and I think everyone should ask for this. I tell every patient, whoever you're going to have your surgery with, say I want to have a 360 degree assessment, I want to have pictures to show that you've looked at my diaphragm, and that answers one of your questions. If looked at my diaphragm, check to whether I've got thoracic endo or at least diaphragmatic endo that you can see from there. You can't see inside the thorax obviously.\n\nCheck my bowel, check all my bowels, check my appendix, check my ovaries, my bladder, uterus to bladder, and then uterus to pouch of Douglas. Check the bowel, move the bowel around, check to see whether I've got any hiding, because if you have rectovaginal endo, which is endometriosis, sitting in the pouch of Douglas, I didn't bring a pen up with me. Oh, damn it. Right, so imagine that's the pouch of Douglas, okay?\n\nAneta (29:29)\nMm-hmm.\n\nLiz (29:31)\nAnd you can see that. OK, so imagine.",
+      "source_location": {
+        "page": null,
+        "line_start": 307,
+        "line_end": 325,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 28488,
+      "char_end": 29682
+    },
+    {
+      "chunk_id": "c034",
+      "text": "p with me. Oh, damn it. Right, so imagine that's the pouch of Douglas, okay?\n\nAneta (29:29)\nMm-hmm.\n\nLiz (29:31)\nAnd you can see that. OK, so imagine.\n\nIf I elevate that, like that, okay, and I had a spot in there. You can't see it when it's like that. When I open it up like that, you can see it. And that's what people need to do. They need to elevate the pouch of Douglas. Whether they do it by pushing up through the rectum, through the probe in the rectum and pushing up the pouch of Douglas from behind, or putting a finger in the vagina and pushing the vagina up to see the pouch of Douglas, because it will hide.\n\nAneta (29:46)\nI see.\n\nLiz (30:06)\nit will hide in the folds like that. But then if you open up, so that's the first thing. And then excision, not ablation. Because it's ablation only takes the surface. It's like skimming. It's like skimming something. If you need, if your plaster's gone on the wall, skimming it is not going to make any difference, it? Because it's still going to blow. Yeah? Same difference. Endometriosis is too deep to skim over the top of it. It goes too deep.\n\nAneta (30:26)\nMm-hmm.\n\nYeah, I see.",
+      "source_location": {
+        "page": null,
+        "line_start": 319,
+        "line_end": 338,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 29532,
+      "char_end": 30673
+    },
+    {
+      "chunk_id": "c035",
+      "text": "ill going to blow. Yeah? Same difference. Endometriosis is too deep to skim over the top of it. It goes too deep.\n\nAneta (30:26)\nMm-hmm.\n\nYeah, I see.\n\n⁓ No, that was great, thank you. I'm just going to circle back to something what I asked you before. So why does it take nine years to get diagnosed with endometriosis?\n\nLiz (30:48)\nRight, so it's simple and complicated. Basically, the majority will start developing issues in their periods, okay? And unfortunately, there is a social and clinical belief that, you have to get used to periods. It's rubbish, right? But that's education, okay? So that's one of the issues. And then you've got all the other issues of being a teenager can complicate things. And also, endometriosis can present...",
+      "source_location": {
+        "page": null,
+        "line_start": 333,
+        "line_end": 343,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 30523,
+      "char_end": 31269
+    },
+    {
+      "chunk_id": "c036",
+      "text": "o that's one of the issues. And then you've got all the other issues of being a teenager can complicate things. And also, endometriosis can present...\n\nas IBS because it gets bloating. The crucial factor that you need to know and you need to, when you're going to see somebody is to say, this happens every month. But add that to the complex that we can have patients who have the increase in symptoms which happen every month, but then they will have significant pain for the rest of the month as well. And that's still endo because there's different types, there's different types of endometriosis, it affects people differently. Nobody will present in the same way.\n\nIt's really good to look at symptom, what's it called? Symptom, what do call them? Symptom tools, you know? So you just keep a record of your own tools and take that with you. The problem is, is that when you go to see your GP, you'll often have eight minutes or less to tell them what the problem is. If you're a teenager, you will find it difficult possibly to communicate it.",
+      "source_location": {
+        "page": null,
+        "line_start": 343,
+        "line_end": 347,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 31119,
+      "char_end": 32167
+    },
+    {
+      "chunk_id": "c037",
+      "text": "you'll often have eight minutes or less to tell them what the problem is. If you're a teenager, you will find it difficult possibly to communicate it.\n\nIf you're an adult and it's been going for years, you're exasperated. So you just don't know. So there's ⁓ that break in communication, I feel, which often also there's not enough education about it. It is better. There are guidelines out there, but people need to have people, and say clinicians, need to have awareness of what it possibly could be. There are easy questions which will mark you towards endometriosis, but you need to ask them.\n\nand you need to listen to the answers and that's the important thing. But there are complex symptoms with endometriosis. You get pain on intercourse, get pain opening your bowels, pain opening your bladder, but those also happen for other things as well. And what happens, unfortunately, is that people get multiple referrals to many other people and they may even get referred to gynaecology, but not get asked that question, is this endometriosis? It'll be asked, it's painful periods, well, we'll just treat it as,",
+      "source_location": {
+        "page": null,
+        "line_start": 347,
+        "line_end": 351,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 32017,
+      "char_end": 33132
+    },
+    {
+      "chunk_id": "c038",
+      "text": "t referred to gynaecology, but not get asked that question, is this endometriosis? It'll be asked, it's painful periods, well, we'll just treat it as,\n\na period problem and they treat it as a period problem and it may or may not respond. And the other thing, the other issue with it is that if you follow the NICE guidelines, if somebody turns up in clinic and you follow the NICE guidelines and they're happy to and you put them on the pill and the pill sorts them out, then it will resolve, they'll still have potential for a diagnosis of endometriosis, but it's no longer a problem, therefore until they don't want that pill.\n\neverything will be managed, not hidden, not covered, not masked, but managed by the pill. So often if you do that simple thing, you'll sort the problem out, for some, but not for all. And that is one of the issues with it, it's very individual and how people respond is extremely individual and the impact of the symptoms is individual.",
+      "source_location": {
+        "page": null,
+        "line_start": 351,
+        "line_end": 355,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 32982,
+      "char_end": 33948
+    },
+    {
+      "chunk_id": "c039",
+      "text": "d that is one of the issues with it, it's very individual and how people respond is extremely individual and the impact of the symptoms is individual.\n\nBut it's simple and complicated. That's the problem. That's the problem. But we need more resources. We need primary care nurses. And we had this one thing, primary care nurses who focus on gynaecology. And dot GP, primary and GPs who focus, who specialize on gynaecology. That's what we need. And not just for endometriosis, but for every illness that affects female function.\n\nAneta (34:10)\nI see, I see.\n\nMm-hmm.\n\nYeah, it's been.\n\nLiz (34:37)\nAnd until we do\n\nthat, we're going to have delays. It's not just Endor that had, we have significant delays, but, you know, unfortunately, you know, the first response and it still is, and it's just so sad is, is periods get used to it.\n\nAneta (34:42)\nYeah.\n\nYeah.\n\nLiz (34:52)\nAnd that's not the case. If you're passing out on day one and you're in school, then your friends and your teachers should be noticing it and saying, this ain't normal. I never passed out on my period, ever. But I know lots of people who do.",
+      "source_location": {
+        "page": null,
+        "line_start": 355,
+        "line_end": 377,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 33798,
+      "char_end": 34916
+    },
+    {
+      "chunk_id": "c040",
+      "text": "riends and your teachers should be noticing it and saying, this ain't normal. I never passed out on my period, ever. But I know lots of people who do.\n\nAneta (35:07)\nYeah. Yeah, we all do. Like, yeah, I remember it's cool. Like, I had no problems ever. And then I had girls who were like, I can't, I can't just do it. I can't do it.\n\nLiz (35:11)\nYeah. Yeah.\n\nYeah, yeah,\n\nI know. And you're standing there well, I don't know. And that's the problem is that, my period's fine. Yeah, but that's your period. It's not their period. And that's the thing. Everybody makes this assumption that periods are their normal thing of function. Therefore, they should be all right. You're a woman. You just have to get used to it. And that, unfortunately, has been an underlying statement. I bop them in the eye when people say that to me now.\n\nAneta (35:24)\nYeah. Yeah, yeah.\n\nAhem.",
+      "source_location": {
+        "page": null,
+        "line_start": 377,
+        "line_end": 392,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 34766,
+      "char_end": 35636
+    },
+    {
+      "chunk_id": "c041",
+      "text": "d that, unfortunately, has been an underlying statement. I bop them in the eye when people say that to me now.\n\nAneta (35:24)\nYeah. Yeah, yeah.\n\nAhem.\n\nLiz (35:44)\nIt is the underlying statement and I get it, but that's why we need education. So we need people going into schools and educating because this is not something you get at 18 and 21. This can start when you are 11 and 12 and it will impact on your education. It will impact on your ability to socialize, your ability to make friends. It will get you labeled. girls don't want to be labeled. They don't want to be different to everybody else. So these are all the factors which are brought in there as well.\n\nAneta (36:10)\nYeah, yeah. Well, I remember when I first kind of heard about your period, I was like, yeah, it's gonna hurt, you know? And I think a lot of women like me heard that, so therefore when there is something painful, you're like, oh, well, everyone told me, right? So I guess that's it. So yeah. And everyone kind of told me also, you have to get used to it, you just have to take a bunch of pills and it just happens.\n\nLiz (36:28)\nYeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 387,
+        "line_end": 401,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 35486,
+      "char_end": 36604
+    },
+    {
+      "chunk_id": "c042",
+      "text": "So yeah. And everyone kind of told me also, you have to get used to it, you just have to take a bunch of pills and it just happens.\n\nLiz (36:28)\nYeah.\n\nAneta (36:36)\nAnd just like when now, you know, like there's more awareness and everything, I'm learning more and more how, no, that's not fine. You shouldn't be like in such a discomfort. You have to actually see girl. And I'm like, I didn't know. It's, yeah. It is.\n\nLiz (36:45)\nYeah.\n\nHello.\n\nI know it's crazy, but if you're\n\ncollapsing, if you're needing to use really strong painkillers, get help.\n\nAneta (37:00)\nget help 100%. Is there anything you wish that women with endometriosis ⁓ should hear earlier than they hear... I'm phrasing it wrong, basically if someone is just diagnosed after so many years... I don't know, what am I trying to say? ⁓ If someone has suspicion that they have endometriosis but they're kind of hitting the wall,\n\nWhat would you tell them now? What's the next step or what's something they should know and keep on going?\n\nLiz (37:36)\nWork out your symptoms,",
+      "source_location": {
+        "page": null,
+        "line_start": 398,
+        "line_end": 421,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 36454,
+      "char_end": 37499
+    },
+    {
+      "chunk_id": "c043",
+      "text": "wall,\n\nWhat would you tell them now? What's the next step or what's something they should know and keep on going?\n\nLiz (37:36)\nWork out your symptoms,\n\nwork out your symptoms. Work out what's cyclical, what isn't cyclical. Work it out. Go to one of the, Endo UK is fantastic, Endometriosis Awareness. There's some really good resources. Go and have a look, but work out your symptoms. Look at yourself and say, oh, okay, what's happening? What's happening to me? And then go to somebody and say, this is what's happening to me. Can you help? But just keep knocking on the doors, you know.\n\nDon't despair, there are a lot of us out there who want to help. Loads of people who want to help.\n\nAneta (38:12)\nAnd is there any specific symptom besides ⁓ painful periods that you kind of... that is very common but very much ignored?\n\nLiz (38:27)\nI would say lethargy.",
+      "source_location": {
+        "page": null,
+        "line_start": 416,
+        "line_end": 431,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 37349,
+      "char_end": 38210
+    },
+    {
+      "chunk_id": "c044",
+      "text": "there any specific symptom besides ⁓ painful periods that you kind of... that is very common but very much ignored?\n\nLiz (38:27)\nI would say lethargy.\n\nYeah, lethargy is always, I did a study years ago. So I did this, I was asked to do a presentation about my clinic in Cornwall, at BSG in Cornwall, and I did it and I thought it was boring. So this will tell you what is the benefits of the service I provide. So I texted a hundred patients. Guess how many replied? With 10 questions. Guess how many replied to start with?\n\nI texted them and within 48 hours, guess how many replied?\n\nAneta (39:06)\nFifty?\n\nLiz (39:08)\n100%.\n\nAneta (39:10)\nWhoa.\n\nLiz (39:11)\n100 % replied, 100 women, 100%, 95 % had fatigue.\n\nI gave them all the symptoms. What did they have? 70 % had dyspareunia, painful intercourse. 80 % had painful periods.\n\nAneta (39:27)\nMm-hmm.\n\nSo fatigue is the one.\n\nLiz (39:32)\nOr",
+      "source_location": {
+        "page": null,
+        "line_start": 428,
+        "line_end": 457,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 38060,
+      "char_end": 38951
+    },
+    {
+      "chunk_id": "c045",
+      "text": "hat did they have? 70 % had dyspareunia, painful intercourse. 80 % had painful periods.\n\nAneta (39:27)\nMm-hmm.\n\nSo fatigue is the one.\n\nLiz (39:32)\nOr\n\nto present, yeah, fatigue. Fatigue. mean, and that again is an issue because fatigue can be many things. It can be vitamin B deficiency. It can be that you've been working too hard. It can be that you're not eating well, been dieting, you're drinking too much alcohol. You know, it can be many, many things, but it's a fatigue. Fatigue is, and the fatigue we believe is due to like an ongoing, ⁓ it's an ongoing inflammatory process in the body, which is a low ticking. It's like a drip in your roof.\n\nAneta (39:39)\nYeah.\n\nYeah.\n\nYeah.\n\nLiz (40:02)\nwhich is going to make your ceiling fall but you don't really know it's there until the ceiling falls down. That's what it is.\n\nAneta (40:13)\nOkay, Liz, thank you so much. You are covering kind of everything. I had so many questions, but you're covering as we go. yes, if we can do that. And then ⁓ last thing I'm going to ask you is if you could introduce yourself on camera and we can wrap up.\n\nLiz (40:20)\nDo you want me wear these two that you sent me?",
+      "source_location": {
+        "page": null,
+        "line_start": 449,
+        "line_end": 475,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 38801,
+      "char_end": 39958
+    },
+    {
+      "chunk_id": "c046",
+      "text": "ing I'm going to ask you is if you could introduce yourself on camera and we can wrap up.\n\nLiz (40:20)\nDo you want me wear these two that you sent me?\n\nOkay, so how do you access? Well, it depends where you live. So I don't know about England. There are endometriosis centers. I think there's only one secondary hospital, which isn't a center, which has an endonuris, but there's not many. So I would, in England, if you're under an endometriosis center, then there is a nurse there that you can access.\n\nSo, and you can find all of those by looking on the British Society of Gynaecology Endoscopy site, endometriosis sites, and it tells you all the hospitals that are endometriosis centers, and they will have an endonuris. So, but they're accessing them. I don't know if you're not a patient. I don't know if you can or not, but it's a resource there that you can look into. In Wales, ⁓ in Cardiff, you can self-refer yourself to a clinic. ⁓ In Newport.",
+      "source_location": {
+        "page": null,
+        "line_start": 472,
+        "line_end": 479,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 39808,
+      "char_end": 40763
+    },
+    {
+      "chunk_id": "c047",
+      "text": "ow if you can or not, but it's a resource there that you can look into. In Wales, ⁓ in Cardiff, you can self-refer yourself to a clinic. ⁓ In Newport.\n\nYou can get referred by GP directly to the endal nurse and I think in the other areas they're developing like a GP referral service to the endal nurse so you should be able to in Wales be able to get to an endal nurse but they are managing huge workloads so there may be a bit of a wait but or you can come and see me in Wales and I do virtual clinic as well.\n\nIn Scotland it's the same, there's endocentres and in Northern Ireland there's only one centre. And so as far as I'm aware there's only one endonurse in Northern Ireland. you know, yeah, it's tough, yeah. I mean, we have the solution, we just haven't delivered it. But it's not just endonurses you need, you need pelvic nurses, you need dieticians, you need psychologists, you need psychosexual counselling, you need consultants.\n\nAneta (42:05)\nThat's tough.\n\nLiz (42:22)\nGPs, primary care nurses, we need all these people to come in and help us. It's not just, it's not, an end-all nurse is not the solution. It's a band-aid, but it's a good band-aid.",
+      "source_location": {
+        "page": null,
+        "line_start": 479,
+        "line_end": 489,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 40613,
+      "char_end": 41778
+    },
+    {
+      "chunk_id": "c048",
+      "text": "eed all these people to come in and help us. It's not just, it's not, an end-all nurse is not the solution. It's a band-aid, but it's a good band-aid.\n\nAnd your other question was, do we have specialists in Wales for thoracic endo? Well, we have, my answer to that would be no. However, we have done a few thoracic procedures. Bristol is developing thoracic more than us, and that's quite close to Wales, Bristol. So whether we actually develop a thoracic person is rare. And it's thoracic endo, everyone likes to talk about it, but it's actually quite rare.\n\nAneta (42:46)\nHahaha\n\nLiz (43:08)\nHowever, saying that, we are developing, we need to develop cardiac clinicians to look out for it and thoracic clinicians to look out because we suspect that they've been seeing it but not seeing it for many years. So we suspect there's more than we know about. We have done a few in Cardiff. We've got this lovely cardiologist that we work with, that we've done work with and she's excellent. And she does, it's a procedure called a VATS procedure.",
+      "source_location": {
+        "page": null,
+        "line_start": 489,
+        "line_end": 497,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 41628,
+      "char_end": 42671
+    },
+    {
+      "chunk_id": "c049",
+      "text": "got this lovely cardiologist that we work with, that we've done work with and she's excellent. And she does, it's a procedure called a VATS procedure.\n\nSo it's like a laparoscopy in the lungs. And she does that, but there aren't a huge load. But I know Bristol, it's one that will develop, but it's not developed as yet. have access, we have potential of doing it and we have done a few in Wales, but it's not, we have a thoracic care pathway because we don't. But it's a very specialist.\n\nAneta (43:39)\nMm-hmm.\n\nNo. I see. I see. ⁓\n\nLiz (44:06)\nSort of the newer ones. yeah, I know who that is.\n\nAneta (44:09)\nOne thing I- I-\n\nLiz (44:14)\nNo, that's bad. Yeah, yeah, I know who that is. Yeah. No, no, no, I can't say that. I can't say that. You need to admit that. You need to take that out. You need to, yeah, take that out.\n\nAneta (44:20)\nThey're patient.\n\nNo, I want to Don't worry. That's just for us.\n\nDon't worry. I want to keep it. One thing I haven't really asked was the mental health toll of this disease.\n\nLiz (44:44)\nIt's huge.",
+      "source_location": {
+        "page": null,
+        "line_start": 497,
+        "line_end": 523,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 42521,
+      "char_end": 43561
+    },
+    {
+      "chunk_id": "c050",
+      "text": "t's just for us.\n\nDon't worry. I want to keep it. One thing I haven't really asked was the mental health toll of this disease.\n\nLiz (44:44)\nIt's huge.\n\nIt's massive. And it's one of the things that I do address. I have a suicide prevention tool, basically. If I really feel so, I had to set up a protocol because I've had a few patients, fortunately not many, but the incidence of suicide, the attempt suicide percentage is slightly higher in women known to have endo.\n\nAneta (45:01)\nMm-hmm.\n\nLiz (45:13)\nthan women not known to have endo, which is a bit alarming. So I have come across it. I do worry about the mental wellbeing. mean, hormones can have a huge impact on mental wellbeing, the impact of the endo on the quality of life on your, I this poor girl I told you about, nine years in her bedroom. Can you imagine that? Nine years. I I spent, they asked me to do a virtual appointment and you can't, you've got to take this out.\n\nAneta (45:13)\nAll right. Yeah.\n\nNo, no.\n\nMm-hmm.\n\nLiz (45:41)\nand asked",
+      "source_location": {
+        "page": null,
+        "line_start": 518,
+        "line_end": 541,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 43411,
+      "char_end": 44420
+    },
+    {
+      "chunk_id": "c051",
+      "text": "ed me to do a virtual appointment and you can't, you've got to take this out.\n\nAneta (45:13)\nAll right. Yeah.\n\nNo, no.\n\nMm-hmm.\n\nLiz (45:41)\nand asked\n\nme to do a virtual appointment with her. Two and a half hours virtual appointment I did with her, just chatting to her. I like to think that the service that I provide gives people an opening to understanding that it's all right to have mental impact with this, that the mental impact is expected and there's things that can be done, but that you must ask for help.\n\nAnd whenever I have anybody who I get that inkling, I have that straight conversation, you know, I say, you are aware that if you are feeling that you want to harm yourself or that you are not wanting to cope anymore, that there is help there. You don't have to make that choice. You know, you did. And that's what suicide is, is a lack of choice. Because I've had it happen in our...",
+      "source_location": {
+        "page": null,
+        "line_start": 531,
+        "line_end": 545,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 44270,
+      "char_end": 45173
+    },
+    {
+      "chunk_id": "c052",
+      "text": "lp there. You don't have to make that choice. You know, you did. And that's what suicide is, is a lack of choice. Because I've had it happen in our...\n\nwhich is to me and it's always when I look back and I think what could I have done different to have prevented it, I couldn't have. It's the person no longer felt they had a choice. So that's where I think it's so important that people always know they have a choice. And I address that very directly, you know, because what's the point in not?\n\nAneta (46:35)\nYeah.\n\nMm-hmm.\n\nYeah, no, yeah. I mean, there's also the\n\nLiz (46:54)\nbut it does have a huge\n\nimpact. it's about body images. I mean, the thing that really gets me is that we've got young girls who can't have sex. And I'm sorry, right? If somebody wants to have sex, they should be able to have sex and enjoy it as long as they want to, whenever they want to, and whoever they want to do it with. this applies both to the painful intercourse, applies to whatever, whether you are gay, heterosexual, whatever, anything which affects the vagina will cause you pain.\n\nAneta (47:09)\nYes.\n\nIf",
+      "source_location": {
+        "page": null,
+        "line_start": 545,
+        "line_end": 564,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 45023,
+      "char_end": 46123
+    },
+    {
+      "chunk_id": "c053",
+      "text": "urse, applies to whatever, whether you are gay, heterosexual, whatever, anything which affects the vagina will cause you pain.\n\nAneta (47:09)\nYes.\n\nIf\n\nLiz (47:25)\nif you've got endo, for some, if you've got it, not all, but for some. Some don't get pain on intercourse and they have all sorts of other things, you know. Some women, they only ever find out they've got endo and they often have the worst endo through infertility. 40 % of women that manage with infertility is undiagnosed endo. And they've got no other symptom by infertility. So this is what you're dealing with. So it has to be a certain sympathy for clinicians who miss it.\n\nAneta (47:46)\nHello.\n\nLiz (47:55)\nYeah, because it's very simple and it's very complex. And people missing it, you know, I understand patients and women's frustration, but it can be equally frustrating from a condition point of view because there's no reason. You just don't, they don't see it. doesn't hit, it doesn't go, because it's not, it's not like, you know, I've got a spot on my face. He's got a spot on his face. We've got measles. It's not simple like that. It's not, but.\n\nAneta (48:20)\nYou",
+      "source_location": {
+        "page": null,
+        "line_start": 559,
+        "line_end": 576,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 45973,
+      "char_end": 47119
+    },
+    {
+      "chunk_id": "c054",
+      "text": "ke, you know, I've got a spot on my face. He's got a spot on his face. We've got measles. It's not simple like that. It's not, but.\n\nAneta (48:20)\nYou\n\nLiz (48:23)\nBut saying that, if you ask certain questions and listen to the patient's story, it will tell you whether they got injured or not. And I can usually, I'm 99.9 % accurate every time before they do any investigations by just talking, by just talking to somebody. Yeah. Yeah. It's the right questions. And yeah, and know what to listen out for. Know what it is, what is the information I really need.\n\nAneta (48:39)\nWow, yeah the right questions right that's what makes the difference.\n\nLiz (48:53)\nbut use the right questions.\n\nAneta (48:57)\nI'm gonna end this on a... I'll try positive note. I'm always trying to end on positive note. So ⁓ what gives you hope in endometriosis care right now?\n\nLiz (49:04)\nOkay. Yeah.",
+      "source_location": {
+        "page": null,
+        "line_start": 573,
+        "line_end": 591,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 46969,
+      "char_end": 47849
+    },
+    {
+      "chunk_id": "c055",
+      "text": "I'll try positive note. I'm always trying to end on positive note. So ⁓ what gives you hope in endometriosis care right now?\n\nLiz (49:04)\nOkay. Yeah.\n\nthe research that's going on, the fact that I know so many people that give a damn about it, that really want to make a difference and that people are being empowered to also help themselves. There is more help out there, there's tools out there, there's ways of getting information. Sometimes you may need guidance towards that information, but the information is there. There are ways to improve it. Unfortunately, it is a condition which may...\n\ntake a while to settle and may always be a problem but there are ways of adapting so that you can have a good quality of life, maximize your quality of life and your ability to function and that's what I and everyone I know want to do. That's our prime drive is maximum quality of life, maximum ability to function.\n\nAneta (50:00)\nThat's amazing. If everyone was like you. In Wales.\n\nLiz (50:05)\nThey are, they're all like me, they're\n\nWell, no, they are, and they've got lots of endo nurses in England and they work so hard, know. They work so, hard. It's an all-consuming role.",
+      "source_location": {
+        "page": null,
+        "line_start": 588,
+        "line_end": 603,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 47699,
+      "char_end": 48879
+    },
+    {
+      "chunk_id": "c056",
+      "text": "ey're\n\nWell, no, they are, and they've got lots of endo nurses in England and they work so hard, know. They work so, hard. It's an all-consuming role.\n\nAneta (50:15)\nYeah, I can imagine,\n\nYeah, it is.\n\nWell, the last thing I want to ask you is if you could introduce yourself on camera, so just say your name, what you do, and if you can say that you've been the first ⁓ Ender Nurse in Wales, would be amazing. So you can, yeah, sorry, yeah, you got it.\n\nLiz (50:38)\nOkay, all right. So hi. Okay,\n\nhi, my name is Liz Bruin. I am an endometriosis clinical nurse specialist. I'm focused mainly doing my endometriosis nursing now in private care and online. However, I was the very first endometriosis nurse since 2006 in Wales ⁓ until 2021 predominantly. I was the only one in Wales I'd been involved.\n\ndevelopment of endometriosis nurses in Wales and in England and Scotland. I've been involved with the British Society of Gynaecology and Endoscopy. I've been involved with the NC pod report about endometriosis and I've also been involved with NICE protocols such as bringing in re-echo.",
+      "source_location": {
+        "page": null,
+        "line_start": 601,
+        "line_end": 617,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 48729,
+      "char_end": 49816
+    },
+    {
+      "chunk_id": "c057",
+      "text": "Endoscopy. I've been involved with the NC pod report about endometriosis and I've also been involved with NICE protocols such as bringing in re-echo.\n\nAneta (51:23)\nLovely. Thank you so much, Liz. Thank you so much. This has been amazing. mean, it's been the first meet up we had was amazing. I was looking forward to this one anyway. Lovely. Well, that's all I need. I hope it uploaded well. You never know. I hope.\n\nLiz (51:28)\nOkay.\n\nHa ha ha ha ha ha ha ha ha ha ha ha ha\n\nYeah.\n\nAneta (51:44)\nIf you want, I know you mentioned that you want something for your own promotion, so I can also whatever. So I'll be editing it as I go. don't do it in, I do it in chunks. So I will, this will upload on this rear side. ⁓ It's a tool where we can, I can switch the screens, you know, can add the subtitles, I can add some ⁓ B-rolls. So if I find it like,\n\nLiz (51:53)\nSo what happens to this now?",
+      "source_location": {
+        "page": null,
+        "line_start": 617,
+        "line_end": 633,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 49666,
+      "char_end": 50560
+    },
+    {
+      "chunk_id": "c058",
+      "text": ", I can switch the screens, you know, can add the subtitles, I can add some ⁓ B-rolls. So if I find it like,\n\nLiz (51:53)\nSo what happens to this now?\n\nAneta (52:10)\nThere is something you talk about, for example laparoscopy, can put like laparoscopy, I don't know, image or something like that. So I'll do that. ⁓ And then we'll be sharing this on Instagram where we can thank you. And ⁓ I can also share with you the videos you can use for your own OU's. Because if I share it on Instagram and you download it, then you would have a watermark that it's like DocMap. So I'm more than happy to send you the originals and then you can also use it as you want.\n\nLiz (52:31)\nYeah.\n\nOkay, cool. I don't know why I'm doing it, but...\n\nAneta (52:39)\nI'll cut out the bits that we agreed on, don't worry.\n\nLiz (52:39)\nA lot technical like. Yeah, yeah. Anything\n\nthat refers to patient thing and get those out. Yeah.\n\nAneta (52:47)\nIf I'm not too sure, I'll send it to you just for approval. And that's it. That's it for me. Thank you very much and yeah, hopefully speak to you soon. Alright. Yeah, thank you. Okay, bye.\n\nLiz (52:50)\nYeah. Okay.",
+      "source_location": {
+        "page": null,
+        "line_start": 630,
+        "line_end": 655,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 50410,
+      "char_end": 51547
+    },
+    {
+      "chunk_id": "c059",
+      "text": "that's it. That's it for me. Thank you very much and yeah, hopefully speak to you soon. Alright. Yeah, thank you. Okay, bye.\n\nLiz (52:50)\nYeah. Okay.\n\nLovely? Cool? That's my pleasure. All right. Hope you keep getting better, Anita. Bye.",
+      "source_location": {
+        "page": null,
+        "line_start": 652,
+        "line_end": 657,
+        "timestamp_start": null,
+        "timestamp_end": null
+      },
+      "section_path": [],
+      "char_start": 51397,
+      "char_end": 51635
+    }
+  ],
+  "candidates": [
+    {
+      "idea_id": "i002",
+      "content_pillar": "validation",
+      "topic": "Impact of endometriosis on quality of life",
+      "angle": "Endometriosis significantly affects various aspects of life including relationships, education, and socialising.",
+      "core_claim": "At least 55% of people with endometriosis experience long-term life impacts affecting quality of life, relationships, and sexual activity.",
+      "audience_pain": "Feeling isolated and misunderstood due to the chronic and multifaceted nature of endometriosis symptoms.",
+      "promise": "Recognition that endometriosis is a chronic condition with wide-ranging effects validates women's experiences and encourages seeking support.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c004",
+          "excerpt": "With some people, would say at least 55%, it has a long-term life impact on various things. It'll affect their quality of life. It'll affect their ability to have relationships. It'll affect their ability to have sex.",
+          "note": "Quantifies the broad impact of endometriosis on life."
+        },
+        {
+          "chunk_id": "c005",
+          "excerpt": "I've got this very young girl recently, it's a story, 18 year old diagnosed endometriosis, hadn't had appropriate surgery, then spent the next nine years in her bedroom until we operated on her.",
+          "note": "Illustrates the severe social isolation caused by untreated endometriosis."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 5,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 415.3
+      },
+      "rank": 1,
+      "selected": true,
+      "selection_reason": "Strong validation pillar with clear myth_vs_truth format; quantifies broad life impacts and includes a compelling real-life example, helping women feel understood and encouraging support-seeking.",
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i004",
+      "content_pillar": "access_or_decision",
+      "topic": "Accessing endometriosis specialist care in the UK",
+      "angle": "Availability of endometriosis nurses and centres varies across UK regions, with some areas offering self-referral options.",
+      "core_claim": "In England, endometriosis centres with nurses exist and can be found via the British Society of Gynaecology and Endoscopy; in Wales, self-referral to clinics is possible but workload is high.",
+      "audience_pain": "Difficulty finding and accessing specialist endometriosis care and nurses.",
+      "promise": "Knowing where and how to access specialist services can improve care and support.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c046",
+          "excerpt": " So I would, in England, if you're under an endometriosis center, then there is a nurse there that you can access. So, and you can find all of those by looking on the British Society of Gynaecology Endoscopy site, endometriosis sites, and it tells you all the ",
+          "note": "Details how to find endometriosis centres and nurses in England. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c047",
+          "excerpt": "by GP directly to the endal nurse and I think in the other areas they're developing like a GP referral service to the endal nurse so you should be able to in Wales be able to get to an endal nurse but they are managing huge workloads so there may be a bit of a",
+          "note": "Explains referral and self-referral options in Wales. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 5,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 408.2
+      },
+      "rank": 2,
+      "selected": true,
+      "selection_reason": "Focuses on access_or_decision with practical what_to_do_next format; details how to find specialist endometriosis nurses and centres in the UK, addressing a key pain point of accessing care.",
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i020",
+      "content_pillar": "access_or_decision",
+      "topic": "Self-management and symptom tracking",
+      "angle": "Tracking symptoms and understanding cyclical patterns helps in communicating with healthcare providers.",
+      "core_claim": "Keeping a record of symptoms and distinguishing cyclical from non-cyclical pain aids diagnosis and management.",
+      "audience_pain": "Difficulty explaining symptoms in short GP appointments.",
+      "promise": "Symptom tracking empowers women to advocate for themselves effectively.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c036",
+          "excerpt": "It's really good to look at symptom, what's it called? Symptom, what do call them? Symptom tools, you know? So you just keep a record of your own tools and take that with you.",
+          "note": "Recommends symptom tracking."
+        },
+        {
+          "chunk_id": "c043",
+          "excerpt": "ork out your symptoms. Work out what's cyclical, what isn't cyclical. Work it out. Go to one of the, Endo UK is fantastic, Endometriosis Awareness. There's some really good resources. ",
+          "note": "Encourages self-education and symptom awareness. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 5,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 408.2
+      },
+      "rank": 3,
+      "selected": true,
+      "selection_reason": "Offers a checklist format on symptom tracking and self-management, empowering women to communicate effectively with healthcare providers and advocate for themselves.",
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i009",
+      "content_pillar": "recognition",
+      "topic": "Why diagnosis of endometriosis often takes many years",
+      "angle": "Social beliefs and clinical challenges contribute to delayed diagnosis.",
+      "core_claim": "There is a social and clinical belief that painful periods are normal and must be endured, leading to delays in diagnosis often spanning years.",
+      "audience_pain": "Long wait times and dismissal of symptoms by healthcare providers.",
+      "promise": "Raising awareness can shorten diagnosis times and improve outcomes.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c035",
+          "excerpt": "ally, the majority will start developing issues in their periods, okay? And unfortunately, there is a social and clinical belief that, you have to get used to periods. It's rubbish, right? But that's educa",
+          "note": "Identifies societal misconceptions about periods. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c039",
+          "excerpt": " you know, the first response and it still is, and it's just so sad is, is periods get used to it. Ane",
+          "note": "Highlights persistent dismissive attitudes. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 5,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 401.0
+      },
+      "rank": 4,
+      "selected": true,
+      "selection_reason": "Recognition pillar with myth_vs_truth format addressing delayed diagnosis due to societal and clinical misconceptions, helping women understand and challenge dismissive attitudes.",
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i031",
+      "content_pillar": "validation",
+      "topic": "Women often endure pain silently due to societal expectations",
+      "angle": "Women are told to 'get used to' period pain, leading to silence and delayed help-seeking.",
+      "core_claim": "The underlying statement that women must endure period pain is harmful and contributes to delayed diagnosis.",
+      "audience_pain": "Feeling pressured to tolerate pain and not seek help.",
+      "promise": "Challenging this belief empowers women to seek care and support.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c040",
+          "excerpt": "Everybody makes this assumption that periods are their normal thing of function. Therefore, they should be all right. You're a woman. You just have to get used to it.",
+          "note": "Describes harmful societal assumptions."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 5,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 401.0
+      },
+      "rank": 5,
+      "selected": true,
+      "selection_reason": "Validation-focused myth_vs_truth content challenging harmful societal expectations to endure pain, empowering women to seek care and break silence.",
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i001",
+      "content_pillar": "access_or_decision",
+      "topic": "Endometriosis nurse roles and service development",
+      "angle": "The evolution and importance of endometriosis nurses in the UK healthcare system",
+      "core_claim": "Endometriosis nurses have been developed predominantly in England and Scotland, with Wales having fewer but growing numbers; these nurses provide essential support bridging primary and secondary care.",
+      "audience_pain": "Difficulty accessing specialised endometriosis care and inconsistent service provision depending on location.",
+      "promise": "Understanding the role of endometriosis nurses can help women navigate the healthcare system and advocate for better access.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c001",
+          "excerpt": "In England, there have been endo-nurses in gynaecology with gynaecologists who specialize in endometriosis. And then in 2012, the British Society of Gynaecology and Endoscopy developed endometriosis centers. the criteria, one of the main criteria is to be a member was you had to have consultants who could do the surgery, but you had to have an endometriosis nurse.",
+          "note": "Describes the establishment of endometriosis nurses and centres in England."
+        },
+        {
+          "chunk_id": "c002",
+          "excerpt": "rse. And this resulted in a multiple ⁓ employment of and development of endometriosis nurses, predominantly within England and Scotland. Within Wales we only had one centre and we already had one, me, so we didn't need to develop a",
+          "note": "Highlights the difference in nurse development between England, Scotland, and Wales. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 396.9
+      },
+      "rank": 6,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i007",
+      "content_pillar": "recognition",
+      "topic": "Importance of thorough surgical assessment for endometriosis",
+      "angle": "A 360-degree assessment during laparoscopy is essential to detect all endometriosis lesions.",
+      "core_claim": "Patients should request a 360-degree assessment with photographic evidence during surgery to ensure comprehensive evaluation.",
+      "audience_pain": "Frustration with incomplete surgeries and missed diagnosis.",
+      "promise": "Knowing what to ask for can improve surgical outcomes and diagnosis accuracy.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c033",
+          "excerpt": "I tell every patient, whoever you're going to have your surgery with, say I want to have a 360 degree assessment, I want to have pictures to show that you've looked at my diaphragm, and that answers one of your questions.",
+          "note": "Advice on surgical assessment and documentation."
+        },
+        {
+          "chunk_id": "c034",
+          "excerpt": " (29:31) And you can see that. OK, so imagine. If I elevate that, like that, okay, and I had a spot in there. You can't see it when it's like that. When I open it up like that, you can see it. And that's what",
+          "note": "Explains why thorough inspection is necessary. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 396.9
+      },
+      "rank": 7,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i027",
+      "content_pillar": "recognition",
+      "topic": "Endometriosis nurse specialist's day-to-day role",
+      "angle": "Endometriosis nurses assist in surgery, conduct clinics, perform scans, and provide patient support.",
+      "core_claim": "Endometriosis nurses work as surgical assistants, run clinics, perform vaginal scans, and support patients pre- and post-operatively.",
+      "audience_pain": "Uncertainty about what specialist nurses do and how they support patients.",
+      "promise": "Understanding nurse roles can help patients utilise their expertise effectively.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c028",
+          "excerpt": "onsultants. I work as either first assistant, so I stand next to the consultant or I manipulate the uterus. doing the surgery to enable the other two to actually do the operating. I can step into wherever they want me to. And then I see the patients for theate",
+          "note": "Describes surgical and patient care roles. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c029",
+          "excerpt": "I'm also a nurse sonographer, which means that I can scan the uterus. It's always very handy for endometriosis.",
+          "note": "Describes scanning role."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 396.9
+      },
+      "rank": 8,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i028",
+      "content_pillar": "recognition",
+      "topic": "Importance of patient communication and listening in diagnosis",
+      "angle": "Accurate diagnosis relies on asking the right questions and listening carefully to patient stories.",
+      "core_claim": "Experienced clinicians can predict endometriosis with 99.9% accuracy by talking and listening to patients before investigations.",
+      "audience_pain": "Feeling unheard or dismissed by healthcare providers.",
+      "promise": "Encourages patients to share their full story and clinicians to listen attentively.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c054",
+          "excerpt": ") But saying that, if you ask certain questions and listen to the patient's story, it will tell you whether they got injured or not. And I can usually, I'm 99.9 % accurate every time before they do any investigations by just talking, by just t",
+          "note": "Highlights diagnostic value of communication. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 5,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 394.9
+      },
+      "rank": 9,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i003",
+      "content_pillar": "recognition",
+      "topic": "Symptoms and diagnosis challenges of endometriosis",
+      "angle": "Endometriosis symptoms are complex and often misdiagnosed, leading to delayed diagnosis.",
+      "core_claim": "Endometriosis symptoms vary widely and can mimic other conditions like IBS; diagnosis often takes years due to lack of awareness and communication barriers.",
+      "audience_pain": "Frustration with delayed diagnosis and misdiagnosis despite persistent symptoms.",
+      "promise": "Educating oneself on symptoms and symptom tracking can empower women to advocate for timely diagnosis.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c036",
+          "excerpt": "dometriosis can present... as IBS because it gets bloating. The crucial factor that you need to know and you need to, when you're going to see somebody is to say, this happens every month",
+          "note": "Explains symptom overlap and importance of symptom timing. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c037",
+          "excerpt": "is. If you're a teenager, you will find it difficult possibly to communicate it. If you're an adult and it's been going for years, you're exasperated. So you just don't know. So there's ⁓ that break in communic",
+          "note": "Highlights communication challenges with healthcare providers. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 5,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 392.9
+      },
+      "rank": 10,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i019",
+      "content_pillar": "validation",
+      "topic": "Social stigma and silence around painful periods and intercourse",
+      "angle": "Many women do not talk about pain due to embarrassment or thinking it's normal.",
+      "core_claim": "Pain with intercourse and severe period pain are often not discussed because women think they are doing something wrong or it is normal.",
+      "audience_pain": "Feeling isolated and ashamed about symptoms.",
+      "promise": "Validating these experiences encourages open discussion and seeking help.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c020",
+          "excerpt": "Pain with intercourse, people don't talk about it because they think they're doing something wrong.",
+          "note": "Highlights silence around dyspareunia."
+        },
+        {
+          "chunk_id": "c041",
+          "excerpt": "'t want to be labeled. They don't want to be different to everybody else. So these are all the factors which are brought in there as well. Aneta (3",
+          "note": "Explains social stigma. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 390.8
+      },
+      "rank": 11,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i022",
+      "content_pillar": "recognition",
+      "topic": "Importance of specialist radiologists for MRI diagnosis",
+      "angle": "MRI effectiveness depends on the radiologist's expertise in endometriosis.",
+      "core_claim": "MRI scans must be read by radiologists knowledgeable about endometriosis to avoid missed diagnosis.",
+      "audience_pain": "False negatives or missed diagnosis due to inexperienced radiologists.",
+      "promise": "Awareness can prompt patients to seek second opinions or specialist centres.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c032",
+          "excerpt": "The benefits of MRI depends on who's reading it. If you've got it, if the radiologist needs to have an interest in, if you're having an MRI, it must be with the radiologist who has an understanding of endometriosis and knows what they're looking for. Otherwise they'll miss it.",
+          "note": "Highlights importance of specialist radiologists."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 382.7
+      },
+      "rank": 12,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i030",
+      "content_pillar": "recognition",
+      "topic": "Endometriosis can affect fertility without other symptoms",
+      "angle": "Some women only discover endometriosis when investigating infertility.",
+      "core_claim": "40% of women managing infertility have undiagnosed endometriosis and may have no other symptoms.",
+      "audience_pain": "Infertility without clear diagnosis or explanation.",
+      "promise": "Awareness can prompt fertility investigations to include endometriosis screening.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c053",
+          "excerpt": "Some women, they only ever find out they've got endo and they often have the worst endo through infertility. 40 % of women that manage with infertility is undiagnosed endo.",
+          "note": "Links infertility and undiagnosed endometriosis."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 5,
+        "total_weighted": 382.7
+      },
+      "rank": 13,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i011",
+      "content_pillar": "access_or_decision",
+      "topic": "Need for multidisciplinary support in endometriosis care",
+      "angle": "Endometriosis care requires a team including nurses, dieticians, psychologists, and specialists.",
+      "core_claim": "Endometriosis nurses alone are not the solution; comprehensive care needs pelvic nurses, dieticians, psychologists, psychosexual counselling, consultants, and GPs.",
+      "audience_pain": "Fragmented care and lack of holistic support.",
+      "promise": "Understanding the need for multidisciplinary teams can help patients seek comprehensive care.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c047",
+          "excerpt": "it's not just endonurses you need, you need pelvic nurses, you need dieticians, you need psychologists, you need psychosexual counselling, you need consultants. Aneta (42:05) That's tough. Liz (42:22) GPs, primary care nurses, we need all ",
+          "note": "Emphasises multidisciplinary care needs. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 382.7
+      },
+      "rank": 14,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i014",
+      "content_pillar": "recognition",
+      "topic": "Role of pelvic physiotherapy in endometriosis management",
+      "angle": "Pelvic physiotherapy is recommended by NICE guidelines but under-resourced.",
+      "core_claim": "Pelvic physiotherapy can significantly improve quality of life for women with endometriosis, though access remains limited.",
+      "audience_pain": "Limited availability of recommended therapies.",
+      "promise": "Knowing about pelvic physiotherapy can encourage women to seek this beneficial treatment.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c023",
+          "excerpt": "Pelvic physiotherapy, fantastic. Now the nice guidelines has always said that we should be using pelvic physio, but the resources have not been there, but people are becoming interested now.",
+          "note": "NICE guidelines recommend pelvic physiotherapy."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 382.7
+      },
+      "rank": 15,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i025",
+      "content_pillar": "recognition",
+      "topic": "Endometriosis can cause symptoms beyond pelvic pain",
+      "angle": "Symptoms include pain on intercourse, bowel and bladder pain, and fatigue.",
+      "core_claim": "Endometriosis symptoms can include pain on intercourse, bowel and bladder pain, and systemic symptoms like fatigue.",
+      "audience_pain": "Symptoms often dismissed or attributed to other causes.",
+      "promise": "Recognising diverse symptoms can improve diagnosis and management.",
+      "format_suggestion": "checklist",
+      "source_citations": [
+        {
+          "chunk_id": "c037",
+          "excerpt": "hing. But there are complex symptoms with endometriosis. You get pain on intercourse, get pain opening your bowels, pain opening your bladder, but those also happen for other thing",
+          "note": "Lists common symptoms. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c044",
+          "excerpt": "hey have? 70 % had dyspareunia, painful intercourse. 80 % had painful periods. Aneta (",
+          "note": "Symptom prevalence data. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 382.7
+      },
+      "rank": 16,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i026",
+      "content_pillar": "validation",
+      "topic": "Emotional and social impact of endometriosis on young women",
+      "angle": "Endometriosis can severely limit social life and education, especially when undiagnosed or untreated.",
+      "core_claim": "Young women may spend years isolated due to untreated endometriosis, impacting education and social development.",
+      "audience_pain": "Isolation, missed education, and social stigma.",
+      "promise": "Acknowledging these impacts validates experiences and highlights the need for timely care.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c005",
+          "excerpt": "ry young girl recently, it's a story, 18 year old diagnosed endometriosis, hadn't had appropriate surgery, then spent the next nine years in her bedroom until we operated on her",
+          "note": "Example of social isolation. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 376.5
+      },
+      "rank": 17,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i015",
+      "content_pillar": "validation",
+      "topic": "Challenges faced by endometriosis nurses",
+      "angle": "Endometriosis nursing is a demanding and stressful role with insufficient support and resources.",
+      "core_claim": "Many endometriosis nurses leave due to stress; the role requires support including secretarial help and coordinators to function effectively.",
+      "audience_pain": "Concerns about the sustainability and availability of specialist nursing support.",
+      "promise": "Understanding the challenges can foster appreciation and advocacy for better resourcing.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c004",
+          "excerpt": "e're five years down the line. We've lost three. four due to stress, one due to promotion, but most due to stress because it's a stressful job. You know, it is very demanding, bringing in changes, extreme",
+          "note": "High stress and turnover among endometriosis nurses. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c015",
+          "excerpt": "re not getting the, an endometriosis nurse is not just somebody who can sit on their own. She needs to, he or she needs to have support. They need to have secretarial support. They need to have a coordinator",
+          "note": "Details the support needed for nurses to function. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 5,
+        "total_weighted": 369.4
+      },
+      "rank": 18,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i010",
+      "content_pillar": "validation",
+      "topic": "Painful intercourse and infertility as symptoms of endometriosis",
+      "angle": "Endometriosis can cause dyspareunia and infertility even without other symptoms.",
+      "core_claim": "70% of women with endometriosis experience painful intercourse; 40% of women with infertility have undiagnosed endometriosis.",
+      "audience_pain": "Symptoms that are often ignored or misunderstood.",
+      "promise": "Recognising these symptoms can lead to earlier diagnosis and treatment.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c044",
+          "excerpt": "70 % had dyspareunia, painful intercourse.",
+          "note": "Prevalence of painful intercourse."
+        },
+        {
+          "chunk_id": "c053",
+          "excerpt": "Some women, they only ever find out they've got endo and they often have the worst endo through infertility. 40 % of women that manage with infertility is undiagnosed endo.",
+          "note": "Links infertility with undiagnosed endometriosis."
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 368.4
+      },
+      "rank": 19,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i023",
+      "content_pillar": "recognition",
+      "topic": "Role of endometriosis nurses in patient support",
+      "angle": "Endometriosis nurses provide education, symptom analysis, advice, and emotional support but cannot be available 24/7.",
+      "core_claim": "Endometriosis nurses listen, analyse symptoms, provide information and options, empowering patients to make choices.",
+      "audience_pain": "Feeling unsupported during severe symptom episodes outside clinic hours.",
+      "promise": "Knowing the nurse's role helps set realistic expectations and encourages utilisation of available support.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c006",
+          "excerpt": " ⁓ So an endo nurse is somebody who has to be able to listen, is somebody who is ⁓ prepared to analyse your symptoms, who's prepared to give advice, but need to recognise that a lot of our role, I feel our role is very much is giving information, giving educat",
+          "note": "Describes nurse role and limitations. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 368.4
+      },
+      "rank": 20,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i021",
+      "content_pillar": "validation",
+      "topic": "Endometriosis symptoms vary widely and are individual",
+      "angle": "No two women experience endometriosis the same way; symptoms and responses to treatment differ.",
+      "core_claim": "Endometriosis presents with complex and individual symptoms; some respond to treatments like the pill, others do not.",
+      "audience_pain": "Feeling misunderstood due to symptom variability.",
+      "promise": "Recognising individual differences validates experiences and supports personalised care.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c038",
+          "excerpt": " it, it's very individual and how people respond is extremely individual and the impact of the symptoms is indivi",
+          "note": "Emphasises symptom variability. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 4,
+        "total_weighted": 365.3
+      },
+      "rank": 21,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i012",
+      "content_pillar": "recognition",
+      "topic": "Education and awareness in schools about menstrual health",
+      "angle": "Early education about periods and symptoms can improve recognition and support for endometriosis.",
+      "core_claim": "Groups like Menstrual Project and Bloody Matters work in schools to educate about periods and recognise abnormal symptoms.",
+      "audience_pain": "Lack of early recognition leading to delayed diagnosis and stigma.",
+      "promise": "Better education can empower young women and their peers to seek help sooner.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c020",
+          "excerpt": "We've got Menstrual Project, again a Welsh group but this is open to everybody and they particularly have done fantastic work in schools. We've got Bloody Matters. which is a government-driven thing in Wales, and they've got a similar where we go into schools and we talk about periods.",
+          "note": "Describes educational initiatives in schools."
+        }
+      ],
+      "safety_flags": [
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 2,
+        "total_weighted": 354.1
+      },
+      "rank": 22,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i016",
+      "content_pillar": "recognition",
+      "topic": "Importance of primary care nurses specialising in gynaecology",
+      "angle": "Primary care nurses specialising in gynaecology can improve access and management of endometriosis.",
+      "core_claim": "Having primary care nurses like diabetic or asthma nurses, based close to home, would improve timely access and management of endometriosis.",
+      "audience_pain": "Long waits and poor access to specialist care.",
+      "promise": "Advocating for specialised primary care nursing can lead to better local support.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c003",
+          "excerpt": "inantly conferences. And my aim, the reason I go there is what I want is I want a primary care nurse who, like a diabetic nurse, like an asthma nurse, is based in primary care and therefore totally accessible",
+          "note": "Vision for primary care nurse role. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c016",
+          "excerpt": "We need a solid base in primary care that looks at gynaecology, not necessarily endometriosis, but all things gynaecology, because most gynaecology conditions are resolvable.",
+          "note": "Emphasises need for primary care focus."
+        }
+      ],
+      "safety_flags": [
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 2,
+        "total_weighted": 354.1
+      },
+      "rank": 23,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i008",
+      "content_pillar": "recognition",
+      "topic": "Difference between excision and ablation surgery for endometriosis",
+      "angle": "Excision surgery removes deep endometriosis lesions, whereas ablation only treats surface lesions.",
+      "core_claim": "Excision is preferred over ablation because endometriosis is too deep for surface skimming to be effective.",
+      "audience_pain": "Undergoing ineffective surgery leading to persistent symptoms.",
+      "promise": "Understanding surgical options helps patients advocate for appropriate treatment.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c034",
+          "excerpt": "'s the first thing. And then excision, not ablation. Because it's ablation only takes the surface. It's like skimming. It's like skimming something. If you need, if your plaster's gone on the wall, skimming it is not ",
+          "note": "Clarifies surgical techniques and their effectiveness. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [
+        "medical_claim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 3,
+        "total_weighted": 343.9
+      },
+      "rank": 24,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i024",
+      "content_pillar": "access_or_decision",
+      "topic": "Virtual clinics and private endometriosis advisory services",
+      "angle": "Virtual clinics increase accessibility; private services offer additional support where NHS services are limited.",
+      "core_claim": "Virtual hour-long appointments allow thorough assessment; private Endometriosis Advisory Service provides advice on endometriosis and adenomyosis.",
+      "audience_pain": "Limited NHS appointment times and access issues.",
+      "promise": "Virtual and private options can supplement NHS care for better support.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c013",
+          "excerpt": "Each patient gets an hour appointment for their first appointment. And they can either be diagnosed with endometriosis or have issues which have meant that they've gone to their GP again and again. They can self-refer to Helen here, but that service is not available anywhere else in Wales.",
+          "note": "Describes virtual clinic and self-referral."
+        },
+        {
+          "chunk_id": "c014",
+          "excerpt": "s why I've named it the Endometriosis Advisory Service, because I'm here to give advice about endometriosis and adenomyosis. Anet",
+          "note": "Private advisory service description. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 3,
+        "clarity": 4,
+        "slideability": 4,
+        "save_share": 4,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 5,
+        "source_support": 2,
+        "total_weighted": 343.9
+      },
+      "rank": 25,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i005",
+      "content_pillar": "validation",
+      "topic": "Mental health impact of endometriosis",
+      "angle": "Endometriosis significantly affects mental wellbeing, with increased risk of suicide attempts.",
+      "core_claim": "Women with endometriosis have a slightly higher incidence of suicide attempts; mental health support is crucial.",
+      "audience_pain": "Mental health struggles and lack of recognition or support.",
+      "promise": "Acknowledging mental health impact and seeking help can provide support and reduce risk.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c050",
+          "excerpt": "suicide, the attempt suicide percentage is slightly higher in women known to have endo. Aneta (45:01) Mm-hmm. Liz (45:13) than women not known to have endo, which ",
+          "note": "States increased suicide attempt risk. [excerpt_auto_repaired]"
+        },
+        {
+          "chunk_id": "c051",
+          "excerpt": "I like to think that the service that I provide gives people an opening to understanding that it's all right to have mental impact with this, that the mental impact is expected and there's things that can be done, but that you must ask for help.",
+          "note": "Emphasises importance of mental health support and asking for help."
+        }
+      ],
+      "safety_flags": [
+        "medical_claim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 3,
+        "total_weighted": 340.8
+      },
+      "rank": 26,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i017",
+      "content_pillar": "validation",
+      "topic": "Frustration with inconsistent service provision",
+      "angle": "Service quality varies across health boards due to differing resources and personalities.",
+      "core_claim": "Not all health boards provide the same level of endometriosis nursing service, impacting patient experience.",
+      "audience_pain": "Unequal access and support depending on location.",
+      "promise": "Awareness of these disparities can empower women to seek better care or advocate for improvements.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c015",
+          "excerpt": "veryone, my ⁓ slight disappointment is not everybody provides the same service, but a lot of that is, you know, every health board are different and you're dealing with different personalities and they're not getting the, an endometriosis nurse is not just som",
+          "note": "Acknowledges service variability. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 3,
+        "novelty": 2,
+        "strategic_fit": 4,
+        "source_support": 4,
+        "total_weighted": 339.8
+      },
+      "rank": 27,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i013",
+      "content_pillar": "recognition",
+      "topic": "New drug treatments for endometriosis",
+      "angle": "Emerging medications like Dienogest offer alternatives to hormone therapies with fewer side effects.",
+      "core_claim": "Dienogest is a good option for younger women, especially with endometrioma, reducing cyst size without inducing menopause.",
+      "audience_pain": "Concerns about side effects of traditional hormone treatments.",
+      "promise": "Awareness of new treatments can help women discuss options with their healthcare providers.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c022",
+          "excerpt": "Re-echo being available is great. Diana desk. I think although I was a bit skeptical to begin with, I do think it is very good. And to think for women who particularly those with endometrioma, I think it's a nicer option to hormones such as Prostap or Reco, which put you into medically induced menopause.",
+          "note": "Introduces Dienogest as a newer treatment."
+        },
+        {
+          "chunk_id": "c022",
+          "excerpt": "there's evidence that it will reduce it. I mean, not massive amounts, but will reduce it by two to three centimetres, from seven centimetres to four centimetres.",
+          "note": "Effectiveness of Dienogest on cyst size."
+        }
+      ],
+      "safety_flags": [
+        "medical_claim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 3,
+        "novelty": 4,
+        "strategic_fit": 4,
+        "source_support": 3,
+        "total_weighted": 339.8
+      },
+      "rank": 28,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i029",
+      "content_pillar": "validation",
+      "topic": "Frustration with slow progress in endometriosis service provision",
+      "angle": "Despite increased awareness and political attention, service improvements remain insufficient and slow.",
+      "core_claim": "Service provision for women with endometriosis has not improved greatly; theatre access has been cut and diagnosis delays persist.",
+      "audience_pain": "Ongoing suffering due to inadequate services.",
+      "promise": "Acknowledging these frustrations validates experiences and supports calls for change.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c019",
+          "excerpt": "Service provision for women has not improved greatly. Even, you know, the RCOG now have got two new papers out saying, come on, pull your finger out, we need to something for women. It's just not fair anymore.",
+          "note": "Critique of slow service improvement."
+        },
+        {
+          "chunk_id": "c019",
+          "excerpt": "Initial impact from Covid was horrific. We didn't operate for a year and a half. 18 months, no operating. But now they cut, I mean, in Cardiff, they cut our theatre access significantly.",
+          "note": "Details impact of Covid and resource cuts."
+        }
+      ],
+      "safety_flags": [
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 4,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 2,
+        "total_weighted": 326.5
+      },
+      "rank": 29,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i018",
+      "content_pillar": "recognition",
+      "topic": "Endometriosis research progress in the UK",
+      "angle": "Research in Scotland, Cambridge, and Oxford is advancing understanding and treatment options.",
+      "core_claim": "Research on endometriosis in the UK has improved phenomenally over the last decade.",
+      "audience_pain": "Lack of awareness about ongoing research and new developments.",
+      "promise": "Highlighting research progress offers hope for better future treatments.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c016",
+          "excerpt": "The research is better. The medicines are better. But getting to help is quick. And that's the difference. That's the difference. And that's what Endel needs.",
+          "note": "Notes improvements in research and treatment."
+        },
+        {
+          "chunk_id": "c018",
+          "excerpt": "I mean, I have to say that the research now is phenomenal. Particularly over here, I mean, we've got in Scotland, there's great research going on in Scotland, there's great research going on in Cambridge and Oxford. There's some really good stuff going on.",
+          "note": "Specifies UK research centres."
+        }
+      ],
+      "safety_flags": [
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 3,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 2,
+        "total_weighted": 308.2
+      },
+      "rank": 30,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i032",
+      "content_pillar": "recognition",
+      "topic": "Endometriosis awareness campaigns and political attention",
+      "angle": "All Party Parliamentary Group (APPG) on endometriosis raised profile and political will.",
+      "core_claim": "The APPG in 2020 significantly increased political awareness and kept endometriosis on the agenda.",
+      "audience_pain": "Lack of political attention previously contributed to poor services.",
+      "promise": "Political engagement is driving improvements in awareness and services.",
+      "format_suggestion": "what_to_do_next",
+      "source_citations": [
+        {
+          "chunk_id": "c018",
+          "excerpt": " it's definitely more political, particularly since your man in 2020 did the APGG, the All Party Parliamentary Group, that was brilliant, that was a real, you know, that put it right up there and has kept it up there",
+          "note": "Mentions political advocacy impact. [excerpt_auto_repaired]"
+        }
+      ],
+      "safety_flags": [],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 3,
+        "clarity": 4,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 2,
+        "total_weighted": 308.2
+      },
+      "rank": 31,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    },
+    {
+      "idea_id": "i006",
+      "content_pillar": "recognition",
+      "topic": "Common but overlooked symptoms of endometriosis",
+      "angle": "Fatigue is a common symptom of endometriosis that is often ignored.",
+      "core_claim": "95% of patients in a study reported fatigue, which is linked to ongoing inflammation in the body.",
+      "audience_pain": "Feeling that symptoms like fatigue are dismissed or not linked to endometriosis.",
+      "promise": "Recognising fatigue as a symptom can validate experiences and encourage appropriate management.",
+      "format_suggestion": "myth_vs_truth",
+      "source_citations": [
+        {
+          "chunk_id": "c044",
+          "excerpt": "I texted a hundred patients. Within 48 hours, 100% replied, 95% had fatigue.",
+          "note": "High prevalence of fatigue among endometriosis patients."
+        },
+        {
+          "chunk_id": "c044",
+          "excerpt": "Fatigue is due to like an ongoing, it's an ongoing inflammatory process in the body, which is a low ticking. It's like a drip in your roof.",
+          "note": "Explains possible cause of fatigue symptom."
+        }
+      ],
+      "safety_flags": [
+        "medical_claim",
+        "citation_not_verbatim"
+      ],
+      "scores": {
+        "hook_strength": 3,
+        "recognition": 4,
+        "clarity": 3,
+        "slideability": 3,
+        "save_share": 3,
+        "emotional_pull": 3,
+        "novelty": 3,
+        "strategic_fit": 4,
+        "source_support": 2,
+        "total_weighted": 306.1
+      },
+      "rank": 32,
+      "selected": false,
+      "selection_reason": null,
+      "hooks": [],
+      "best_hook_id": null,
+      "outline": [],
+      "carousel_draft": null,
+      "qa": null
+    }
+  ],
+  "shortlist": {
+    "selected_idea_ids": [
+      "i002",
+      "i004",
+      "i020",
+      "i009",
+      "i031"
+    ],
+    "selection_frozen_at": "2026-04-15T18:41:27.835998Z",
+    "rubric_version": "v1",
+    "notes": "Selected ideas prioritise clear, actionable content with strong UK relevance and source support, focusing on recognition, validation, and access/decision. They offer shareable formats like myth-vs-truth and checklists, helping women recognise symptoms, feel validated, and know next steps."
+  },
+  "outputs": {
+    "final_selected_idea_id": null,
+    "final_carousel": null
+  }
+}
