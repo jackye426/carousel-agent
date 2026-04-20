@@ -7,7 +7,11 @@ from pathlib import Path
 
 from carousel_agents.experiment_analysis import analyze_experiment, two_proportion_z_test
 from carousel_agents.performance import append_performance_log
-from carousel_agents.pipeline import _apply_experiment_ab_split, _pick_two_distinct_hooks
+from carousel_agents.pipeline import (
+    _apply_experiment_ab_split,
+    _apply_packaging_ab_all_shortlist,
+    _pick_two_distinct_hooks,
+)
 from carousel_agents.schemas import (
     CandidateIdea,
     Citation,
@@ -115,4 +119,51 @@ def test_apply_experiment_ab_split() -> None:
     ids = [c.idea_id for c in state.candidates if c.selected]
     assert "i001__expA" in ids and "i001__expB" in ids
     assert state.shortlist.selected_idea_ids == ["i001__expA", "i001__expB"]
+
+
+def _two_hook_candidate(idea_id: str, rank: int) -> CandidateIdea:
+    return CandidateIdea(
+        idea_id=idea_id,
+        content_pillar="habits",
+        topic=f"t-{idea_id}",
+        angle="a",
+        core_claim="c",
+        audience_pain="p",
+        promise="pr",
+        format_suggestion="steps",
+        source_citations=[Citation(chunk_id="c1", excerpt="x", note="n")],
+        safety_flags=[],
+        scores=ScoreFields(),
+        rank=rank,
+        selected=True,
+        hooks=[
+            HookOption(hook_id="h1", text="one", style="how_to"),
+            HookOption(hook_id="h2", text="two", style="myth_bust"),
+        ],
+        best_hook_id="h1",
+    )
+
+
+def test_apply_packaging_ab_all_shortlist() -> None:
+    a = _two_hook_candidate("i001", 1)
+    b = _two_hook_candidate("i002", 2)
+    state = RunState(
+        document=DocumentMeta(document_id="doc_x"),
+        candidates=[a, b],
+        shortlist=Shortlist(selected_idea_ids=["i001", "i002"], selection_frozen_at=__import__("datetime").datetime.utcnow()),
+        experiment=ExperimentSpec(
+            experiment_id="exp_batch",
+            hypothesis="h",
+            idea_id="",
+            packaging_scope="all_shortlist_packaging",
+            treatment_key="hook_contrast",
+        ),
+    )
+    enforce_selection_gate(state)
+    _apply_packaging_ab_all_shortlist(state)
+    ids = [c.idea_id for c in state.candidates if c.selected]
+    assert "i001__expA" in ids and "i001__expB" in ids
+    assert "i002__expA" in ids and "i002__expB" in ids
+    eids = {c.experiment_id for c in state.candidates if c.selected}
+    assert eids == {"exp_batch__i001", "exp_batch__i002"}
 

@@ -185,17 +185,23 @@ class CandidateIdea(BaseModel):
     experiment_id: str | None = None
     ab_variant: Literal["A", "B"] | None = None
     base_idea_id: str | None = None
+    # Per-arm label (mirrors ExperimentSpec.treatment_key when unset)
+    treatment_key: str | None = None
 
 
 class ExperimentSpec(BaseModel):
     """
-    When attached to RunState, the pipeline splits `idea_id` into two candidates after hooks+CTA
-    (different hook styles when possible). Both arms share one export folder / run_id.
+    When attached to RunState, the pipeline splits shortlisted ideas into two packaging arms after hooks+CTA
+    (hook + caption + cover framing via slides prompt). Both arms share one export folder / document_id.
+
+    - packaging_scope `single_idea`: only `idea_id` is split (legacy A/B).
+    - packaging_scope `all_shortlist_packaging`: every selected idea becomes an A/B pair (distinct experiment_id per base).
     """
 
     experiment_id: str
     hypothesis: str = ""
-    idea_id: str
+    idea_id: str = ""
+    packaging_scope: Literal["single_idea", "all_shortlist_packaging"] = "single_idea"
     treatment_key: str = ""
     primary_metric: Literal["save_rate", "share_rate", "profile_visit_rate"] = "save_rate"
     min_impressions_per_arm: int = 2000
@@ -268,12 +274,14 @@ class PipelineOutputs(BaseModel):
 
 
 # Bump when RunState JSON shape changes incompatibly; loaders may migrate old files.
-RUN_STATE_SCHEMA_VERSION = 3
+RUN_STATE_SCHEMA_VERSION = 4
 
 
 class RunState(BaseModel):
     schema_version: int = RUN_STATE_SCHEMA_VERSION
     document: DocumentMeta
+    # Unique per pipeline execution (distinct from document_id when the same source is re-run).
+    generation_run_id: str | None = None
     audience: AudienceConfig = Field(default_factory=AudienceConfig)
     chunks: list[Chunk] = Field(default_factory=list)
     candidates: list[CandidateIdea] = Field(default_factory=list)
@@ -306,6 +314,8 @@ class PerformanceObserved(BaseModel):
     profile_visits: int | None = None
     follows: int | None = None
     dms: int | None = None
+    # External / bio link taps (platform-dependent; optional until tracker exports it)
+    link_clicks: int | None = None
 
 
 class PerformanceDerived(BaseModel):
@@ -328,6 +338,7 @@ class PerformanceLog(BaseModel):
 
     # lineage
     run_id: str | None = None
+    generation_run_id: str | None = None
     document_title: str | None = None
     idea_id: str
     pillar: str

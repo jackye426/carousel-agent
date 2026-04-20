@@ -4,7 +4,7 @@ import json
 import random
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from .bundle_to_csv import write_export_csvs_from_state
 from .schemas import CandidateIdea, DraftSlide, RunState
@@ -30,8 +30,11 @@ def export_selected_markdown(*, state: RunState, export_root: Path) -> Path:
         "## Selected ideas (clean export)",
         "",
         f"- **run_id**: `{run_id}`",
+        f"- **generation_run_id**: `{state.generation_run_id or ''}`",
         f"- **document**: `{state.document.title or ''}`",
         f"- **generated_at**: `{generated_at}`",
+        "",
+        "Machine-readable tracker ids (caption/OCR matcher, `log-performance`): `tracking_schedule.json`.",
         "",
     ]
     if state.experiment:
@@ -74,8 +77,40 @@ def export_selected_markdown(*, state: RunState, export_root: Path) -> Path:
         _write_schedule_md(run_dir=run_dir, state=state, selected=selected)
 
     write_export_csvs_from_state(state=state, run_dir=run_dir, generated_at=generated_at)
+    _write_tracking_schedule_json(run_dir=run_dir, state=state, selected=selected)
 
     return run_dir
+
+
+def _best_hook_snippet(c: CandidateIdea, *, max_len: int = 200) -> str:
+    for h in c.hooks:
+        if c.best_hook_id and h.hook_id == c.best_hook_id:
+            return (h.text or "")[:max_len]
+    return (c.hooks[0].text or "")[:max_len] if c.hooks else ""
+
+
+def _write_tracking_schedule_json(*, run_dir: Path, state: RunState, selected: list[CandidateIdea]) -> Path:
+    """Sidecar for operators: stable ids + snippets for OCR/caption matching and performance logging."""
+    rows: list[dict[str, Any]] = []
+    exp_tk = (state.experiment.treatment_key or "").strip() if state.experiment else ""
+    for c in selected:
+        tk = (c.treatment_key or "").strip() or (exp_tk or None)
+        rows.append(
+            {
+                "document_id": state.document.document_id,
+                "generation_run_id": state.generation_run_id,
+                "idea_id": c.idea_id,
+                "base_idea_id": c.base_idea_id,
+                "ab_variant": c.ab_variant,
+                "experiment_id": c.experiment_id,
+                "treatment_key": tk,
+                "hook_snippet": _best_hook_snippet(c),
+                "caption_snippet": ((c.caption or "")[:400] if c.caption else ""),
+            }
+        )
+    path = run_dir / "tracking_schedule.json"
+    path.write_text(json.dumps({"rows": rows}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return path
 
 
 def _norm_ws_export(s: str) -> str:
@@ -143,6 +178,7 @@ def _write_experiment_json(*, run_dir: Path, state: RunState, selected: list[Can
     payload = {
         "spec": exp.model_dump(mode="json"),
         "run_id": state.document.document_id,
+        "generation_run_id": state.generation_run_id,
         "resolved_arms": arms,
         "schedule_arm_order": _schedule_arm_order(state),
         "log_performance_hint": log_hint,
@@ -161,6 +197,8 @@ def _write_schedule_md(*, run_dir: Path, state: RunState, selected: list[Candida
         "",
         f"- **experiment_id**: `{exp.experiment_id}`",
         f"- **treatment_key**: `{exp.treatment_key}`",
+        f"- **generation_run_id**: `{state.generation_run_id or ''}`",
+        f"- **packaging_scope**: `{exp.packaging_scope}`",
         f"- **randomised publish order** (arms only): **{order}** — use this so the test is not always A-then-B.",
         "",
         "### Spacing rules (operational)",
@@ -177,13 +215,24 @@ def _write_schedule_md(*, run_dir: Path, state: RunState, selected: list[Candida
     else:
         lines.append("Sequence: **arm B → (buffers) → arm A** within the week when possible.")
     lines.append("")
-    by_v = {c.ab_variant: c for c in arms if c.ab_variant}
-    for label in ("A", "B"):
-        c = by_v.get(label)  # type: ignore[arg-type]
-        if not c:
-            continue
-        st = c.hooks[0].style if c.hooks else "?"
-        lines.append(f"- **Arm {label}** — `{c.idea_id}` — {c.topic} — hook style: `{st}`")
+    if exp.packaging_scope == "all_shortlist_packaging":
+        bases = sorted({(c.base_idea_id or "") for c in arms if c.base_idea_id})
+        for b in bases:
+            pair = [c for c in arms if c.base_idea_id == b]
+            pair.sort(key=lambda x: x.ab_variant or "")
+            lines.append(f"- **Base `{b}`** — experiment `{exp.experiment_id}__{b}`")
+            for c in pair:
+                st = c.hooks[0].style if c.hooks else "?"
+                lines.append(f"  - Arm **{c.ab_variant}** — `{c.idea_id}` — {c.topic} — hook style: `{st}`")
+            lines.append("")
+    else:
+        by_v = {c.ab_variant: c for c in arms if c.ab_variant}
+        for label in ("A", "B"):
+            c = by_v.get(label)  # type: ignore[arg-type]
+            if not c:
+                continue
+            st = c.hooks[0].style if c.hooks else "?"
+            lines.append(f"- **Arm {label}** — `{c.idea_id}` — {c.topic} — hook style: `{st}`")
     lines += [
         "",
         "### Buffer ideas (same export — use between arms)",
@@ -303,6 +352,7 @@ def _bundle_markdown(state: RunState, *, generated_at: str) -> str:
         "## Carousel bundle (clean)",
         "",
         f"- **run_id**: `{run_id}`",
+        f"- **generation_run_id**: `{state.generation_run_id or ''}`",
         f"- **document**: `{state.document.title or ''}`",
         f"- **generated_at**: `{generated_at}`",
         "",

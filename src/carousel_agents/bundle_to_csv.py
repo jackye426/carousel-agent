@@ -19,6 +19,7 @@ class BundleMeta:
 @dataclass(frozen=True)
 class CarouselRow:
     run_id: str | None
+    generation_run_id: str | None
     document: str | None
     generated_at: str | None
     bundle_path: str
@@ -36,6 +37,7 @@ class CarouselRow:
 @dataclass(frozen=True)
 class SlideRow:
     run_id: str | None
+    generation_run_id: str | None
     document: str | None
     generated_at: str | None
     bundle_path: str
@@ -50,6 +52,7 @@ class SlideRow:
 
 CSV_CAROUSEL_FIELDNAMES = [
     "run_id",
+    "generation_run_id",
     "document",
     "generated_at",
     "bundle_path",
@@ -66,6 +69,7 @@ CSV_CAROUSEL_FIELDNAMES = [
 
 CSV_SLIDE_FIELDNAMES = [
     "run_id",
+    "generation_run_id",
     "document",
     "generated_at",
     "bundle_path",
@@ -142,6 +146,7 @@ def parse_bundle_markdown(path: Path) -> tuple[BundleMeta, list[CarouselRow], li
         carousels.append(
             CarouselRow(
                 run_id=meta.run_id,
+                generation_run_id=None,
                 document=meta.document,
                 generated_at=meta.generated_at,
                 bundle_path=str(path),
@@ -221,6 +226,7 @@ def parse_bundle_markdown(path: Path) -> tuple[BundleMeta, list[CarouselRow], li
             slides.append(
                 SlideRow(
                     run_id=meta.run_id,
+                    generation_run_id=None,
                     document=meta.document,
                     generated_at=meta.generated_at,
                     bundle_path=str(path),
@@ -287,6 +293,7 @@ def write_export_csvs_from_state(
     selected.sort(key=lambda c: c.rank or 10_000)
 
     run_id = state.document.document_id
+    gen_id = state.generation_run_id
     document = state.document.title or ""
     ts = generated_at if generated_at is not None else datetime.utcnow().isoformat() + "Z"
     bundle_path = str((run_dir / "bundle.md").resolve())
@@ -311,6 +318,7 @@ def write_export_csvs_from_state(
         carousel_rows.append(
             CarouselRow(
                 run_id=run_id,
+                generation_run_id=gen_id,
                 document=document,
                 generated_at=ts,
                 bundle_path=bundle_path,
@@ -330,6 +338,7 @@ def write_export_csvs_from_state(
             slide_rows.append(
                 SlideRow(
                     run_id=run_id,
+                    generation_run_id=gen_id,
                     document=document,
                     generated_at=ts,
                     bundle_path=bundle_path,

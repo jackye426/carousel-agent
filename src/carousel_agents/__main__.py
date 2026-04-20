@@ -167,7 +167,12 @@ def run(
         exists=True,
         file_okay=True,
         dir_okay=False,
-        help="ExperimentSpec JSON: splits one shortlisted idea_id into two arms after hooks (see: experiment template).",
+        help="ExperimentSpec JSON: splits shortlisted idea(s) into two packaging arms after hooks (see: experiment template).",
+    ),
+    packaging_ab_all: bool = typer.Option(
+        False,
+        "--packaging-ab-all",
+        help="With --experiment-json: set packaging_scope=all_shortlist_packaging (A/B every selected idea).",
     ),
     orchestrate: bool = typer.Option(
         False,
@@ -215,9 +220,13 @@ def run(
         perf_digest_obj = load_or_build_performance_digest(explicit_path=None, disabled=False)
     if experiment_json is not None and orchestrate:
         raise typer.BadParameter("Use either --experiment-json or --orchestrate, not both.")
+    if packaging_ab_all and experiment_json is None:
+        raise typer.BadParameter("--packaging-ab-all requires --experiment-json.")
     exp_obj: ExperimentSpec | None = None
     if experiment_json is not None:
         exp_obj = ExperimentSpec.model_validate_json(experiment_json.read_text(encoding="utf-8"))
+        if packaging_ab_all:
+            exp_obj = exp_obj.model_copy(update={"packaging_scope": "all_shortlist_packaging"})
     orch_path: Path | None = None
     if orchestrate:
         orch_path = orchestrate_program if orchestrate_program is not None else experiment_program_json_path()
@@ -766,8 +775,18 @@ def log_performance(
     comments: int | None = typer.Option(None, "--comments"),
     follows: int | None = typer.Option(None, "--follows"),
     dms: int | None = typer.Option(None, "--dms"),
+    link_clicks: int | None = typer.Option(
+        None,
+        "--link-clicks",
+        help="External / bio link taps (if your tracker exports this).",
+    ),
     notes: str | None = typer.Option(None, "--notes"),
     run_id: str | None = typer.Option(None, "--run-id"),
+    generation_run_id: str | None = typer.Option(
+        None,
+        "--generation-run-id",
+        help="Disambiguate multiple generations from the same document (matches RunState.generation_run_id).",
+    ),
     document_title: str | None = typer.Option(None, "--document-title"),
     experiment_id: str | None = typer.Option(None, "--experiment-id", help="A/B pair grouping (use with --variant)."),
     variant: str | None = typer.Option(None, "--variant", help="A or B (required when --experiment-id is set)."),
@@ -841,6 +860,7 @@ def log_performance(
         comments=comments,
         follows=follows,
         dms=dms,
+        link_clicks=link_clicks,
     )
     row = PerformanceLog(
         post_id=canonical_post_id,
@@ -850,6 +870,7 @@ def log_performance(
         hook_style=hook_style,
         hook_id=hook_id,
         run_id=run_id,
+        generation_run_id=(generation_run_id or "").strip() or None,
         document_title=document_title,
         experiment_id=eid,
         variant=variant_out,
@@ -951,14 +972,30 @@ def link_post(
         "--document-title",
         help="Override document_title on the performance row (optional).",
     ),
+    hook_line: str | None = typer.Option(
+        None,
+        "--hook-line",
+        help="On-image / first-line hook text from the published post (optional; strengthens matching).",
+    ),
+    hook_weight: float = typer.Option(
+        0.0,
+        "--hook-weight",
+        help="Weight for --hook-line vs caption/OCR (default: 0.25 when --hook-line is set, else 0).",
+    ),
+    generation_run_id: str | None = typer.Option(
+        None,
+        "--generation-run-id",
+        help="Only score RunState files with this generation_run_id (disambiguate re-runs of the same document).",
+    ),
 ):
     """
     Link a published post to pipeline output when IG's id differs from RunState ids.
 
     Provide **caption** and/or **OCR** (raw text, file, or --ocr-jsonl/--ocr-carousel-bank + --asset-id).
+    Optional **--hook-line** matches the selected hook text (packaging A/B).
     Provide **--run-state**, **--run-dir**, and/or **--glob** to define candidate RunState JSON files.
 
-    Scoring blends caption similarity and OCR-vs-slide-draft similarity (token Jaccard + bigram overlap).
+    Scoring blends caption, OCR (full draft + cover slide), and optional hook line (token Jaccard + bigram overlap).
     """
     cap = (caption or "").strip()
     if caption_file is not None:
@@ -978,8 +1015,20 @@ def link_post(
         if bank_text:
             ocr_blob = bank_text.strip()
 
-    if not cap and not ocr_blob:
-        raise typer.BadParameter("Provide at least one of: --caption / --caption-file / --ocr-text / --ocr-file / OCR via --asset-id.")
+    hl = (hook_line or "").strip() or None
+    cap_w = caption_weight
+    ocr_w = ocr_weight
+    hw = hook_weight
+    if hl:
+        if hw <= 0:
+            hw = 0.25
+        if cap_w == 0.4 and ocr_w == 0.6:
+            cap_w, ocr_w = 0.35, 0.40
+
+    if not cap and not ocr_blob and not hl:
+        raise typer.BadParameter(
+            "Provide at least one of: --caption / --caption-file / --ocr-text / --ocr-file / OCR via --asset-id / --hook-line."
+        )
 
     path_inputs: list[Path] = []
     if run_state is not None:
@@ -1004,12 +1053,17 @@ def link_post(
     if not states:
         raise typer.BadParameter("No valid RunState JSON could be loaded.")
 
+    gen_f = (generation_run_id or "").strip() or None
+
     matches = match_post_to_runs(
         states=states,
         caption=cap or None,
         ocr=ocr_blob or None,
-        caption_weight=caption_weight,
-        ocr_weight=ocr_weight,
+        hook_line=hl,
+        caption_weight=cap_w,
+        ocr_weight=ocr_w,
+        hook_weight=hw,
+        generation_run_id=gen_f,
         top_n=top,
         min_score=min_score,
     )
@@ -1026,15 +1080,20 @@ def link_post(
     tbl.add_column("document_id")
     tbl.add_column("cap")
     tbl.add_column("ocr")
+    tbl.add_column("hook")
+    tbl.add_column("gen")
     tbl.add_column("run")
     for m in matches:
         rp = m.run_path.name if m.run_path else "—"
+        gid = (m.generation_run_id or "")[:10] + ("…" if m.generation_run_id and len(m.generation_run_id) > 10 else "")
         tbl.add_row(
             f"{m.score:.3f}",
             m.idea_id,
             m.document_id[:16] + ("…" if len(m.document_id) > 16 else ""),
             f"{m.caption_score:.3f}",
             f"{m.ocr_score:.3f}",
+            f"{m.hook_score:.3f}",
+            gid or "—",
             rp,
         )
     print(tbl)
@@ -1050,8 +1109,11 @@ def link_post(
             raise typer.BadParameter("--post-id is required with --append-performance-log")
         topm = matches[0]
         notes = (
-            f"link-post score={topm.score:.4f} caption_sim={topm.caption_score:.4f} ocr_sim={topm.ocr_score:.4f}"
+            f"link-post score={topm.score:.4f} caption_sim={topm.caption_score:.4f} ocr_sim={topm.ocr_score:.4f} "
+            f"hook_sim={topm.hook_score:.4f} cover_sim={topm.cover_score:.4f}"
         )
+        ab = (topm.ab_variant or "").strip().upper()
+        variant_log: Literal["A", "B"] | None = "A" if ab == "A" else ("B" if ab == "B" else None)
         row = PerformanceLog(
             post_id=str(post_id).strip(),
             idea_id=topm.idea_id,
@@ -1060,7 +1122,12 @@ def link_post(
             hook_style=topm.hook_style,
             hook_id=topm.hook_id,
             run_id=topm.document_id,
+            generation_run_id=topm.generation_run_id,
             document_title=document_title or topm.document_title,
+            experiment_id=topm.experiment_id,
+            variant=variant_log,
+            treatment_key=topm.treatment_key,
+            base_idea_id=topm.base_idea_id,
             observed=PerformanceObserved(),
             derived=compute_derived(PerformanceObserved()),
             notes=notes,

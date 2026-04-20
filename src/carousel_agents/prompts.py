@@ -658,9 +658,18 @@ def user_draft_slides(
             f"{digest_writer_hints(performance_digest)}\n\n"
         )
 
+    ab_packaging = ""
+    if isinstance(idea, dict) and idea.get("ab_variant") == "B":
+        ab_packaging = (
+            "Packaging arm **B** (A/B test): on **slide 1 only**, use a clearly different cover headline angle "
+            "than arm A would use for the same idea — same factual core and CTA intent; body slides (2+) stay aligned "
+            "with one coherent narrative.\n\n"
+        )
+
     return "".join(
         [
             "Draft a carousel from the selected idea.\n\n",
+            ab_packaging,
             _writer_source_evidence_block(source_evidence),
             _audience_block(audience),
             _writer_context_blocks(idea if isinstance(idea, dict) else None),

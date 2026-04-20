@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
@@ -536,7 +537,17 @@ def _run_post_shortlist_pipeline(
         mock=mock,
     )
 
-    _apply_experiment_ab_split(state)
+    if state.experiment and state.experiment.packaging_scope == "all_shortlist_packaging":
+        _apply_packaging_ab_all_shortlist(state)
+    else:
+        _apply_experiment_ab_split(state)
+
+    _refresh_captions_for_packaging_arms(
+        state,
+        client,
+        mock=mock,
+        performance_digest=performance_digest,
+    )
 
     if do_slides:
         log_stage("draft_slides")
@@ -669,6 +680,8 @@ def run_hooks_cta_from_state(
     state.document.document_id = f"{base_id}__{export_document_id_suffix}"
     configure_logging()
     set_run_context(run_id=state.document.document_id, document_id=state.document.document_id)
+    if not state.generation_run_id:
+        state.generation_run_id = f"gen_{uuid.uuid4().hex[:16]}"
     _stage_hooks_and_cta(
         state,
         client,
@@ -681,7 +694,16 @@ def run_hooks_cta_from_state(
         performance_digest=performance_digest,
         mock=mock,
     )
-    _apply_experiment_ab_split(state)
+    if state.experiment and state.experiment.packaging_scope == "all_shortlist_packaging":
+        _apply_packaging_ab_all_shortlist(state)
+    else:
+        _apply_experiment_ab_split(state)
+    _refresh_captions_for_packaging_arms(
+        state,
+        client,
+        mock=mock,
+        performance_digest=performance_digest,
+    )
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(state.model_dump_json(indent=2), encoding="utf-8")
     if export_dir is not None:
@@ -741,15 +763,17 @@ def run_pipeline(
     ideation = ideation_score
 
     doc_id = document_id or f"doc_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
+    gen_id = f"gen_{uuid.uuid4().hex[:16]}"
     preset_s = str(audience_preset).strip() if audience_preset else ""
     if require_audience_preset and not preset_s:
         raise ValidationError("require_audience_preset is set but --audience-preset was not provided.")
 
     set_run_context(run_id=doc_id, document_id=doc_id)
-    log_stage("pipeline_start", input=str(input_path), mock=mock, split_ideation=split_ideation)
+    log_stage("pipeline_start", input=str(input_path), mock=mock, split_ideation=split_ideation, generation_run_id=gen_id)
 
     state = RunState(
         schema_version=RUN_STATE_SCHEMA_VERSION,
+        generation_run_id=gen_id,
         document=DocumentMeta(
             document_id=doc_id,
             title=input_path.stem,
@@ -928,8 +952,14 @@ def run_pipeline_production_tail(
     configure_logging()
     cl = client or (MockClient() if mock else OpenAICompatibleClient())
     ideation = get_ideation_score_config(split_ideation=state.ideation_mode == "split")
+    if not state.generation_run_id:
+        state.generation_run_id = f"gen_{uuid.uuid4().hex[:16]}"
     set_run_context(run_id=state.document.document_id, document_id=state.document.document_id)
-    log_stage("production_tail", n_selected=len(state.shortlist.selected_idea_ids or []))
+    log_stage(
+        "production_tail",
+        n_selected=len(state.shortlist.selected_idea_ids or []),
+        generation_run_id=state.generation_run_id,
+    )
     select_n = max(1, len(state.shortlist.selected_idea_ids or []))
     _run_post_shortlist_pipeline(
         state=state,
@@ -1016,9 +1046,23 @@ def run_pipeline_continue_from_human_selection(
 def _validate_experiment_idea_in_shortlist(state: RunState) -> None:
     exp = state.experiment
     assert exp is not None
-    if exp.idea_id not in (state.shortlist.selected_idea_ids or []):
+    if exp.packaging_scope == "all_shortlist_packaging":
+        sel = state.shortlist.selected_idea_ids or []
+        if len(sel) < 1:
+            raise ValidationError("all_shortlist_packaging requires a non-empty frozen shortlist.")
+        cand_ids = {c.idea_id for c in state.candidates}
+        for iid in sel:
+            if iid not in cand_ids:
+                raise ValidationError(
+                    f"Shortlisted idea_id {iid!r} not found among candidates (cannot run packaging A/B for all)."
+                )
+        return
+    base = (exp.idea_id or "").strip()
+    if not base:
+        raise ValidationError("experiment.idea_id is required when packaging_scope is single_idea.")
+    if base not in (state.shortlist.selected_idea_ids or []):
         raise ValidationError(
-            f"experiment.idea_id {exp.idea_id!r} is not in the frozen shortlist "
+            f"experiment.idea_id {base!r} is not in the frozen shortlist "
             f"(selected: {state.shortlist.selected_idea_ids}). "
             "Use an idea_id that is actually selected (check rank / pool size)."
         )
@@ -1038,41 +1082,38 @@ def _pick_two_distinct_hooks(hooks: list[HookOption]) -> tuple[HookOption, HookO
     return hooks[0], hooks[1]
 
 
-def _apply_experiment_ab_split(state: RunState) -> None:
-    """
-    After hooks+CTA, replace the single experiment target candidate with two selected arms
-    (different hooks when possible). Idempotent if split already applied.
-    """
-    exp = state.experiment
-    if not exp:
-        return
-    base = exp.idea_id
-    if any(c.base_idea_id == base and c.ab_variant is not None for c in state.candidates):
-        return
-    idx = next((i for i, c in enumerate(state.candidates) if c.idea_id == base), None)
-    if idx is None:
-        raise ValidationError(
-            f"experiment.idea_id {base!r} not found among candidates after hooks "
-            "(split may already be inconsistent, or idea_id does not match)."
-        )
-    base_cand = state.candidates[idx]
+def _tk_from_spec(exp: ExperimentSpec) -> str | None:
+    tk = (exp.treatment_key or "").strip()
+    return tk or None
+
+
+def _build_ab_arms_from_candidate(
+    base_cand: CandidateIdea,
+    *,
+    experiment_id: str,
+    treatment_key: str | None,
+    id_a: str,
+    id_b: str,
+) -> tuple[CandidateIdea, CandidateIdea, HookOption, HookOption]:
     if not base_cand.hooks:
-        raise ValidationError(f"Cannot split experiment for {base}: no hooks generated.")
+        raise ValidationError(f"Cannot split experiment for {base_cand.idea_id!r}: no hooks generated.")
     ha, hb = _pick_two_distinct_hooks(base_cand.hooks)
     ca = base_cand.model_copy(deep=True)
     cb = base_cand.model_copy(deep=True)
-    ca.idea_id = f"{base}__expA"
-    cb.idea_id = f"{base}__expB"
+    ca.idea_id = id_a
+    cb.idea_id = id_b
     ca.hooks = [ha]
     cb.hooks = [hb]
     ca.best_hook_id = ha.hook_id
     cb.best_hook_id = hb.hook_id
-    ca.experiment_id = exp.experiment_id
-    cb.experiment_id = exp.experiment_id
+    ca.experiment_id = experiment_id
+    cb.experiment_id = experiment_id
+    ca.treatment_key = treatment_key
+    cb.treatment_key = treatment_key
     ca.ab_variant = "A"
     cb.ab_variant = "B"
-    ca.base_idea_id = base
-    cb.base_idea_id = base
+    ca.base_idea_id = base_cand.idea_id
+    cb.base_idea_id = base_cand.idea_id
     ca.outline = []
     cb.outline = []
     ca.carousel_draft = None
@@ -1085,22 +1126,118 @@ def _apply_experiment_ab_split(state: RunState) -> None:
     cb.judge_vetoed = False
     ca.judge_veto_reason = None
     cb.judge_veto_reason = None
-    state.candidates.pop(idx)
-    state.candidates.insert(idx, ca)
-    state.candidates.insert(idx + 1, cb)
+    ca.caption = None
+    cb.caption = None
+    return ca, cb, ha, hb
+
+
+def _replace_shortlist_idea(state: RunState, base: str, arm_a: str, arm_b: str) -> None:
     new_ids: list[str] = []
     for iid in state.shortlist.selected_idea_ids or []:
         if iid == base:
-            new_ids.extend([ca.idea_id, cb.idea_id])
+            new_ids.extend([arm_a, arm_b])
         else:
             new_ids.append(iid)
     state.shortlist.selected_idea_ids = new_ids
+
+
+def _apply_experiment_ab_split(state: RunState) -> None:
+    """
+    After hooks+CTA, replace the single experiment target candidate with two selected arms
+    (different hooks when possible). Idempotent if split already applied.
+    """
+    exp = state.experiment
+    if not exp or exp.packaging_scope != "single_idea":
+        return
+    base = (exp.idea_id or "").strip()
+    if any(c.base_idea_id == base and c.ab_variant is not None for c in state.candidates):
+        return
+    idx = next((i for i, c in enumerate(state.candidates) if c.idea_id == base), None)
+    if idx is None:
+        raise ValidationError(
+            f"experiment.idea_id {base!r} not found among candidates after hooks "
+            "(split may already be inconsistent, or idea_id does not match)."
+        )
+    base_cand = state.candidates[idx]
+    ca, cb, ha, hb = _build_ab_arms_from_candidate(
+        base_cand,
+        experiment_id=exp.experiment_id,
+        treatment_key=_tk_from_spec(exp),
+        id_a=f"{base}__expA",
+        id_b=f"{base}__expB",
+    )
+    state.candidates.pop(idx)
+    state.candidates.insert(idx, ca)
+    state.candidates.insert(idx + 1, cb)
+    _replace_shortlist_idea(state, base, ca.idea_id, cb.idea_id)
     note = (
         f" A/B split: experiment {exp.experiment_id!r} — arms {ca.idea_id!r} vs {cb.idea_id!r} "
         f"(hooks {ha.style!r} vs {hb.style!r})."
     )
     state.shortlist.notes = (state.shortlist.notes or "").strip() + note
     enforce_selection_gate(state)
+
+
+def _apply_packaging_ab_all_shortlist(state: RunState) -> None:
+    """
+    Packaging A/B for every shortlisted idea (distinct experiment_id per base: `{program_id}__{base}`).
+    """
+    exp = state.experiment
+    if not exp or exp.packaging_scope != "all_shortlist_packaging":
+        return
+    bases = list(state.shortlist.selected_idea_ids or [])
+    for base in bases:
+        if any(c.base_idea_id == base and c.ab_variant is not None for c in state.candidates):
+            continue
+        idx = next((i for i, c in enumerate(state.candidates) if c.idea_id == base), None)
+        if idx is None:
+            raise ValidationError(
+                f"Shortlisted idea_id {base!r} not found among candidates after hooks (packaging A/B all)."
+            )
+        base_cand = state.candidates[idx]
+        pair_eid = f"{exp.experiment_id}__{base}"
+        ca, cb, ha, hb = _build_ab_arms_from_candidate(
+            base_cand,
+            experiment_id=pair_eid,
+            treatment_key=_tk_from_spec(exp),
+            id_a=f"{base}__expA",
+            id_b=f"{base}__expB",
+        )
+        state.candidates.pop(idx)
+        state.candidates.insert(idx, ca)
+        state.candidates.insert(idx + 1, cb)
+        _replace_shortlist_idea(state, base, ca.idea_id, cb.idea_id)
+        note = (
+            f" Packaging A/B: {pair_eid!r} — {ca.idea_id!r} vs {cb.idea_id!r} "
+            f"(hooks {ha.style!r} vs {hb.style!r})."
+        )
+        state.shortlist.notes = (state.shortlist.notes or "").strip() + note
+    enforce_selection_gate(state)
+
+
+def _refresh_captions_for_packaging_arms(
+    state: RunState,
+    client: Any,
+    *,
+    mock: bool,
+    performance_digest: dict[str, Any] | None,
+) -> None:
+    """Regenerate captions per arm after A/B split (hook-specific)."""
+    targets = [c for c in state.candidates if c.selected and c.ab_variant in ("A", "B")]
+    if not targets:
+        return
+    cl = MockClient() if mock else client
+    writer = get_model_config("writer")
+    ctx_caption = build_writer_context_pack_for_cta_only()
+    for c in targets:
+        _write_caption_for_candidate(
+            state,
+            c,
+            cl,
+            writer=writer,
+            ctx_caption=ctx_caption,
+            performance_digest=performance_digest,
+        )
 
 
 def _ensure_idea_id(d: dict[str, Any], idx: int) -> dict[str, Any]:

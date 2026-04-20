@@ -109,6 +109,43 @@ def ocr_affinity(ocr: str, c: CandidateIdea) -> float:
     return text_similarity(ocr, fallback) if fallback.strip() else 0.0
 
 
+def _first_slide_ocr_chunk(ocr: str) -> str:
+    t = (ocr or "").strip()
+    if not t:
+        return ""
+    parts = [p.strip() for p in t.split("\n\n") if p.strip()]
+    return parts[0] if parts else t[:800]
+
+
+def cover_affinity(ocr: str, c: CandidateIdea) -> float:
+    """Match first-slide OCR to slide 1 draft (packaging / cover framing)."""
+    if not ocr.strip():
+        return 0.0
+    if not (c.carousel_draft and c.carousel_draft.slides):
+        return 0.0
+    cov = _first_slide_ocr_chunk(ocr)
+    s0 = c.carousel_draft.slides[0]
+    draft = f"{s0.main_text} {s0.subtext}"
+    return text_similarity(cov, draft)
+
+
+def hook_line_affinity(hook_line: str, c: CandidateIdea) -> float:
+    """Optional first-line / on-image hook text from the published post."""
+    if not (hook_line or "").strip():
+        return 0.0
+    bh = ""
+    if c.best_hook_id:
+        for h in c.hooks:
+            if h.hook_id == c.best_hook_id:
+                bh = (h.text or "").strip()
+                break
+    if not bh and c.hooks:
+        bh = (c.hooks[0].text or "").strip()
+    if not bh:
+        return 0.0
+    return text_similarity(hook_line, bh)
+
+
 def combined_score(
     *,
     caption: str | None,
@@ -116,21 +153,48 @@ def combined_score(
     c: CandidateIdea,
     caption_weight: float = 0.4,
     ocr_weight: float = 0.6,
-) -> tuple[float, float, float]:
+    hook_line: str | None = None,
+    hook_weight: float = 0.0,
+) -> tuple[float, float, float, float, float]:
+    """
+    Returns (total, caption_score, ocr_score, hook_score, cover_score).
+    OCR score uses max(full-carousel OCR vs draft, first-slide vs slide 1) when a draft exists.
+    """
     cap_s = caption_affinity(caption or "", c) if (caption or "").strip() else 0.0
-    ocr_s = ocr_affinity(ocr or "", c) if (ocr or "").strip() else 0.0
+    ocr_blob = (ocr or "").strip()
+    ocr_full_s = ocr_affinity(ocr_blob, c) if ocr_blob else 0.0
+    cover_s = cover_affinity(ocr_blob, c) if ocr_blob else 0.0
+    if c.carousel_draft and c.carousel_draft.slides and ocr_blob:
+        ocr_s = max(ocr_full_s, cover_s)
+    else:
+        ocr_s = ocr_full_s
+    hook_s = hook_line_affinity(hook_line or "", c) if (hook_line or "").strip() else 0.0
+
     has_c = bool((caption or "").strip())
-    has_o = bool((ocr or "").strip())
-    if has_c and has_o:
+    has_o = bool(ocr_blob)
+    has_h = bool((hook_line or "").strip()) and hook_weight > 0.0
+
+    if has_c and has_o and has_h:
+        wsum = caption_weight + ocr_weight + hook_weight
+        total = (caption_weight * cap_s + ocr_weight * ocr_s + hook_weight * hook_s) / wsum
+    elif has_c and has_o:
         wsum = caption_weight + ocr_weight
         total = (caption_weight * cap_s + ocr_weight * ocr_s) / wsum
+    elif has_c and has_h:
+        wsum = caption_weight + hook_weight
+        total = (caption_weight * cap_s + hook_weight * hook_s) / wsum
+    elif has_o and has_h:
+        wsum = ocr_weight + hook_weight
+        total = (ocr_weight * ocr_s + hook_weight * hook_s) / wsum
     elif has_c:
         total = cap_s
     elif has_o:
         total = ocr_s
+    elif has_h:
+        total = hook_s
     else:
         total = 0.0
-    return total, cap_s, ocr_s
+    return total, cap_s, ocr_s, hook_s, cover_s
 
 
 @dataclass(frozen=True)
@@ -138,28 +202,42 @@ class PostMatch:
     run_path: Path | None
     document_id: str
     document_title: str | None
+    generation_run_id: str | None
     idea_id: str
     score: float
     caption_score: float
     ocr_score: float
+    hook_score: float
+    cover_score: float
     pillar: str
     format_suggestion: str
     hook_id: str | None
     hook_style: str | None
+    ab_variant: str | None = None
+    experiment_id: str | None = None
+    treatment_key: str | None = None
+    base_idea_id: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "run_path": str(self.run_path) if self.run_path else None,
             "document_id": self.document_id,
             "document_title": self.document_title,
+            "generation_run_id": self.generation_run_id,
             "idea_id": self.idea_id,
             "score": self.score,
             "caption_score": self.caption_score,
             "ocr_score": self.ocr_score,
+            "hook_score": self.hook_score,
+            "cover_score": self.cover_score,
             "pillar": self.pillar,
             "format_suggestion": self.format_suggestion,
             "hook_id": self.hook_id,
             "hook_style": self.hook_style,
+            "ab_variant": self.ab_variant,
+            "experiment_id": self.experiment_id,
+            "treatment_key": self.treatment_key,
+            "base_idea_id": self.base_idea_id,
         }
 
 
@@ -179,31 +257,43 @@ def iter_matches_for_state(
     run_path: Path | None,
     caption: str | None,
     ocr: str | None,
+    hook_line: str | None,
     caption_weight: float,
     ocr_weight: float,
+    hook_weight: float,
 ) -> Iterator[PostMatch]:
     doc_id = rs.document.document_id
     title = rs.document.title
+    gen_id = rs.generation_run_id
     for c in rs.candidates:
-        total, cs, os_ = combined_score(
+        total, cs, os_, hs, covs = combined_score(
             caption=caption,
             ocr=ocr,
             c=c,
             caption_weight=caption_weight,
             ocr_weight=ocr_weight,
+            hook_line=hook_line,
+            hook_weight=hook_weight,
         )
         yield PostMatch(
             run_path=run_path,
             document_id=doc_id,
             document_title=title,
+            generation_run_id=gen_id,
             idea_id=c.idea_id,
             score=total,
             caption_score=cs,
             ocr_score=os_,
+            hook_score=hs,
+            cover_score=covs,
             pillar=c.content_pillar,
             format_suggestion=c.format_suggestion,
             hook_id=c.best_hook_id,
             hook_style=_hook_style_for_candidate(c),
+            ab_variant=c.ab_variant,
+            experiment_id=c.experiment_id,
+            treatment_key=c.treatment_key,
+            base_idea_id=c.base_idea_id,
         )
 
 
@@ -212,21 +302,30 @@ def match_post_to_runs(
     states: list[tuple[Path | None, RunState]],
     caption: str | None = None,
     ocr: str | None = None,
+    hook_line: str | None = None,
     caption_weight: float = 0.4,
     ocr_weight: float = 0.6,
+    hook_weight: float = 0.0,
+    generation_run_id: str | None = None,
     top_n: int = 15,
     min_score: float = 0.0,
 ) -> list[PostMatch]:
+    want = (generation_run_id or "").strip()
+    filtered: list[tuple[Path | None, RunState]] = states
+    if want:
+        filtered = [(p, rs) for p, rs in states if (rs.generation_run_id or "") == want]
     out: list[PostMatch] = []
-    for path, rs in states:
+    for path, rs in filtered:
         out.extend(
             iter_matches_for_state(
                 rs,
                 run_path=path,
                 caption=caption,
                 ocr=ocr,
+                hook_line=hook_line,
                 caption_weight=caption_weight,
                 ocr_weight=ocr_weight,
+                hook_weight=hook_weight,
             )
         )
     out.sort(key=lambda m: m.score, reverse=True)

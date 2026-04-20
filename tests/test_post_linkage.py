@@ -6,6 +6,7 @@ from pathlib import Path
 
 from carousel_agents.post_linkage import (
     caption_affinity,
+    cover_affinity,
     match_post_to_runs,
     normalize_for_match,
     ocr_affinity,
@@ -71,6 +72,12 @@ def test_ocr_affinity_draft() -> None:
     c = _cand()
     ocr = "The myth you keep hearing\n\nWhat studies measure"
     assert ocr_affinity(ocr, c) > 0.3
+
+
+def test_cover_affinity_first_slide() -> None:
+    c = _cand()
+    ocr = "The myth you keep hearing\n\nnoise"
+    assert cover_affinity(ocr, c) > 0.3
 
 
 def test_match_post_picks_correct_idea(tmp_path: Path) -> None:
