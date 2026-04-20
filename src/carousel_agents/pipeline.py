@@ -67,10 +67,17 @@ from .defaults import max_parallel_writer_workers
 from .observability import configure_logging, log_stage, set_run_context
 from .persona_card import apply_persona_preset_to_writer_idea
 from .export_clean import export_selected_markdown
+from .human_review import (
+    HumanSelectionFile,
+    apply_human_selection_to_state,
+    write_human_review_artifacts,
+)
 from .validation import (
     ValidationError,
     compute_weighted_totals_and_rank,
     enforce_selection_gate,
+    pillar_order_from_audience,
+    pick_stratified_shortlist,
     repair_citation_chunk_ids,
     repair_citation_excerpts,
     validate_citations_verbatim,
@@ -119,6 +126,23 @@ def _reapply_frozen_shortlist(state: RunState) -> None:
             c.judge_veto_reason = None
 
 
+def _inject_writer_context(idea: dict[str, Any], state: RunState) -> dict[str, Any]:
+    out = dict(idea)
+    ed = (state.human_editorial_direction or state.proposed_editorial_direction or "").strip()
+    if ed:
+        out["editorial_direction"] = ed
+    rg = (state.reviewer_brief_global or "").strip()
+    iid = (out.get("idea_id") or "").strip()
+    ib = (state.reviewer_brief_by_idea or {}).get(iid, "").strip()
+    brief_bits = [x for x in [rg, ib] if x]
+    if brief_bits:
+        out["reviewer_brief"] = "\n".join(brief_bits)
+    ct = (state.writer_clarification_transcript or "").strip()
+    if ct:
+        out["writer_clarification_context"] = ct
+    return out
+
+
 def _clear_hooks_cta_for_selected(state: RunState) -> None:
     for c in state.candidates:
         if not c.selected:
@@ -148,7 +172,7 @@ def _write_hooks_for_candidate(
 ) -> None:
     writer_src = build_writer_source_evidence(state.chunks, c)
     idea_for_prompt = apply_persona_preset_to_writer_idea(
-        ctx.apply_to_idea_dict(c.model_dump()),
+        _inject_writer_context(ctx.apply_to_idea_dict(c.model_dump()), state),
         state.audience_preset,
     )
     hook_out = client.chat_structured(
@@ -210,7 +234,7 @@ def _write_hooks_for_candidate(
                     "If hooks contain banned phrases, you must return status revise (with directives) or veto.\n\n"
                     "Return JSON shape:\n"
                     '{ "status": "revise|veto", "reason": "...", "directives": ["..."] }\n\n'
-                    f"Idea:\n{apply_persona_preset_to_writer_idea(c.model_dump(), state.audience_preset)}\n\n"
+                    f"Idea:\n{apply_persona_preset_to_writer_idea(_inject_writer_context(c.model_dump(), state), state.audience_preset)}\n\n"
                     f"Violations by hook_id:\n{viol}\n"
                 ),
             )
@@ -233,7 +257,7 @@ def _write_hooks_for_candidate(
                 system=system_writer(),
                 user=user_rewrite_hooks_from_policy(
                     idea=apply_persona_preset_to_writer_idea(
-                        ctx.apply_to_idea_dict(c.model_dump()),
+                        _inject_writer_context(ctx.apply_to_idea_dict(c.model_dump()), state),
                         state.audience_preset,
                     ),
                     hook_count=hook_count,
@@ -272,7 +296,7 @@ def _write_cta_for_candidate(
 ) -> None:
     writer_src = build_writer_source_evidence(state.chunks, c)
     idea_for_prompt = apply_persona_preset_to_writer_idea(
-        ctx_cta.apply_to_idea_dict(c.model_dump()),
+        _inject_writer_context(ctx_cta.apply_to_idea_dict(c.model_dump()), state),
         state.audience_preset,
     )
     cta_out = client.chat_structured(
@@ -380,6 +404,194 @@ def _stage_hooks_and_cta(
             )
 
 
+def _run_post_shortlist_pipeline(
+    *,
+    state: RunState,
+    client: Any,
+    ideation: Any,
+    select_n: int,
+    performance_digest: dict[str, Any] | None,
+    hook_count: int,
+    max_slides: int,
+    do_hooks: bool,
+    do_cta: bool,
+    do_slides: bool,
+    do_qa: bool,
+    judge_govern: bool,
+    judge_rewrite_rounds: int,
+    hook_policy: bool,
+    hook_rewrite_rounds: int,
+    mock: bool,
+    orchestrate_program_path: Path | None,
+    human_shortlist_curated: bool,
+) -> None:
+    # Hooks/CTA/slides/QA after shortlist is frozen; skips ideation shortlist judge when human curated.
+    # ---- Stage: Ideation governance over shortlist (optional)
+    if judge_govern and not human_shortlist_curated:
+        selected = [c for c in state.candidates if c.selected]
+        review = client.chat_structured(
+            response_model=JudgeShortlistReview,
+            model=ideation.model,
+            temperature=0.0,
+            system=system_ideation(),
+            user=user_review_shortlist(
+                selected=[c.model_dump() for c in selected],
+                audience=state.audience.model_dump(),
+                performance_digest=performance_digest,
+            ),
+        )
+        decisions_by_id = {r.idea_id: r.decision for r in review.reviewed}
+
+        for c in state.candidates:
+            if not c.selected:
+                continue
+            d = decisions_by_id.get(c.idea_id)
+            if d and d.status == "veto":
+                c.selected = False
+                c.judge_vetoed = True
+                c.judge_veto_reason = d.reason or "vetoed_by_judge"
+
+        selected_now = [c for c in state.candidates if c.selected]
+        if len(selected_now) < select_n:
+            need = select_n - len(selected_now)
+            ranked_remaining = sorted(
+                [c for c in state.candidates if not c.selected and not c.judge_vetoed],
+                key=lambda x: x.rank or 10_000,
+            )
+            for c in ranked_remaining[:need]:
+                c.selected = True
+            selected_ids = [c.idea_id for c in state.candidates if c.selected]
+            state.shortlist.selected_idea_ids = selected_ids
+
+    if orchestrate_program_path is not None and state.experiment is None:
+        from .experiment_orchestrator import try_apply_orchestrator
+
+        try_apply_orchestrator(state, orchestrate_program_path)
+
+    if state.experiment:
+        _validate_experiment_idea_in_shortlist(state)
+
+    enforce_selection_gate(state)
+
+    if state.experiment and not do_hooks:
+        raise ValidationError("RunState has experiment set but do_hooks is false; split requires hooks.")
+
+    _stage_hooks_and_cta(
+        state,
+        client,
+        do_hooks=do_hooks,
+        do_cta=do_cta,
+        hook_count=hook_count,
+        judge_govern=judge_govern,
+        hook_policy=hook_policy,
+        hook_rewrite_rounds=hook_rewrite_rounds,
+        performance_digest=performance_digest,
+        mock=mock,
+    )
+
+    _apply_experiment_ab_split(state)
+
+    if do_slides:
+        log_stage("draft_slides")
+        writer = get_model_config("writer")
+        ctx_slides = build_writer_context_pack_for_hooks_and_slides()
+        for c in state.candidates:
+            if not c.selected:
+                continue
+            writer_src = build_writer_source_evidence(state.chunks, c)
+            idea_for_prompt = apply_persona_preset_to_writer_idea(
+                _inject_writer_context(ctx_slides.apply_to_idea_dict(c.model_dump()), state),
+                state.audience_preset,
+            )
+            slides_out = client.chat_structured(
+                response_model=SlidesWriterResponse,
+                model=writer.model,
+                temperature=writer.temperature,
+                system=system_writer(),
+                user=user_draft_slides(
+                    idea=idea_for_prompt,
+                    max_slides=max_slides,
+                    audience=state.audience.model_dump(),
+                    performance_digest=performance_digest,
+                    source_evidence=writer_src,
+                ),
+            )
+            c.carousel_draft = slides_out.carousel_draft
+
+            if judge_govern and c.carousel_draft:
+                rounds = max(0, int(judge_rewrite_rounds))
+                for _ in range(rounds + 1):
+                    c.judge_carousel_review = client.chat_structured(
+                        response_model=JudgeCarouselReview,
+                        model=ideation.model,
+                        temperature=0.0,
+                        system=system_ideation(),
+                        user=user_ideation_carousel_review(
+                            idea=apply_persona_preset_to_writer_idea(
+                                _inject_writer_context(c.model_dump(), state),
+                                state.audience_preset,
+                            ),
+                            carousel_draft=c.carousel_draft.model_dump(),
+                            audience=state.audience.model_dump(),
+                            source_evidence=writer_src,
+                        ),
+                    )
+
+                    if not c.judge_carousel_review:
+                        break
+
+                    status = c.judge_carousel_review.decision.status
+                    if status == "approve":
+                        break
+                    if status == "veto":
+                        c.selected = False
+                        c.judge_vetoed = True
+                        c.judge_veto_reason = c.judge_carousel_review.decision.reason or "vetoed_by_judge_carousel"
+                        c.carousel_draft = None
+                        break
+                    rewrite_slides = client.chat_structured(
+                        response_model=SlidesWriterResponse,
+                        model=writer.model,
+                        temperature=writer.temperature,
+                        system=system_writer(),
+                        user=user_rewrite_slides_from_ideation(
+                            idea=apply_persona_preset_to_writer_idea(
+                                _inject_writer_context(c.model_dump(), state),
+                                state.audience_preset,
+                            ),
+                            carousel_draft=c.carousel_draft.model_dump(),
+                            ideation_review=c.judge_carousel_review.model_dump(),
+                            max_slides=max_slides,
+                            audience=state.audience.model_dump(),
+                            performance_digest=performance_digest,
+                            source_evidence=writer_src,
+                        ),
+                    )
+                    c.carousel_draft = rewrite_slides.carousel_draft
+
+    if do_qa:
+        log_stage("qa_edit")
+        editor = get_model_config("editor")
+        for c in state.candidates:
+            if not c.selected or not c.carousel_draft:
+                continue
+            qa_src = build_writer_source_evidence(state.chunks, c)
+            qa_out = client.chat_structured(
+                response_model=QAEditResponse,
+                model=editor.model,
+                temperature=editor.temperature,
+                system=system_editor(),
+                user=user_qa_edit(
+                    draft={"idea_id": c.idea_id, "carousel_draft": c.carousel_draft},
+                    source_evidence=qa_src,
+                ),
+            )
+            if qa_out.carousel_draft is not None:
+                c.carousel_draft = qa_out.carousel_draft
+            if qa_out.qa is not None:
+                c.qa = qa_out.qa
+
+
 def run_hooks_cta_from_state(
     *,
     state_path: Path,
@@ -459,6 +671,8 @@ def run_pipeline(
     require_audience_preset: bool = False,
     experiment: ExperimentSpec | None = None,
     orchestrate_program_path: Path | None = None,
+    stratified_shortlist: bool = True,
+    stop_after_scoring: bool = False,
 ) -> RunState:
     configure_logging()
     client = MockClient() if mock else OpenAICompatibleClient()
@@ -519,6 +733,10 @@ def run_pipeline(
     )
     candidates_raw = [item.model_dump() for item in extract_out.candidates]
     state.candidates = [CandidateIdea(**_coerce_candidate(_ensure_idea_id(i, idx))) for idx, i in enumerate(candidates_raw)]
+    ed_raw = getattr(extract_out, "editorial_direction", None)
+    state.proposed_editorial_direction = (
+        ed_raw.strip() if isinstance(ed_raw, str) and ed_raw.strip() else None
+    )
 
     # Some models occasionally attach a correct excerpt to the wrong chunk_id (often due to chunk boundaries).
     # Repair by searching the document and re-pointing the citation to the chunk that contains the excerpt.
@@ -558,12 +776,35 @@ def run_pipeline(
 
     compute_weighted_totals_and_rank(state, weights)
 
+    if stop_after_scoring:
+        state.awaiting_human_review = True
+        state.human_shortlist_curated = False
+        for c in state.candidates:
+            c.selected = False
+        state.shortlist.selected_idea_ids = []
+        state.shortlist.selection_frozen_at = None
+        state.shortlist.notes = "Awaiting human selection — use *_human_selection.template.json and `continue`."
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(state.model_dump_json(indent=2), encoding="utf-8")
+        md_path, json_path = write_human_review_artifacts(state, out_path)
+        log_stage("stop_after_scoring", review_md=str(md_path), template_json=str(json_path))
+        return state
+
     # ---- Stage: Select shortlist (deterministic — no LLM)
     # Take the first `select_n` ideas among the top `select_pool_k` by weighted rank (candidates are already sorted).
     pool_k = max(1, min(int(select_pool_k), len(state.candidates)))
     selection_pool = state.candidates[:pool_k]
     n_pick = min(select_n, len(selection_pool))
-    picked = selection_pool[:n_pick]
+    if stratified_shortlist:
+        picked = pick_stratified_shortlist(
+            selection_pool,
+            n_pick,
+            pillar_order=pillar_order_from_audience(state.audience),
+        )
+        strat_note = "stratified by pillar (one per pillar in priority order, then by rank within pool)"
+    else:
+        picked = selection_pool[:n_pick]
+        strat_note = "top by rank only (no pillar stratification)"
     selected_ids = [c.idea_id for c in picked]
     state.shortlist.selected_idea_ids = selected_ids
     split_note = (
@@ -572,8 +813,8 @@ def run_pipeline(
         else ""
     )
     state.shortlist.notes = (
-        f"Deterministic shortlist: top {n_pick} by rank among positions 1–{pool_k} "
-        f"(rank = weighted total, then source_support, hook_strength, content_pillar, idea_id) "
+        f"Deterministic shortlist: {n_pick} ideas among positions 1–{pool_k} — {strat_note}; "
+        f"rank = weighted total, then source_support, hook_strength, content_pillar, idea_id "
         f"(no selection LLM).{split_note}"
     )
     state.shortlist.selection_frozen_at = datetime.now(timezone.utc)
@@ -584,167 +825,26 @@ def run_pipeline(
         c.selected = True
         c.selection_reason = (c.selection_reason or "").strip() or "Selected by weighted rank (deterministic)."
 
-    # ---- Stage: Ideation governance over shortlist (optional)
-    if judge_govern:
-        selected = [c for c in state.candidates if c.selected]
-        review = client.chat_structured(
-            response_model=JudgeShortlistReview,
-            model=ideation.model,
-            temperature=0.0,
-            system=system_ideation(),
-            user=user_review_shortlist(
-                selected=[c.model_dump() for c in selected],
-                audience=state.audience.model_dump(),
-                performance_digest=performance_digest,
-            ),
-        )
-        decisions_by_id = {r.idea_id: r.decision for r in review.reviewed}
-
-        # Apply vetoes to current selection
-        for c in state.candidates:
-            if not c.selected:
-                continue
-            d = decisions_by_id.get(c.idea_id)
-            if d and d.status == "veto":
-                c.selected = False
-                c.judge_vetoed = True
-                c.judge_veto_reason = d.reason or "vetoed_by_judge"
-
-        # Backfill from next-ranked ideas to maintain select_n if possible
-        selected_now = [c for c in state.candidates if c.selected]
-        if len(selected_now) < select_n:
-            need = select_n - len(selected_now)
-            ranked_remaining = sorted([c for c in state.candidates if not c.selected and not c.judge_vetoed], key=lambda x: x.rank or 10_000)
-            for c in ranked_remaining[:need]:
-                c.selected = True
-            selected_ids = [c.idea_id for c in state.candidates if c.selected]
-            state.shortlist.selected_idea_ids = selected_ids
-
-    if orchestrate_program_path is not None and state.experiment is None:
-        from .experiment_orchestrator import try_apply_orchestrator
-
-        try_apply_orchestrator(state, orchestrate_program_path)
-
-    if state.experiment:
-        _validate_experiment_idea_in_shortlist(state)
-
-    enforce_selection_gate(state)
-
-    if state.experiment and not do_hooks:
-        raise ValidationError("RunState has experiment set but do_hooks is false; A/B split requires hooks.")
-
-    _stage_hooks_and_cta(
-        state,
-        client,
+    _run_post_shortlist_pipeline(
+        state=state,
+        client=client,
+        ideation=ideation,
+        select_n=select_n,
+        performance_digest=performance_digest,
+        hook_count=hook_count,
+        max_slides=max_slides,
         do_hooks=do_hooks,
         do_cta=do_cta,
-        hook_count=hook_count,
+        do_slides=do_slides,
+        do_qa=do_qa,
         judge_govern=judge_govern,
+        judge_rewrite_rounds=judge_rewrite_rounds,
         hook_policy=hook_policy,
         hook_rewrite_rounds=hook_rewrite_rounds,
-        performance_digest=performance_digest,
         mock=mock,
+        orchestrate_program_path=orchestrate_program_path,
+        human_shortlist_curated=False,
     )
-
-    _apply_experiment_ab_split(state)
-
-    # ---- Stage: Slides (Writer) - selected only
-    if do_slides:
-        log_stage("draft_slides")
-        writer = get_model_config("writer")
-        ctx_slides = build_writer_context_pack_for_hooks_and_slides()
-        for c in state.candidates:
-            if not c.selected:
-                continue
-            writer_src = build_writer_source_evidence(state.chunks, c)
-            idea_for_prompt = apply_persona_preset_to_writer_idea(
-                ctx_slides.apply_to_idea_dict(c.model_dump()),
-                state.audience_preset,
-            )
-            slides_out = client.chat_structured(
-                response_model=SlidesWriterResponse,
-                model=writer.model,
-                temperature=writer.temperature,
-                system=system_writer(),
-                user=user_draft_slides(
-                    idea=idea_for_prompt,
-                    max_slides=max_slides,
-                    audience=state.audience.model_dump(),
-                    performance_digest=performance_digest,
-                    source_evidence=writer_src,
-                ),
-            )
-            c.carousel_draft = slides_out.carousel_draft
-
-            # Ideation critique -> rewrite loop (optional governance)
-            if judge_govern and c.carousel_draft:
-                rounds = max(0, int(judge_rewrite_rounds))
-                for _ in range(rounds + 1):
-                    c.judge_carousel_review = client.chat_structured(
-                        response_model=JudgeCarouselReview,
-                        model=ideation.model,
-                        temperature=0.0,
-                        system=system_ideation(),
-                        user=user_ideation_carousel_review(
-                            idea=apply_persona_preset_to_writer_idea(dict(c.model_dump()), state.audience_preset),
-                            carousel_draft=c.carousel_draft.model_dump(),
-                            audience=state.audience.model_dump(),
-                            source_evidence=writer_src,
-                        ),
-                    )
-
-                    if not c.judge_carousel_review:
-                        break
-
-                    status = c.judge_carousel_review.decision.status
-                    if status == "approve":
-                        break
-                    if status == "veto":
-                        c.selected = False
-                        c.judge_vetoed = True
-                        c.judge_veto_reason = c.judge_carousel_review.decision.reason or "vetoed_by_judge_carousel"
-                        c.carousel_draft = None
-                        break
-                    # revise: rewrite once, then re-review (loop continues)
-                    rewrite_slides = client.chat_structured(
-                        response_model=SlidesWriterResponse,
-                        model=writer.model,
-                        temperature=writer.temperature,
-                        system=system_writer(),
-                        user=user_rewrite_slides_from_ideation(
-                            idea=apply_persona_preset_to_writer_idea(dict(c.model_dump()), state.audience_preset),
-                            carousel_draft=c.carousel_draft.model_dump(),
-                            ideation_review=c.judge_carousel_review.model_dump(),
-                            max_slides=max_slides,
-                            audience=state.audience.model_dump(),
-                            performance_digest=performance_digest,
-                            source_evidence=writer_src,
-                        ),
-                    )
-                    c.carousel_draft = rewrite_slides.carousel_draft
-
-    # ---- Stage: QA (Editor) - selected only
-    if do_qa:
-        log_stage("qa_edit")
-        editor = get_model_config("editor")
-        for c in state.candidates:
-            if not c.selected or not c.carousel_draft:
-                continue
-            qa_src = build_writer_source_evidence(state.chunks, c)
-            qa_out = client.chat_structured(
-                response_model=QAEditResponse,
-                model=editor.model,
-                temperature=editor.temperature,
-                system=system_editor(),
-                user=user_qa_edit(
-                    draft={"idea_id": c.idea_id, "carousel_draft": c.carousel_draft},
-                    source_evidence=qa_src,
-                ),
-            )
-            if qa_out.carousel_draft is not None:
-                c.carousel_draft = qa_out.carousel_draft
-            if qa_out.qa is not None:
-                c.qa = qa_out.qa
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(state.model_dump_json(indent=2), encoding="utf-8")
@@ -752,6 +852,118 @@ def run_pipeline(
     if export_dir is not None:
         export_selected_markdown(state=state, export_root=export_dir)
     return state
+
+
+def run_pipeline_production_tail(
+    state: RunState,
+    *,
+    client: Any | None = None,
+    mock: bool = False,
+    performance_digest: dict[str, Any] | None = None,
+    hook_count: int = 12,
+    max_slides: int = 10,
+    do_hooks: bool = True,
+    do_cta: bool = True,
+    do_slides: bool = True,
+    do_qa: bool = False,
+    judge_govern: bool = True,
+    judge_rewrite_rounds: int = 1,
+    hook_policy: bool = False,
+    hook_rewrite_rounds: int = 2,
+    export_dir: Path | None = None,
+    orchestrate_program_path: Path | None = None,
+    out_path: Path | None = None,
+) -> RunState:
+    """
+    Run hooks → CTA → slides → QA for a state that already has a frozen human shortlist.
+    Used by the CLI `continue-from-human` and the Streamlit UI.
+    """
+    configure_logging()
+    cl = client or (MockClient() if mock else OpenAICompatibleClient())
+    ideation = get_ideation_score_config(split_ideation=state.ideation_mode == "split")
+    set_run_context(run_id=state.document.document_id, document_id=state.document.document_id)
+    log_stage("production_tail", n_selected=len(state.shortlist.selected_idea_ids or []))
+    select_n = max(1, len(state.shortlist.selected_idea_ids or []))
+    _run_post_shortlist_pipeline(
+        state=state,
+        client=cl,
+        ideation=ideation,
+        select_n=select_n,
+        performance_digest=performance_digest,
+        hook_count=hook_count,
+        max_slides=max_slides,
+        do_hooks=do_hooks,
+        do_cta=do_cta,
+        do_slides=do_slides,
+        do_qa=do_qa,
+        judge_govern=judge_govern,
+        judge_rewrite_rounds=judge_rewrite_rounds,
+        hook_policy=hook_policy,
+        hook_rewrite_rounds=hook_rewrite_rounds,
+        mock=mock,
+        orchestrate_program_path=orchestrate_program_path,
+        human_shortlist_curated=True,
+    )
+    if out_path is not None:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(state.model_dump_json(indent=2), encoding="utf-8")
+    if export_dir is not None:
+        export_selected_markdown(state=state, export_root=export_dir)
+    return state
+
+
+def run_pipeline_continue_from_human_selection(
+    *,
+    state_path: Path,
+    human_selection_path: Path,
+    out_path: Path,
+    performance_digest: dict[str, Any] | None = None,
+    hook_count: int = 12,
+    max_slides: int = 10,
+    do_hooks: bool = True,
+    do_cta: bool = True,
+    do_slides: bool = True,
+    do_qa: bool = False,
+    judge_govern: bool = True,
+    judge_rewrite_rounds: int = 1,
+    hook_policy: bool = False,
+    hook_rewrite_rounds: int = 2,
+    mock: bool = False,
+    export_dir: Path | None = None,
+    orchestrate_program_path: Path | None = None,
+    force: bool = False,
+) -> RunState:
+    """
+    Resume after `--stop-after-scoring`: apply `human_selection.json`, then run hooks → slides → QA.
+    """
+    configure_logging()
+    state = RunState.model_validate_json(state_path.read_text(encoding="utf-8"))
+    if not state.awaiting_human_review and not force:
+        raise ValidationError(
+            "This RunState is not awaiting human review (awaiting_human_review is false). "
+            "Use a JSON saved from a run with --stop-after-scoring, or pass --force if you know what you're doing."
+        )
+    sel = HumanSelectionFile.model_validate_json(human_selection_path.read_text(encoding="utf-8"))
+    apply_human_selection_to_state(state, sel)
+    log_stage("continue_from_human_selection", n_selected=len(state.shortlist.selected_idea_ids or []))
+    return run_pipeline_production_tail(
+        state,
+        mock=mock,
+        performance_digest=performance_digest,
+        hook_count=hook_count,
+        max_slides=max_slides,
+        do_hooks=do_hooks,
+        do_cta=do_cta,
+        do_slides=do_slides,
+        do_qa=do_qa,
+        judge_govern=judge_govern,
+        judge_rewrite_rounds=judge_rewrite_rounds,
+        hook_policy=hook_policy,
+        hook_rewrite_rounds=hook_rewrite_rounds,
+        export_dir=export_dir,
+        orchestrate_program_path=orchestrate_program_path,
+        out_path=out_path,
+    )
 
 
 def _validate_experiment_idea_in_shortlist(state: RunState) -> None:
@@ -870,5 +1082,10 @@ def _coerce_candidate(d: dict[str, Any]) -> dict[str, Any]:
         out["safety_flags"] = []
     elif not isinstance(out["safety_flags"], list):
         out["safety_flags"] = [str(out["safety_flags"])]
+    rb = out.get("reader_benefit")
+    if isinstance(rb, str) and rb.strip():
+        out["reader_benefit"] = rb.strip()
+    else:
+        out["reader_benefit"] = None
     return out
 

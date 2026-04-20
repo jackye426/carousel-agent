@@ -24,7 +24,11 @@ from .defaults import (
 )
 
 from .chunking import ChunkStrategyName
-from .pipeline import run_hooks_cta_from_state, run_pipeline
+from .pipeline import (
+    run_hooks_cta_from_state,
+    run_pipeline,
+    run_pipeline_continue_from_human_selection,
+)
 from .performance_digest import build_performance_digest, load_or_build_performance_digest, save_digest
 from .experiment_analysis import analyze_experiment, save_experiment_result
 from .experiment_orchestrator import (
@@ -51,6 +55,13 @@ from .ocr_carousel_bank import build_ocr_carousel_bank, default_bank_paths as de
 from .id_resolution import build_tracker_index, resolve_post_id
 from .import_tracker_performance import import_performance_from_tracker
 from .persona_rules import resolve_persona_proxy
+from .post_linkage import (
+    discover_run_json_files,
+    load_run_state_path,
+    match_post_to_runs,
+    read_ocr_carousel_bank_row,
+    read_ocr_slides_text_for_asset,
+)
 
 
 app = typer.Typer(add_completion=False)
@@ -73,10 +84,16 @@ def run(
         10,
         "--select-pool-k",
         help=(
-            "Take the first --select-n candidates from the top K by rank after scoring "
+            "Take --select-n candidates from the top K by rank after scoring "
             "(candidates are sorted by weighted total, then source_support, hook_strength, "
-            "content_pillar, idea_id). Deterministic; no LLM re-ordering inside that slice."
+            "content_pillar, idea_id). By default picks are stratified by content pillar; "
+            "use --no-stratified-shortlist for strict top-N order. Deterministic; no selection LLM."
         ),
+    ),
+    stratified_shortlist: bool = typer.Option(
+        True,
+        "--stratified-shortlist/--no-stratified-shortlist",
+        help="Prefer pillar diversity in the shortlist (default: on).",
     ),
     performance_digest: Path | None = typer.Option(
         None,
@@ -165,6 +182,14 @@ def run(
         dir_okay=False,
         help="Path to experiment program JSON (default: data/experiment_program.json).",
     ),
+    stop_after_scoring: bool = typer.Option(
+        False,
+        "--stop-after-scoring",
+        help=(
+            "Stop after extract+score: save RunState, write *_human_review.md + *_human_selection.template.json, "
+            "then exit. Edit/copy the template to your selection JSON and run `continue-from-human`."
+        ),
+    ),
 ):
     """
     Run the selection-first carousel pipeline on an input document.
@@ -202,6 +227,7 @@ def run(
         candidate_count=candidate_count,
         select_n=select_n,
         select_pool_k=select_pool_k,
+        stratified_shortlist=stratified_shortlist,
         performance_digest=perf_digest_obj,
         hook_count=hook_count,
         max_slides=max_slides,
@@ -223,8 +249,14 @@ def run(
         require_audience_preset=require_audience_preset,
         experiment=exp_obj,
         orchestrate_program_path=orch_path,
+        stop_after_scoring=stop_after_scoring,
     )
     print(f"[bold green]Saved:[/bold green] {out}")
+    if state.awaiting_human_review:
+        print(
+            "[bold yellow]Stopped for human review.[/bold yellow] Open the *_human_review.md file, "
+            "fill a human_selection JSON, then: [bold]python -m carousel_agents continue-from-human[/bold] ..."
+        )
     print(f"[bold]Candidates:[/bold] {len(state.candidates)}  [bold]Selected:[/bold] {len(state.shortlist.selected_idea_ids)}")
     print(f"[bold]Ideation:[/bold] {state.ideation_mode}  extract={state.ideation_extract_model}  score={state.ideation_score_model}")
     if state.experiment:
@@ -232,6 +264,100 @@ def run(
             f"[bold]Experiment:[/bold] {state.experiment.experiment_id!r} "
             f"on idea_id={state.experiment.idea_id!r} — see export schedule.md / experiment.json"
         )
+
+
+@app.command("continue-from-human")
+def continue_from_human(
+    from_state: Path = typer.Option(
+        ...,
+        "--from-state",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="RunState JSON from a run that used --stop-after-scoring.",
+    ),
+    human_selection: Path = typer.Option(
+        ...,
+        "--human-selection",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Your edited human_selection JSON (see template next to the stopped run).",
+    ),
+    out: Path = typer.Option(..., "--out", help="Destination RunState JSON after hooks/slides."),
+    export_dir: Path = typer.Option(
+        default_factory=export_dir_default,
+        help="Write clean markdown exports here.",
+    ),
+    performance_digest: Path | None = typer.Option(
+        None,
+        "--performance-digest",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+    ),
+    no_performance_digest: bool = typer.Option(
+        False,
+        "--no-performance-digest",
+        help="Disable performance context for this continue run.",
+    ),
+    hook_count: int = typer.Option(12, "--hook-count"),
+    max_slides: int = typer.Option(10, "--max-slides"),
+    do_hooks: bool = typer.Option(True, "--hooks/--no-hooks"),
+    do_cta: bool = typer.Option(True, "--cta/--no-cta"),
+    do_slides: bool = typer.Option(True, "--slides/--no-slides"),
+    do_qa: bool = typer.Option(False, "--qa/--no-qa"),
+    judge_govern: bool = typer.Option(True, "--judge-govern/--no-judge-govern"),
+    judge_rewrite_rounds: int = typer.Option(1, "--judge-rewrite-rounds"),
+    hook_policy: bool = typer.Option(False, "--hook-policy/--no-hook-policy"),
+    hook_rewrite_rounds: int = typer.Option(2, "--hook-rewrite-rounds"),
+    mock: bool = typer.Option(False, "--mock"),
+    orchestrate_program: Path | None = typer.Option(
+        None,
+        "--orchestrate-program",
+        exists=False,
+        file_okay=True,
+        dir_okay=False,
+    ),
+    force: bool = typer.Option(
+        False,
+        "--force",
+        help="Continue even if awaiting_human_review is false (use with care).",
+    ),
+):
+    """Resume the pipeline after human review: apply selected idea_ids + optional direction, then hooks → slides → QA."""
+    load_dotenv()
+    if no_performance_digest:
+        perf_digest_obj = None
+    elif performance_digest is not None:
+        perf_digest_obj = json.loads(performance_digest.read_text(encoding="utf-8"))
+    else:
+        perf_digest_obj = load_or_build_performance_digest(explicit_path=None, disabled=False)
+    orch_path: Path | None = None
+    if orchestrate_program is not None:
+        orch_path = orchestrate_program
+    state = run_pipeline_continue_from_human_selection(
+        state_path=from_state,
+        human_selection_path=human_selection,
+        out_path=out,
+        performance_digest=perf_digest_obj,
+        hook_count=hook_count,
+        max_slides=max_slides,
+        do_hooks=do_hooks,
+        do_cta=do_cta,
+        do_slides=do_slides,
+        do_qa=do_qa,
+        judge_govern=judge_govern,
+        judge_rewrite_rounds=judge_rewrite_rounds,
+        hook_policy=hook_policy,
+        hook_rewrite_rounds=hook_rewrite_rounds,
+        mock=mock,
+        export_dir=export_dir,
+        orchestrate_program_path=orch_path,
+        force=force,
+    )
+    print(f"[bold green]Saved:[/bold green] {out}")
+    print(f"[bold]Selected:[/bold] {len(state.shortlist.selected_idea_ids)}")
 
 
 @orchestrator_app.command("status")
@@ -737,6 +863,215 @@ def log_performance(
     )
     append_performance_log(path=path, row=row)
     print(f"[bold green]Appended:[/bold green] {path}")
+
+
+@app.command("link-post")
+def link_post(
+    caption: str | None = typer.Option(None, "--caption", help="Published caption (IG)."),
+    caption_file: Path | None = typer.Option(
+        None,
+        "--caption-file",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Read caption from a UTF-8 text file.",
+    ),
+    ocr_text: str | None = typer.Option(None, "--ocr-text", help="Concatenated OCR for all slides (plain text)."),
+    ocr_file: Path | None = typer.Option(
+        None,
+        "--ocr-file",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Read OCR blob from a UTF-8 file.",
+    ),
+    ocr_jsonl: Path | None = typer.Option(
+        None,
+        "--ocr-jsonl",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="Slide OCR JSONL (e.g. from ig-ocr); use with --asset-id.",
+    ),
+    ocr_carousel_bank: Path | None = typer.Option(
+        None,
+        "--ocr-carousel-bank",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="ocr_carousel_bank.jsonl; use with --asset-id.",
+    ),
+    asset_id: str | None = typer.Option(
+        None,
+        "--asset-id",
+        help="Tracker / IG Asset_ID to pull OCR lines for (with --ocr-jsonl or --ocr-carousel-bank).",
+    ),
+    run_state: Path | None = typer.Option(
+        None,
+        "--run-state",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        help="One RunState JSON file.",
+    ),
+    run_dir: Path | None = typer.Option(
+        None,
+        "--run-dir",
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+        help="Scan recursively for *.json RunState files.",
+    ),
+    run_glob: str = typer.Option(
+        "",
+        "--glob",
+        help='Glob for RunState JSON (e.g. "outputs/**/*.json").',
+    ),
+    top: int = typer.Option(15, "--top", min=1, max=200),
+    min_score: float = typer.Option(0.0, "--min-score"),
+    caption_weight: float = typer.Option(0.4, "--caption-weight"),
+    ocr_weight: float = typer.Option(0.6, "--ocr-weight"),
+    output_json: Path | None = typer.Option(
+        None,
+        "--output-json",
+        help="Write ranked matches as JSON (list of objects).",
+    ),
+    append_performance_log: Path | None = typer.Option(
+        None,
+        "--append-performance-log",
+        help="Append the best match as one PerformanceLog row to this JSONL path.",
+    ),
+    post_id: str | None = typer.Option(
+        None,
+        "--post-id",
+        help="Canonical post id (e.g. tracker Asset_ID); required with --append-performance-log.",
+    ),
+    document_title: str | None = typer.Option(
+        None,
+        "--document-title",
+        help="Override document_title on the performance row (optional).",
+    ),
+):
+    """
+    Link a published post to pipeline output when IG's id differs from RunState ids.
+
+    Provide **caption** and/or **OCR** (raw text, file, or --ocr-jsonl/--ocr-carousel-bank + --asset-id).
+    Provide **--run-state**, **--run-dir**, and/or **--glob** to define candidate RunState JSON files.
+
+    Scoring blends caption similarity and OCR-vs-slide-draft similarity (token Jaccard + bigram overlap).
+    """
+    cap = (caption or "").strip()
+    if caption_file is not None:
+        cap = caption_file.read_text(encoding="utf-8").strip()
+    ocr_blob = (ocr_text or "").strip()
+    if ocr_file is not None:
+        ocr_blob = ocr_file.read_text(encoding="utf-8").strip()
+    aid = (asset_id or "").strip()
+    if ocr_jsonl is not None:
+        if not aid:
+            raise typer.BadParameter("--asset-id is required when using --ocr-jsonl")
+        ocr_blob = read_ocr_slides_text_for_asset(ocr_jsonl, aid).strip() or ocr_blob
+    if ocr_carousel_bank is not None:
+        if not aid:
+            raise typer.BadParameter("--asset-id is required when using --ocr-carousel-bank")
+        bank_text = read_ocr_carousel_bank_row(ocr_carousel_bank, aid)
+        if bank_text:
+            ocr_blob = bank_text.strip()
+
+    if not cap and not ocr_blob:
+        raise typer.BadParameter("Provide at least one of: --caption / --caption-file / --ocr-text / --ocr-file / OCR via --asset-id.")
+
+    path_inputs: list[Path] = []
+    if run_state is not None:
+        path_inputs.append(run_state)
+    if run_dir is not None:
+        path_inputs.append(run_dir)
+    globs = [run_glob] if (run_glob or "").strip() else []
+    if not path_inputs and not globs:
+        raise typer.BadParameter("Provide at least one of: --run-state, --run-dir, or --glob.")
+
+    json_paths = discover_run_json_files(path_inputs, globs)
+    if not json_paths:
+        raise typer.BadParameter("No RunState JSON files found for the given paths/globs.")
+
+    states: list[tuple[Path | None, RunState]] = []
+    for jp in json_paths:
+        try:
+            states.append((jp, load_run_state_path(jp)))
+        except Exception as e:
+            print(f"[yellow]Skip[/yellow] {jp}: {e}")
+
+    if not states:
+        raise typer.BadParameter("No valid RunState JSON could be loaded.")
+
+    matches = match_post_to_runs(
+        states=states,
+        caption=cap or None,
+        ocr=ocr_blob or None,
+        caption_weight=caption_weight,
+        ocr_weight=ocr_weight,
+        top_n=top,
+        min_score=min_score,
+    )
+
+    if not matches:
+        print("[yellow]No matches above --min-score.[/yellow]")
+        return
+
+    from rich.table import Table
+
+    tbl = Table(title="link-post (best first)")
+    tbl.add_column("score", justify="right")
+    tbl.add_column("idea_id")
+    tbl.add_column("document_id")
+    tbl.add_column("cap")
+    tbl.add_column("ocr")
+    tbl.add_column("run")
+    for m in matches:
+        rp = m.run_path.name if m.run_path else "—"
+        tbl.add_row(
+            f"{m.score:.3f}",
+            m.idea_id,
+            m.document_id[:16] + ("…" if len(m.document_id) > 16 else ""),
+            f"{m.caption_score:.3f}",
+            f"{m.ocr_score:.3f}",
+            rp,
+        )
+    print(tbl)
+
+    if output_json is not None:
+        payload = [m.to_dict() for m in matches]
+        output_json.parent.mkdir(parents=True, exist_ok=True)
+        output_json.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"[bold green]Wrote[/bold green] {output_json}")
+
+    if append_performance_log is not None:
+        if not (post_id or "").strip():
+            raise typer.BadParameter("--post-id is required with --append-performance-log")
+        topm = matches[0]
+        notes = (
+            f"link-post score={topm.score:.4f} caption_sim={topm.caption_score:.4f} ocr_sim={topm.ocr_score:.4f}"
+        )
+        row = PerformanceLog(
+            post_id=str(post_id).strip(),
+            idea_id=topm.idea_id,
+            pillar=topm.pillar,
+            format_suggestion=topm.format_suggestion,
+            hook_style=topm.hook_style,
+            hook_id=topm.hook_id,
+            run_id=topm.document_id,
+            document_title=document_title or topm.document_title,
+            observed=PerformanceObserved(),
+            derived=compute_derived(PerformanceObserved()),
+            notes=notes,
+        )
+        append_performance_log(path=append_performance_log, row=row)
+        print(f"[bold green]Appended PerformanceLog[/bold green] → {append_performance_log}")
+
+    print(
+        "\n[dim]Tip: pass metrics with `log-performance` or edit the JSONL row; "
+        "this append uses empty observed metrics.[/dim]"
+    )
 
 
 @app.command("normalize-performance-ids")

@@ -388,6 +388,7 @@ class MockClient:
         _ = (model, system, temperature, json_schema, timeout_s)
         if '"candidates"' in user and "Extract carousel-worthy candidate ideas" in user:
             return {
+                "editorial_direction": "Mock: focus on practical, low-friction habits grounded in the source text.",
                 "candidates": [
                     {
                         "idea_id": "i001",
@@ -397,6 +398,7 @@ class MockClient:
                         "core_claim": "Small reset rituals can reduce task-switching drag.",
                         "audience_pain": "I feel scattered all day.",
                         "promise": "A simple reset to feel focused again.",
+                        "reader_benefit": "You get a fast way to reset attention between tasks without a long routine.",
                         "format_suggestion": "steps",
                         "source_citations": [
                             {"chunk_id": "c001", "excerpt": "TODO: replace with real excerpt", "note": "placeholder"},
@@ -488,6 +490,21 @@ class MockClient:
                     }
                 ],
                 "best_hook_id": "h001",
+            }
+        if "You are the Writer for DocMap carousel copy" in user and "need_clarification" in user:
+            if "You already asked questions" in user:
+                return {
+                    "need_clarification": False,
+                    "questions": [],
+                    "assistant_message": "Mock: Thanks — I have what I need to draft hooks.",
+                }
+            return {
+                "need_clarification": True,
+                "questions": [
+                    "Which NHS vs private angle should we emphasise for this batch?",
+                    "Any words or phrases we must avoid for brand safety?",
+                ],
+                "assistant_message": "Mock: I have two quick questions before drafting hooks.",
             }
         if "QA/edit pass" in user:
             return {

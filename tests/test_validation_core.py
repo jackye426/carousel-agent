@@ -18,8 +18,41 @@ from carousel_agents.schemas import (
 from carousel_agents.validation import (
     compute_weighted_totals_and_rank,
     finalize_shortlist_ids,
+    pick_stratified_shortlist,
     repair_citation_chunk_ids,
 )
+
+
+def _minimal_idea(*, idea_id: str, pillar: str, rank: int) -> CandidateIdea:
+    return CandidateIdea(
+        idea_id=idea_id,
+        content_pillar=pillar,
+        topic="t",
+        angle="a",
+        core_claim="c",
+        audience_pain="p",
+        promise="pr",
+        format_suggestion="steps",
+        source_citations=[
+            Citation(chunk_id="c1", excerpt="x", note="n"),
+            Citation(chunk_id="c2", excerpt="y", note="n"),
+        ],
+        safety_flags=[],
+        rank=rank,
+    )
+
+
+def test_pick_stratified_shortlist_one_per_pillar_then_rank() -> None:
+    """Top of pool is all one pillar; stratified should still pull other pillars when available."""
+    pool = [
+        _minimal_idea(idea_id="a1", pillar="access_or_decision", rank=1),
+        _minimal_idea(idea_id="a2", pillar="access_or_decision", rank=2),
+        _minimal_idea(idea_id="r1", pillar="recognition", rank=3),
+        _minimal_idea(idea_id="v1", pillar="validation", rank=4),
+    ]
+    out = pick_stratified_shortlist(pool, 3, pillar_order=["recognition", "validation", "access_or_decision"])
+    ids = [c.idea_id for c in out]
+    assert ids == ["r1", "v1", "a1"]
 
 
 def _chunk(cid: str, text: str) -> Chunk:

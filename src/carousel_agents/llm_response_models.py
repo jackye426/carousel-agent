@@ -30,12 +30,14 @@ class ExtractCandidateItem(BaseModel):
     audience_pain: str = ""
     promise: str = ""
     format_suggestion: str = ""
+    reader_benefit: str = ""
     source_citations: list[CitationIn] = Field(default_factory=list)
     safety_flags: list[str] = Field(default_factory=list)
 
 
 class ExtractCandidatesResponse(BaseModel):
     candidates: list[ExtractCandidateItem] = Field(default_factory=list)
+    editorial_direction: str = ""
 
 
 class ScoreRow(BaseModel):
@@ -78,6 +80,15 @@ class SlidesWriterResponse(BaseModel):
 class QAEditResponse(BaseModel):
     carousel_draft: CarouselDraft | None = None
     qa: QAResult | None = None
+
+
+class WriterPreflightResponse(BaseModel):
+    """Writer asks for clarification before hooks/slides (UI or automated)."""
+
+    need_clarification: bool = False
+    questions: list[str] = Field(default_factory=list)
+    assistant_message: str = ""
+    """Short message to show the human (summary + tone)."""
 
 
 HookPolicyJudgeResponse = JudgeDecision

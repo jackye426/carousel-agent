@@ -21,6 +21,7 @@ dependencies = [
 # Same codebase; research CLI is `python -m carousel_agents_research`. Extra is reserved for future optional deps.
 research = []
 dev = ["pytest>=8"]
+ui = ["streamlit>=1.28"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

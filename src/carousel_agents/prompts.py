@@ -88,6 +88,101 @@ def _persona_preset_block(idea: dict[str, Any] | None) -> str:
     return "\n".join(lines) + "\n\n"
 
 
+def _editorial_direction_block(idea: dict[str, Any] | None) -> str:
+    if not idea or not isinstance(idea, dict):
+        return ""
+    d = idea.get("editorial_direction")
+    if not d or not str(d).strip():
+        return ""
+    return (
+        "Campaign / editorial direction (honour alongside audience; do not contradict source evidence):\n"
+        f"{str(d).strip()}\n\n"
+    )
+
+
+def _reviewer_clarification_block(idea: dict[str, Any] | None) -> str:
+    if not idea or not isinstance(idea, dict):
+        return ""
+    parts: list[str] = []
+    r = idea.get("reviewer_brief")
+    if r and str(r).strip():
+        parts.append(
+            "Reviewer notes (honour when consistent with source evidence):\n" + str(r).strip(),
+        )
+    c = idea.get("writer_clarification_context")
+    if c and str(c).strip():
+        parts.append("Clarification Q&A with reviewer:\n" + str(c).strip())
+    if not parts:
+        return ""
+    return "\n\n".join(parts) + "\n\n"
+
+
+def _reader_benefit_block(idea: dict[str, Any] | None) -> str:
+    if not idea or not isinstance(idea, dict):
+        return ""
+    rb = idea.get("reader_benefit")
+    if not rb or not str(rb).strip():
+        return ""
+    return (
+        "Patient-facing benefit (from ideation; honour when consistent with source evidence):\n"
+        f"{str(rb).strip()}\n\n"
+    )
+
+
+def _writer_context_blocks(idea: dict[str, Any] | None) -> str:
+    return (
+        _editorial_direction_block(idea)
+        + _reader_benefit_block(idea)
+        + _reviewer_clarification_block(idea)
+    )
+
+
+def user_writer_preflight_clarification(
+    *,
+    selected_ideas: list[dict[str, Any]],
+    audience: dict[str, Any] | None,
+    editorial_direction: str | None,
+    reviewer_notes_global: str | None,
+    prior_qa: str | None = None,
+) -> str:
+    """Prompt Writer model to optionally ask clarifying questions before hooks/slides."""
+    aud = _audience_block(audience)
+    ed = (editorial_direction or "").strip()
+    rg = (reviewer_notes_global or "").strip()
+    pq = (prior_qa or "").strip()
+    ideas_blob = "\n\n".join(
+        [
+            f"- **{x.get('idea_id')}** ({x.get('content_pillar')}): {x.get('topic')}\n"
+            f"  angle: {x.get('angle')}\n"
+            f"  reader_benefit: {(str(x.get('reader_benefit') or '').strip()) or '_(none)_'}"
+            for x in selected_ideas
+        ]
+    )
+    prior = ""
+    if pq:
+        prior = (
+            "You already asked questions; the reviewer answered:\n"
+            f"{pq}\n\n"
+            "If that is sufficient, set need_clarification=false and questions=[].\n\n"
+        )
+    return "".join(
+        [
+            "You are the Writer for DocMap carousel copy. The human selected ideas and may have added notes.\n"
+            "Before generating hooks, decide if you need **at most 3** short clarification questions.\n\n",
+            aud,
+            f"Editorial / campaign direction (if any):\n{ed or '_(none)_'}\n\n",
+            f"Global reviewer notes:\n{rg or '_(none)_'}\n\n",
+            "Selected ideas:\n",
+            f"{ideas_blob}\n\n",
+            prior,
+            "Return JSON:\n",
+            '{ "need_clarification": true|false, "questions": ["..."], "assistant_message": "short friendly summary" }\n'
+            "- If nothing is ambiguous, need_clarification=false and questions=[].\n"
+            "- Questions must be specific and answerable in one reply.\n",
+        ]
+    )
+
+
 def _writer_source_evidence_block(source_evidence: str | None) -> str:
     """Verbatim chunk text for writer-stage grounding (optional)."""
     if not (source_evidence or "").strip():
@@ -199,13 +294,18 @@ def user_extract_candidates(
             f"Target candidate count: {candidate_count}\n",
             "For each idea:\n",
             "- Provide: content_pillar, topic, angle, core_claim, audience_pain, promise, format_suggestion\n",
+            "- Provide `reader_benefit`: 1–3 sentences for the **reader** (patient/carer): why they should save/share this — "
+            "the concrete payoff (clarity, validation, or next step), not a restatement of what a clinician/service *does*. "
+            "Ground it in the citations; if the doc only implies the benefit, say so plainly without inventing outcomes.\n",
             "- content_pillar MUST be exactly one of: recognition | validation | access_or_decision\n",
             "- Prefer these formats: checklist | myth_vs_truth | what_to_do_next\n",
             "- Provide at least 2 source_citations with chunk_id + verbatim excerpt + note\n",
             "- Excerpts must be copied EXACTLY from the chunk text: no ellipses (\"...\"), no paraphrasing, no bracketed inserts\n",
             "- Add safety_flags if claims risk being too medical/specific\n\n",
+            "Also provide `editorial_direction`: 2–5 sentences on how you would position this batch of ideas for the audience "
+            "(themes, tone, what to avoid). Guidance only — every idea must remain grounded in the chunks.\n\n",
             "Return JSON with shape:\n",
-            '{ "candidates": [ ... ] }\n\n',
+            '{ "candidates": [ { ..., "reader_benefit": "..." } ], "editorial_direction": "..." }\n\n',
             "Chunks:\n",
             f"{chunks}",
         ]
@@ -240,8 +340,11 @@ def user_score_candidates(
             "Scoring anchors (use these to stay consistent):\n"
             "- hook_strength: 5=scroll-stopper in 1 line (relatable + urgent), 3=decent, 1=bland/unclear\n"
             "- clarity: 5=crisp takeaway + natural multi-slide arc (problem→insight→steps→recap); "
+            "use `reader_benefit` when present — reward ideas where the patient-facing payoff is obvious, not just a literal summary of the doc; "
             "3=mostly clear but wordy or needs shaping; 1=muddy or one-note/repetitive\n"
-            "- save_share: 5=highly saveable utility (checklist/myth-bust/what-to-do-next), 3=some utility, 1=mostly 'interesting'\n"
+            "- save_share: 5=highly saveable utility (checklist/myth-bust/what-to-do-next) **for the reader**; "
+            "penalise ideas that only describe services/roles without a clear reader benefit line; "
+            "3=some utility; 1=mostly 'interesting'\n"
             "- strategic_fit: 5=matches DocMap pillars + UK audience + brand voice, 3=okay fit, 1=off-strategy\n"
             "- source_support: 5=multiple quotable lines directly support the core claim + structure, "
             "3=generally supported but missing specifics, 1=inference/paraphrase risk\n\n",
@@ -361,6 +464,7 @@ def user_generate_hooks(
             "Generate hook options for this selected idea.\n\n",
             _writer_source_evidence_block(source_evidence),
             _audience_block(audience),
+            _writer_context_blocks(idea if isinstance(idea, dict) else None),
             _persona_preset_block(idea if isinstance(idea, dict) else None),
             perf_w,
             HOOK_BRIEF_SUMMARY,
@@ -464,6 +568,7 @@ def user_generate_ctas(
             "Generate CTA options for this selected idea.\n\n",
             _writer_source_evidence_block(source_evidence),
             _audience_block(audience),
+            _writer_context_blocks(idea if isinstance(idea, dict) else None),
             _persona_preset_block(idea if isinstance(idea, dict) else None),
             perf_w,
             DOCMAP_CONTEXT_SUMMARY,
@@ -519,6 +624,7 @@ def user_draft_slides(
             "Draft a carousel from the selected idea.\n\n",
             _writer_source_evidence_block(source_evidence),
             _audience_block(audience),
+            _writer_context_blocks(idea if isinstance(idea, dict) else None),
             _persona_preset_block(idea if isinstance(idea, dict) else None),
             perf_w,
             "Anti-leakage rule (hard):\n"
@@ -552,6 +658,7 @@ def user_draft_slides(
             "Add citations (chunk_ids) on slides that contain specific claims.\n",
             DOCMAP_CTA_VOICE,
             "Include one closing CTA line and (if relevant) a short disclaimer.\n"
+            "- Put disclaimer text **only** in the `disclaimer` JSON field (after the CTA in the schema)—do **not** add a separate slide whose only job is disclaimer/legal text.\n"
             "- The `cta` field should read like the natural end of the carousel (you/your; optional we), not a third-person brand footer every time.\n"
             "- **One** DocMap angle in that line: GP symptom-note prep **or** private specialist help—never both in the same CTA.\n\n",
             "Return JSON with shape:\n",
@@ -617,6 +724,7 @@ def user_rewrite_slides_from_ideation(
             "Rewrite this carousel draft to address the Ideation pass directives.\n\n",
             _writer_source_evidence_block(source_evidence),
             _audience_block(audience),
+            _writer_context_blocks(idea if isinstance(idea, dict) else None),
             _persona_preset_block(idea if isinstance(idea, dict) else None),
             perf_w,
             f"Constraints: target 5–{max_slides} slides; do not add fluff.\n"
@@ -624,6 +732,7 @@ def user_rewrite_slides_from_ideation(
             "- Keep depth and specificity; cut redundancy.\n"
             "- Do not invent facts; keep citations on specific claims.\n"
             "- Follow the Ideation directives exactly.\n"
+            "- Keep disclaimer text only in the `disclaimer` field—do not add a standalone disclaimer-only slide.\n"
             f"{DOCMAP_CTA_VOICE}"
             "Return JSON with shape:\n"
             '{ "carousel_draft": { "slides": [ { "slide_number": 1, "main_text": "...", "subtext": "...", "citations": ["c001"] } ], "cta": "...", "disclaimer": "..." } }\n\n'
@@ -646,6 +755,8 @@ def user_qa_edit(*, draft: dict[str, Any], source_evidence: str | None = None) -
         "- Remove fluff and redundancy.\n"
         "- Tighten wording and improve information density.\n"
         "- Enforce clarity and scannability.\n"
+        "- Cold-audience / assumed knowledge: if the copy assumes UK-specific roles, clinic pathways, or jargon (e.g. specialist job titles) without a one-line primer, FIX it—add a brief clarifying phrase on the same slide or a dedicated explainer slide, or soften the claim.\n"
+        "- If there is a slide that only repeats disclaimer/legal text that already belongs in `disclaimer`, remove that slide and keep a single `disclaimer` field.\n"
         "- If the CTA sounds like third-person brand boilerplate or a hard sell, rewrite it to match DocMap CTA voice (you/your; natural; product-true).\n\n"
         "Goal:\n"
         "- Return an updated carousel_draft that is publishable, not just a list of issues.\n\n"

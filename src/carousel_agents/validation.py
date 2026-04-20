@@ -4,7 +4,7 @@ from dataclasses import asdict
 from difflib import SequenceMatcher
 from typing import Any
 
-from .schemas import CandidateIdea, RunState, Weights
+from .schemas import AudienceConfig, CandidateIdea, RunState, Weights
 
 
 class ValidationError(RuntimeError):
@@ -195,6 +195,59 @@ def compute_weighted_totals_and_rank(state: RunState, weights: Weights) -> None:
     state.candidates.sort(key=key)
     for idx, idea in enumerate(state.candidates):
         idea.rank = idx + 1
+
+
+def pillar_order_from_audience(audience: AudienceConfig) -> list[str]:
+    """
+    Order pillars for stratified picking: higher pillars_priority weight first, then any missing defaults.
+    """
+    default = ["recognition", "validation", "access_or_decision"]
+    pr = audience.pillars_priority or {}
+    if not pr:
+        return list(default)
+    ordered = sorted(pr.keys(), key=lambda p: -float(pr.get(p, 0.0)))
+    for p in default:
+        if p not in ordered:
+            ordered.append(p)
+    return ordered
+
+
+def pick_stratified_shortlist(
+    selection_pool: list[CandidateIdea],
+    select_n: int,
+    *,
+    pillar_order: list[str] | None = None,
+) -> list[CandidateIdea]:
+    """
+    Prefer at most one idea per content_pillar (in pillar_order) before filling remaining slots
+    by rank order (selection_pool is already sorted best-first).
+    """
+    n_pick = min(select_n, len(selection_pool))
+    if n_pick <= 0:
+        return []
+    order = list(pillar_order or ["recognition", "validation", "access_or_decision"])
+    picked: list[CandidateIdea] = []
+    used: set[str] = set()
+
+    for pillar in order:
+        if len(picked) >= n_pick:
+            break
+        for c in selection_pool:
+            if c.idea_id in used:
+                continue
+            if (c.content_pillar or "").strip() == pillar:
+                picked.append(c)
+                used.add(c.idea_id)
+                break
+
+    for c in selection_pool:
+        if len(picked) >= n_pick:
+            break
+        if c.idea_id not in used:
+            picked.append(c)
+            used.add(c.idea_id)
+
+    return picked[:n_pick]
 
 
 def finalize_shortlist_ids(

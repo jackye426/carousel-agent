@@ -154,6 +154,8 @@ class CandidateIdea(BaseModel):
     audience_pain: str
     promise: str
     format_suggestion: str
+    # Patient-facing "why save/share" line from ideation extract (not raw service description).
+    reader_benefit: str | None = None
     source_citations: list[Citation]
     safety_flags: list[str] = Field(default_factory=list)
     scores: ScoreFields = Field(default_factory=ScoreFields)
@@ -264,7 +266,7 @@ class PipelineOutputs(BaseModel):
 
 
 # Bump when RunState JSON shape changes incompatibly; loaders may migrate old files.
-RUN_STATE_SCHEMA_VERSION = 2
+RUN_STATE_SCHEMA_VERSION = 3
 
 
 class RunState(BaseModel):
@@ -282,6 +284,15 @@ class RunState(BaseModel):
     # Optional persona card id (filename stem under docs/personas/*.json); Writer injection only.
     audience_preset: str | None = None
     experiment: ExperimentSpec | None = None
+    # Human-in-the-loop (stop after scoring → review → continue with human_selection.json)
+    awaiting_human_review: bool = False
+    proposed_editorial_direction: str | None = None
+    human_editorial_direction: str | None = None
+    human_shortlist_curated: bool = False
+    # UI / human reviewer freeform (hooks + slides)
+    reviewer_brief_global: str | None = None
+    reviewer_brief_by_idea: dict[str, str] = Field(default_factory=dict)
+    writer_clarification_transcript: str | None = None
 
 
 class PerformanceObserved(BaseModel):

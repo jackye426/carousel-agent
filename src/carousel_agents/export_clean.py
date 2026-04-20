@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Literal
 
 from .bundle_to_csv import write_export_csvs_from_state
-from .schemas import CandidateIdea, RunState
+from .schemas import CandidateIdea, DraftSlide, RunState
 
 
 def export_selected_markdown(*, state: RunState, export_root: Path) -> Path:
@@ -76,6 +76,29 @@ def export_selected_markdown(*, state: RunState, export_root: Path) -> Path:
     write_export_csvs_from_state(state=state, run_dir=run_dir, generated_at=generated_at)
 
     return run_dir
+
+
+def _norm_ws_export(s: str) -> str:
+    return " ".join(s.split()).strip()
+
+
+def _skip_redundant_disclaimer_slide(slide: DraftSlide, disclaimer: str) -> bool:
+    """
+    Avoid exporting a disclaimer-only slide when the same text is already in carousel_draft.disclaimer.
+    """
+    disc = disclaimer.strip()
+    if not disc:
+        return False
+    main = (slide.main_text or "").strip().lower()
+    if main in ("disclaimer", "disclaimer:", "legal", "legal notice"):
+        return True
+    body = _norm_ws_export((slide.main_text or "") + " " + (slide.subtext or "")).lower()
+    nd = _norm_ws_export(disc).lower()
+    if len(nd) >= 32 and nd in body:
+        return True
+    if len(body) >= 32 and body in nd:
+        return True
+    return False
 
 
 def _selected_export_sort_key(c: CandidateIdea) -> tuple:
@@ -241,7 +264,9 @@ def _idea_markdown(c: CandidateIdea) -> str:
 
     if c.carousel_draft and c.carousel_draft.slides:
         lines += ["### Carousel draft", ""]
-        for s in c.carousel_draft.slides:
+        disc_d = (c.carousel_draft.disclaimer or "").strip()
+        slides_md = [s for s in c.carousel_draft.slides if not _skip_redundant_disclaimer_slide(s, disc_d)]
+        for s in slides_md:
             cit = f" (cites {', '.join(s.citations)})" if s.citations else ""
             lines += [
                 f"#### Slide {s.slide_number}{cit}",
@@ -324,11 +349,13 @@ def _bundle_one(c: CandidateIdea) -> list[str]:
 
     lines += ["#### Slides", ""]
 
-    for s in c.carousel_draft.slides:
+    disclaimer = (c.carousel_draft.disclaimer or "").strip()
+    slides_out = [s for s in c.carousel_draft.slides if not _skip_redundant_disclaimer_slide(s, disclaimer)]
+    for i, s in enumerate(slides_out, start=1):
         main = (s.main_text or "").strip()
         sub = (s.subtext or "").strip()
         lines += [
-            f"**Slide {s.slide_number}**",
+            f"**Slide {i}**",
             "",
             main or "_(empty)_",
             "",
@@ -341,7 +368,6 @@ def _bundle_one(c: CandidateIdea) -> list[str]:
     if cta:
         lines += ["**CTA**", "", cta, "", "---", ""]
 
-    disclaimer = (c.carousel_draft.disclaimer or "").strip()
     if disclaimer:
         lines += ["**Disclaimer**", "", disclaimer, "", "---", ""]
 
