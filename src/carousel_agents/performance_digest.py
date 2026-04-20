@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import os
+import csv
 from pathlib import Path
 from statistics import median
 from typing import Any
@@ -116,6 +117,29 @@ def _tracker_index(tracker_csv: Path | None) -> TrackerIndex | None:
     return build_tracker_index(tracker_csv=tracker_csv)
 
 
+def _index_tracker_captions(tracker_csv: Path | None) -> dict[str, str]:
+    """
+    Best-effort Asset_ID -> Caption text from the marketing tracker CSV.
+    Used only for writer formatting hints (not factual grounding).
+    """
+    if tracker_csv is None or not tracker_csv.exists():
+        return {}
+    out: dict[str, str] = {}
+    try:
+        with tracker_csv.open("r", encoding="utf-8-sig", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                if not row:
+                    continue
+                aid = str(row.get("Asset_ID") or row.get("asset_id") or "").strip()
+                cap = str(row.get("Caption") or row.get("caption") or "").strip()
+                if aid and cap:
+                    out[aid] = cap
+    except Exception:
+        return {}
+    return out
+
+
 def _tag_for_post(
     pid_raw: str,
     *,
@@ -164,6 +188,7 @@ def build_performance_digest(
     tags_by_asset: dict[str, dict[str, Any]] = _index_tags(tags_jsonl) if tags_jsonl else {}
     ocr_first: dict[str, str] = _index_ocr_first_slide(ocr_jsonl) if ocr_jsonl else {}
     tracker = _tracker_index(tracker_csv)
+    captions_by_asset = _index_tracker_captions(tracker_csv)
 
     def _score_key(row: dict[str, Any]) -> float:
         d = row.get("derived") or {}
@@ -186,6 +211,7 @@ def build_performance_digest(
             cover = ""
         if not cover:
             cover = ocr_first.get(pid_asset, "") or ocr_first.get(pid, "")
+        cap = captions_by_asset.get(pid_asset) or captions_by_asset.get(pid) or ""
         top_examples.append(
             {
                 "post_id": pid,
@@ -198,6 +224,7 @@ def build_performance_digest(
                 "tags": (tag.get("tags") or {}),
                 "topic": tag.get("topic"),
                 "cover_text": cover[:800] if cover else None,
+                "caption_text": cap[:2200] if cap else None,
                 "observed": r.get("observed"),
                 "derived": r.get("derived"),
             }
@@ -262,10 +289,18 @@ def digest_writer_hints(digest: dict[str, Any]) -> str:
         pil = tags.get("pillar") or ex.get("pillar")
         fmt = tags.get("format") or ex.get("format_suggestion")
         cov = (ex.get("cover_text") or "").strip().replace("\n", " ")
+        cap = (ex.get("caption_text") or "").strip()
         if len(cov) > 140:
             cov = cov[:137] + "..."
+        cap_line = ""
+        if cap:
+            one = cap.replace("\r", "").strip()
+            one = " ".join(one.split())
+            if len(one) > 180:
+                one = one[:177] + "..."
+            cap_line = f" | caption_formatting: {one}"
         lines.append(
-            f"  • pillar={pil!s} format={fmt!s} hook_style={hook!s} | cover_texture: {cov!s}"
+            f"  • pillar={pil!s} format={fmt!s} hook_style={hook!s} | cover_texture: {cov!s}{cap_line}"
         )
     lines.extend(_experiment_finding_lines(experiments_dir_default()))
     return "\n".join(lines)

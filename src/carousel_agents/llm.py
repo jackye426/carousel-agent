@@ -439,6 +439,8 @@ class MockClient:
             }
         if "Generate CTA options for this selected idea" in user:
             return {"cta_options": ["Mock CTA one", "Mock CTA two"], "best_cta": "Mock CTA one"}
+        if "Write an Instagram caption for this carousel" in user:
+            return {"caption": "Mock caption opener.\n\nMock body line.\n\nMock CTA one\n\n#endo #ukhealth"}
         if "Generate hook options" in user:
             return {
                 "hooks": [

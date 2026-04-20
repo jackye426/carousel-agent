@@ -277,6 +277,9 @@ def _idea_markdown(c: CandidateIdea) -> str:
                 "",
             ]
         lines += [f"**CTA**: {c.carousel_draft.cta}", ""]
+        cap = (getattr(c, "caption", None) or "").strip()
+        if cap:
+            lines += ["**Caption**", "", cap, ""]
         if c.carousel_draft.disclaimer:
             lines += [f"**Disclaimer**: {c.carousel_draft.disclaimer}", ""]
 
@@ -345,6 +348,9 @@ def _bundle_one(c: CandidateIdea) -> list[str]:
             lines += ["**CTA**", "", best_cta, "", "---", ""]
         else:
             lines += ["**CTA**", "", "_(no CTA generated)_", "", "---", ""]
+        cap = (getattr(c, "caption", None) or "").strip()
+        if cap:
+            lines += ["**Caption**", "", cap, "", "---", ""]
         return lines
 
     lines += ["#### Slides", ""]
@@ -367,6 +373,10 @@ def _bundle_one(c: CandidateIdea) -> list[str]:
     cta = (c.carousel_draft.cta or "").strip()
     if cta:
         lines += ["**CTA**", "", cta, "", "---", ""]
+
+    cap = (getattr(c, "caption", None) or "").strip()
+    if cap:
+        lines += ["**Caption**", "", cap, "", "---", ""]
 
     if disclaimer:
         lines += ["**Disclaimer**", "", disclaimer, "", "---", ""]

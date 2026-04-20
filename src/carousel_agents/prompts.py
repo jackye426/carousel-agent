@@ -588,6 +588,45 @@ def user_generate_ctas(
     )
 
 
+def user_generate_caption(
+    *,
+    idea: dict[str, Any],
+    cta: str,
+    audience: dict[str, Any] | None = None,
+    performance_digest: dict[str, Any] | None = None,
+) -> str:
+    """
+    IG caption draft. Use CTA as the backbone, and mimic formatting patterns from past captions.
+    """
+    perf = ""
+    if performance_digest:
+        perf = (
+            "Caption formatting references (structure/line breaks/emoji/hashtag density only — do NOT copy wording):\n"
+            f"{digest_writer_hints(performance_digest)}\n\n"
+        )
+    return "".join(
+        [
+            "Write an Instagram caption for this carousel.\n\n",
+            _audience_block(audience),
+            _writer_context_blocks(idea if isinstance(idea, dict) else None),
+            perf,
+            "Inputs:\n",
+            f"- Selected CTA (use as the spine; keep product-true): {cta.strip()}\n\n",
+            "Caption rules:\n"
+            "- Keep it scannable: short paras + line breaks.\n"
+            "- Start with 1 strong opening line that matches the hook.\n"
+            "- Include the CTA once, near the end.\n"
+            "- Keep claims aligned with the idea + citations; avoid medical promises.\n"
+            "- Match our existing caption formatting style (as shown in references): same kind of spacing, bullets, emoji use, and hashtag density.\n"
+            "- Hashtags: include a small set (0–6), relevant and non-spammy.\n\n",
+            "Return JSON with EXACT shape:\n",
+            '{ "caption": "..." }\n\n',
+            "Idea:\n",
+            f"{idea}\n",
+        ]
+    )
+
+
 def user_draft_slides(
     *,
     idea: dict[str, Any],

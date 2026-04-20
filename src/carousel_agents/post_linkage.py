@@ -84,6 +84,9 @@ def caption_affinity(caption: str, c: CandidateIdea) -> float:
     rb = getattr(c, "reader_benefit", None)
     if rb and str(rb).strip():
         parts.append(str(rb).strip())
+    cap_d = getattr(c, "caption", None)
+    if cap_d and str(cap_d).strip():
+        parts.append(str(cap_d).strip())
     for h in c.hooks:
         parts.append(h.text)
     if c.best_cta:

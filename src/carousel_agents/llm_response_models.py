@@ -73,6 +73,12 @@ class CTAResponse(BaseModel):
     best_cta: str | None = None
 
 
+class CaptionResponse(BaseModel):
+    """IG caption draft for a single selected idea."""
+
+    caption: str = ""
+
+
 class SlidesWriterResponse(BaseModel):
     carousel_draft: CarouselDraft
 

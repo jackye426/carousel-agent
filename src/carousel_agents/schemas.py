@@ -156,6 +156,8 @@ class CandidateIdea(BaseModel):
     format_suggestion: str
     # Patient-facing "why save/share" line from ideation extract (not raw service description).
     reader_benefit: str | None = None
+    # IG caption draft for this carousel (Writer stage; informed by CTA + past caption formatting).
+    caption: str | None = None
     source_citations: list[Citation]
     safety_flags: list[str] = Field(default_factory=list)
     scores: ScoreFields = Field(default_factory=ScoreFields)

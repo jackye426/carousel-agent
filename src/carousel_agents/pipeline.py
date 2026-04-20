@@ -17,6 +17,7 @@ from .llm import (
 )
 from .llm_response_models import (
     CTAResponse,
+    CaptionResponse,
     ExtractCandidatesResponse,
     HookPolicyJudgeResponse,
     HooksWriterResponse,
@@ -34,6 +35,7 @@ from .prompts import (
     user_extract_candidates,
     user_generate_hooks,
     user_generate_ctas,
+    user_generate_caption,
     user_rewrite_hooks_from_policy,
     user_review_shortlist,
     user_ideation_carousel_review,
@@ -152,6 +154,7 @@ def _clear_hooks_cta_for_selected(state: RunState) -> None:
         c.outline = []
         c.cta_options = []
         c.best_cta = None
+        c.caption = None
         c.hook_policy_flags = []
         c.hook_rewrite_rounds_used = 0
 
@@ -317,6 +320,41 @@ def _write_cta_for_candidate(
         c.best_cta = str(cta_out.best_cta).strip()
 
 
+def _write_caption_for_candidate(
+    state: RunState,
+    c: CandidateIdea,
+    client: Any,
+    *,
+    writer: Any,
+    ctx_caption: WriterContextPack,
+    performance_digest: dict[str, Any] | None,
+) -> None:
+    cta = (c.best_cta or "").strip()
+    if not cta and c.carousel_draft:
+        cta = (c.carousel_draft.cta or "").strip()
+    if not cta:
+        c.caption = None
+        return
+    idea_for_prompt = apply_persona_preset_to_writer_idea(
+        _inject_writer_context(ctx_caption.apply_to_idea_dict(c.model_dump()), state),
+        state.audience_preset,
+    )
+    out = client.chat_structured(
+        response_model=CaptionResponse,
+        model=writer.model,
+        temperature=writer.temperature,
+        system=system_writer(),
+        user=user_generate_caption(
+            idea=idea_for_prompt,
+            cta=cta,
+            audience=state.audience.model_dump(),
+            performance_digest=performance_digest,
+        ),
+    )
+    cap = (out.caption or "").strip()
+    c.caption = cap or None
+
+
 def _stage_hooks_and_cta(
     state: RunState,
     client: Any,
@@ -360,6 +398,15 @@ def _stage_hooks_and_cta(
                 cl,
                 writer=writer,
                 ctx_cta=build_writer_context_pack_for_cta_only(),
+                performance_digest=performance_digest,
+            )
+        if cand.selected:
+            _write_caption_for_candidate(
+                state,
+                cand,
+                cl,
+                writer=writer,
+                ctx_caption=build_writer_context_pack_for_cta_only(),
                 performance_digest=performance_digest,
             )
 
@@ -1087,5 +1134,10 @@ def _coerce_candidate(d: dict[str, Any]) -> dict[str, Any]:
         out["reader_benefit"] = rb.strip()
     else:
         out["reader_benefit"] = None
+    cap = out.get("caption")
+    if isinstance(cap, str) and cap.strip():
+        out["caption"] = cap.strip()
+    else:
+        out["caption"] = None
     return out
 
